@@ -1,0 +1,114 @@
+---
+import Button from '@components/ui/Button.astro';
+import { process } from '@data/site';
+
+interface Props { tone?: 'light' | 'ink' }
+const { tone = 'light' } = Astro.props;
+---
+
+<section class:list={['section process-teaser', tone === 'ink' && 'band-ink']}>
+  <div class="container">
+    <header class="pt__head reveal">
+      <div>
+        <p class="eyebrow">How we work</p>
+        <h2 class="pt__title">A process that compounds.</h2>
+      </div>
+      <p class="lead pt__intro">
+        Seven stages, each one making the next cheaper. Architecture before code, ownership before launch.
+      </p>
+    </header>
+
+    <ol role="list" class="pt__track reveal">
+      {
+        process.map((s) => (
+          <li class="pt__step">
+            <span class="pt__num">{String(s.n).padStart(2, '0')}</span>
+            <span class="pt__name">{s.name}</span>
+          </li>
+        ))
+      }
+    </ol>
+
+    <div class="pt__cta reveal">
+      <Button href="/process" variant="ghost">See the full process</Button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pt__head {
+    display: grid;
+    gap: 1rem 3rem;
+    align-items: end;
+  }
+  .pt__title { margin-top: 0.9rem; }
+  .pt__intro { max-width: 34rem; }
+
+  .pt__track {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+    counter-reset: step;
+  }
+  .pt__step {
+    position: relative;
+    padding-top: 2.4rem;
+    padding-inline: 0.4rem;
+  }
+  /* connecting line */
+  .pt__step::before {
+    content: '';
+    position: absolute;
+    top: 0.6rem;
+    left: 0;
+    right: 0;
+    height: 1.5px;
+    background: var(--border);
+  }
+  .pt__step:first-child::before { left: 0.6rem; border-radius: 2px 0 0 2px; }
+  .pt__step:last-child::before { right: 0.6rem; }
+  /* node dot */
+  .pt__step::after {
+    content: '';
+    position: absolute;
+    top: calc(0.6rem - 4.5px);
+    left: 0;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 2px solid var(--brand);
+  }
+  .pt__num {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--logo-accent);
+    letter-spacing: 0.02em;
+  }
+  .pt__name {
+    display: block;
+    margin-top: 0.35rem;
+    font-weight: 600;
+    font-size: 0.98rem;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+
+  .pt__cta { margin-top: clamp(2rem, 4vw, 2.75rem); }
+
+  @media (min-width: 48rem) {
+    .pt__head { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 52rem) {
+    .pt__track { grid-template-columns: repeat(2, 1fr); gap: 0.5rem 1.5rem; }
+    .pt__step { padding-top: 0; padding-left: 1.5rem; padding-block: 0.7rem; }
+    .pt__step::before { top: 0; bottom: 0; left: 5px; right: auto; width: 1.5px; height: auto; }
+    .pt__step:first-child::before,
+    .pt__step:last-child::before { left: 5px; right: auto; }
+    .pt__step::after { top: 0.85rem; left: 0; }
+  }
+  @media (max-width: 30rem) {
+    .pt__track { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,23 @@
+{
+  "name": "codecharmer",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Code Charmer — premium digital engineering studio. Static Astro build, architected to become a block-based WordPress theme.",
+  "engines": {
+    "node": ">=18.20.8"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^4.16.18",
+    "@fontsource-variable/bricolage-grotesque": "^5.1.1",
+    "@fontsource-variable/hanken-grotesk": "^5.1.1",
+    "@fontsource-variable/geist-mono": "^5.1.1"
+  }
+}

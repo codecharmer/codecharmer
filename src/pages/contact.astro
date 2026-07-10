@@ -1,0 +1,108 @@
+---
+import Base from '@layouts/Base.astro';
+import PageHero from '@components/blocks/PageHero.astro';
+import ContactForm from '@components/blocks/ContactForm.astro';
+import Icon from '@components/ui/Icon.astro';
+import Button from '@components/ui/Button.astro';
+import { site, contact } from '@data/site';
+
+const steps = [
+  { t: 'We read it properly', b: `A real person replies ${contact.responseTime} — not an autoresponder.` },
+  { t: 'A short conversation', b: 'Usually 30 minutes to understand the problem and whether we’re the right fit.' },
+  { t: 'A clear proposal', b: 'Scope, approach, and price — enough to make a confident decision.' },
+];
+---
+
+<Base
+  path="/contact"
+  title="Contact — Start a project | Code Charmer"
+  description="Tell us what you're building. A short, qualifying conversation — no pitch deck, no obligation."
+>
+  <PageHero
+    eyebrow="Contact"
+    title="Tell us what you’re building."
+    intro="A short, qualifying conversation — project type, scope, and budget. No pitch deck, no obligation. We’ll tell you honestly whether we’re the right team."
+  />
+
+  <section class="section contact">
+    <div class="container contact__grid">
+      <div class="contact__form reveal">
+        <ContactForm />
+      </div>
+
+      <aside class="contact__aside reveal">
+        <div class="aside-card">
+          <h2 class="aside-card__title">What happens next</h2>
+          <ol role="list" class="steps">
+            {steps.map((s, i) => (
+              <li class="step">
+                <span class="step__n">{i + 1}</span>
+                <div>
+                  <p class="step__t">{s.t}</p>
+                  <p class="step__b">{s.b}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <div class="aside-card aside-card--talk">
+          <span class="aside-card__icon"><Icon name="calendar" size={22} /></span>
+          <h2 class="aside-card__title">Prefer to talk?</h2>
+          <p class="aside-card__body">Skip the form and book a time that suits you.</p>
+          {contact.schedulingUrl ? (
+            <Button href={contact.schedulingUrl} variant="secondary">Book a time</Button>
+          ) : (
+            <Button href={`mailto:${site.email}?subject=${encodeURIComponent('Booking a call')}`} variant="secondary">
+              Email to book a call
+            </Button>
+          )}
+        </div>
+
+        <p class="contact__direct">
+          Or reach us directly at <a class="link" href={`mailto:${site.email}`}>{site.email}</a>.
+        </p>
+      </aside>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .contact__grid { display: grid; gap: clamp(2.5rem, 5vw, 4rem); align-items: start; }
+
+  .aside-card {
+    padding: clamp(1.5rem, 3vw, 2rem);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+  }
+  .aside-card + .aside-card { margin-top: 1.25rem; }
+  .aside-card__title { font-size: 1.2rem; letter-spacing: -0.015em; }
+  .aside-card--talk { background: color-mix(in oklab, var(--brand) 7%, var(--surface)); }
+  .aside-card__icon {
+    display: grid; place-items: center;
+    width: 2.5rem; height: 2.5rem; margin-bottom: 0.85rem;
+    border-radius: var(--radius-sm);
+    background: color-mix(in oklab, var(--brand) 16%, var(--surface));
+    color: var(--brand-ink);
+  }
+  .aside-card__body { margin: 0.6rem 0 1.15rem; color: var(--ink-muted); line-height: 1.5; }
+
+  .steps { display: flex; flex-direction: column; gap: 1.1rem; margin-top: 1.25rem; }
+  .step { display: grid; grid-template-columns: auto 1fr; gap: 0.9rem; }
+  .step__n {
+    display: grid; place-items: center;
+    width: 1.75rem; height: 1.75rem;
+    border-radius: var(--radius-pill);
+    background: var(--brand); color: var(--on-brand);
+    font-family: var(--font-mono); font-size: 0.85rem; font-weight: 500;
+  }
+  .step__t { font-weight: 600; color: var(--ink); }
+  .step__b { margin-top: 0.2rem; color: var(--ink-muted); font-size: 0.92rem; line-height: 1.5; }
+
+  .contact__direct { margin-top: 1.5rem; color: var(--ink-muted); font-size: 0.92rem; }
+
+  @media (min-width: 56rem) {
+    .contact__grid { grid-template-columns: 1.4fr 0.85fr; }
+  }
+</style>

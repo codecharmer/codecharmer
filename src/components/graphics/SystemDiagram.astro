@@ -1,0 +1,114 @@
+---
+/**
+ * Abstract cyan "system" graphic — a connected architecture/automation graph.
+ * Brand imagery, not stock (DESIGN.md). Animated data-flow along a few edges,
+ * a pulsing core, all suppressed under prefers-reduced-motion.
+ */
+interface Props { class?: string }
+const { class: klass } = Astro.props;
+---
+
+<svg
+  class:list={['sysdiagram', klass]}
+  viewBox="0 0 520 460"
+  fill="none"
+  role="img"
+  aria-label="An abstract diagram of a connected system: a central core linked to architecture, WordPress, data, automation, and interface nodes."
+>
+  <defs>
+    <radialGradient id="core-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="oklch(0.83 0.13 200)" stop-opacity="0.55" />
+      <stop offset="100%" stop-color="oklch(0.83 0.13 200)" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="edge-flow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="oklch(0.83 0.13 200)" stop-opacity="0" />
+      <stop offset="50%" stop-color="oklch(0.83 0.13 200)" stop-opacity="1" />
+      <stop offset="100%" stop-color="oklch(0.83 0.13 200)" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+
+  <!-- faint blueprint grid -->
+  <g class="grid" stroke="oklch(1 0 0 / 0.05)" stroke-width="1">
+    <path d="M0 115H520M0 230H520M0 345H520" />
+    <path d="M130 0V460M260 0V460M390 0V460" />
+  </g>
+
+  <!-- base edges -->
+  <g stroke="oklch(0.83 0.13 200 / 0.28)" stroke-width="1.5" stroke-linecap="round">
+    <path d="M100 92 L258 224" />
+    <path d="M406 78 L258 224" />
+    <path d="M78 250 L258 224" />
+    <path d="M452 262 L258 224" />
+    <path d="M160 380 L258 224" />
+    <path d="M330 396 L258 224" />
+    <path d="M100 92 L78 250" />
+    <path d="M406 78 L452 262" />
+    <path d="M160 380 L330 396" />
+  </g>
+
+  <!-- animated data-flow overlays on select edges -->
+  <g class="flow" stroke="url(#edge-flow)" stroke-width="2.25" stroke-linecap="round" fill="none">
+    <path class="flow-line" style="--d:0ms"   d="M100 92 L258 224" />
+    <path class="flow-line" style="--d:900ms" d="M452 262 L258 224" />
+    <path class="flow-line" style="--d:1700ms" d="M330 396 L258 224" />
+    <path class="flow-line" style="--d:2500ms" d="M406 78 L258 224" />
+  </g>
+
+  <!-- core node -->
+  <circle class="core-glow" cx="258" cy="224" r="70" fill="url(#core-glow)" />
+  <circle cx="258" cy="224" r="27" fill="oklch(0.24 0.03 236)" stroke="oklch(0.83 0.13 200)" stroke-width="1.75" />
+  <circle cx="258" cy="224" r="14" fill="oklch(0.83 0.13 200 / 0.18)" stroke="oklch(0.83 0.13 200)" stroke-width="1.5" />
+  <path d="M258 217v14M251 224h14" stroke="oklch(0.9 0.05 200)" stroke-width="1.5" stroke-linecap="round" />
+
+  <!-- satellite nodes -->
+  <g class="nodes">
+    <!-- ring node -->
+    <circle class="node" style="--d:200ms" cx="100" cy="92" r="15" fill="oklch(0.19 0.025 236)" stroke="oklch(0.83 0.13 200)" stroke-width="1.5" />
+    <circle cx="100" cy="92" r="4" fill="oklch(0.83 0.13 200)" />
+    <!-- block node -->
+    <rect class="node" style="--d:520ms" x="392" y="63" width="30" height="30" rx="7" fill="oklch(0.19 0.025 236)" stroke="oklch(0.83 0.13 200)" stroke-width="1.5" />
+    <path d="M400 78h14M407 71v14" stroke="oklch(0.83 0.13 200)" stroke-width="1.4" stroke-linecap="round" />
+    <!-- dot node -->
+    <circle class="node" style="--d:760ms" cx="78" cy="250" r="13" fill="oklch(0.83 0.13 200 / 0.16)" stroke="oklch(0.83 0.13 200)" stroke-width="1.5" />
+    <!-- ring node -->
+    <circle class="node" style="--d:1000ms" cx="452" cy="262" r="16" fill="oklch(0.19 0.025 236)" stroke="oklch(0.83 0.13 200)" stroke-width="1.5" />
+    <circle cx="452" cy="262" r="5" fill="oklch(0.83 0.13 200)" />
+    <!-- block node -->
+    <rect class="node" style="--d:1280ms" x="145" y="365" width="30" height="30" rx="7" fill="oklch(0.19 0.025 236)" stroke="oklch(0.83 0.13 200)" stroke-width="1.5" />
+    <path d="M153 380h14" stroke="oklch(0.83 0.13 200)" stroke-width="1.4" stroke-linecap="round" />
+    <!-- dot node -->
+    <circle class="node" style="--d:1520ms" cx="330" cy="396" r="14" fill="oklch(0.83 0.13 200 / 0.16)" stroke="oklch(0.83 0.13 200)" stroke-width="1.5" />
+  </g>
+</svg>
+
+<style>
+  .sysdiagram { width: 100%; height: auto; overflow: visible; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .core-glow { animation: core-pulse 4.5s var(--ease-out-quart) infinite; transform-origin: 258px 224px; }
+    @keyframes core-pulse {
+      0%, 100% { opacity: 0.55; transform: scale(0.94); }
+      50% { opacity: 1; transform: scale(1.06); }
+    }
+
+    .flow-line {
+      stroke-dasharray: 26 400;
+      animation: flow-move 3.4s linear infinite;
+      animation-delay: var(--d, 0ms);
+    }
+    @keyframes flow-move {
+      from { stroke-dashoffset: 300; }
+      to { stroke-dashoffset: -160; }
+    }
+
+    .node { animation: node-in 0.7s var(--ease-out-expo) both; animation-delay: var(--d, 0ms); transform-box: fill-box; transform-origin: center; }
+    @keyframes node-in {
+      from { opacity: 0; transform: scale(0.4); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  }
+  /* Static flow hint when motion is reduced */
+  @media (prefers-reduced-motion: reduce) {
+    .flow-line { stroke-dasharray: 26 40; opacity: 0.5; }
+  }
+</style>

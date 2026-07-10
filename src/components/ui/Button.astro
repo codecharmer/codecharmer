@@ -1,0 +1,114 @@
+---
+/**
+ * Button / link primitive.
+ * variant: primary (cyan fill) · secondary (outlined) · ghost (text + arrow)
+ * Renders as <a> when href is passed, otherwise <button>.
+ */
+import Icon from './Icon.astro';
+import type { IconName } from '@data/site';
+
+interface Props {
+  href?: string;
+  variant?: 'primary' | 'secondary' | 'ghost';
+  size?: 'md' | 'lg';
+  icon?: IconName;
+  type?: 'button' | 'submit';
+  class?: string;
+}
+const {
+  href,
+  variant = 'primary',
+  size = 'md',
+  icon,
+  type = 'button',
+  class: klass,
+} = Astro.props;
+
+const Tag = href ? 'a' : 'button';
+const rel = href && href.startsWith('http') ? 'noopener noreferrer' : undefined;
+---
+
+<Tag
+  class:list={['btn', `btn--${variant}`, `btn--${size}`, klass]}
+  href={href}
+  rel={rel}
+  type={href ? undefined : type}
+>
+  <span class="btn__label"><slot /></span>
+  {icon && <Icon name={icon} size={18} class="btn__icon" />}
+</Tag>
+
+<style>
+  .btn {
+    --_bg: transparent;
+    --_fg: var(--ink);
+    --_bd: transparent;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55em;
+    font-family: var(--font-body);
+    font-weight: 550;
+    font-size: 0.975rem;
+    line-height: 1;
+    white-space: nowrap;
+    padding: 0.8em 1.35em;
+    border-radius: var(--radius-pill);
+    background: var(--_bg);
+    color: var(--_fg);
+    border: 1.5px solid var(--_bd);
+    transition:
+      transform var(--dur-fast) var(--ease-out-quart),
+      background-color var(--dur) var(--ease-out-quart),
+      border-color var(--dur) var(--ease-out-quart),
+      box-shadow var(--dur) var(--ease-out-quart),
+      color var(--dur) var(--ease-out-quart);
+  }
+  .btn--lg { padding: 0.95em 1.6em; font-size: 1.05rem; }
+
+  .btn__icon { transition: transform var(--dur) var(--ease-out-expo); }
+  .btn:hover .btn__icon { transform: translateX(3px); }
+
+  /* Primary — cyan fill, dark ink text (contrast-safe both surfaces) */
+  .btn--primary {
+    --_bg: var(--brand);
+    --_fg: var(--on-brand);
+    box-shadow: 0 1px 2px oklch(0.2 0.02 236 / 0.15);
+  }
+  .btn--primary:hover {
+    --_bg: var(--brand-glow);
+    transform: translateY(-2px);
+    box-shadow:
+      0 10px 26px -8px oklch(0.79 0.12 202 / 0.55),
+      0 1px 2px oklch(0.2 0.02 236 / 0.2);
+  }
+
+  /* Secondary — outlined, inherits surface ink */
+  .btn--secondary {
+    --_fg: var(--ink);
+    --_bd: var(--border-strong);
+  }
+  .btn--secondary:hover {
+    --_bd: var(--brand-ink);
+    color: var(--brand-ink);
+    transform: translateY(-2px);
+  }
+  .band-ink .btn--secondary:hover { color: var(--brand-glow); --_bd: var(--brand-glow); }
+
+  /* Ghost — text with a trailing arrow, no chrome */
+  .btn--ghost {
+    padding-inline: 0;
+    --_fg: var(--ink);
+    font-weight: 550;
+  }
+  .btn--ghost .btn__label {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1.5px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size var(--dur) var(--ease-out-quart);
+    padding-bottom: 2px;
+  }
+  .btn--ghost:hover .btn__label { background-size: 100% 1.5px; }
+
+  .btn:active { transform: translateY(0); }
+</style>

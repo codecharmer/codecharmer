@@ -1,0 +1,63 @@
+---
+import Base from '@layouts/Base.astro';
+import PageHero from '@components/blocks/PageHero.astro';
+import Beliefs from '@components/blocks/Beliefs.astro';
+import CtaBand from '@components/blocks/CtaBand.astro';
+
+const paras = [
+  'The best software is quiet. It does its job, it doesn’t break at renewal season, and the team that owns it understands how it works. That’s harder to build than a demo — and it’s the only thing worth building.',
+  'AI, WordPress, and custom software aren’t separate practices here. They’re tools for the same job: making a business run better. Most real projects need more than one, which is why we don’t sell them as silos.',
+  'We measure our work by whether it keeps paying off after we’re gone — architecture that lowers next year’s costs, automation that removes real work, a platform your team can actually run. If it doesn’t do that, it wasn’t worth building.',
+];
+---
+
+<Base
+  path="/about"
+  title="About — Engineering, on purpose | Code Charmer"
+  description="A studio built around a simple idea: the best digital systems are the ones clients own and understand. Engineering philosophy over company history."
+>
+  <PageHero
+    eyebrow="About"
+    title="Engineering, on purpose."
+    intro="Too much of the web is built to be sold, not to be run. We build the other kind — and this is how we think about it."
+  />
+
+  <section class="section manifesto">
+    <div class="container manifesto__grid">
+      <p class="manifesto__lead reveal">
+        Most agencies optimize for the pitch. We optimize for the
+        <em>two years after launch</em>.
+      </p>
+      <div class="manifesto__body reveal">
+        {paras.map((p) => <p>{p}</p>)}
+      </div>
+    </div>
+  </section>
+
+  <Beliefs />
+
+  <CtaBand
+    heading="If that sounds like the team you want, let’s talk."
+    body="Tell us what you’re trying to build. A short conversation is usually enough to know whether we’re the right fit."
+  />
+</Base>
+
+<style>
+  .manifesto__grid { display: grid; gap: clamp(2rem, 5vw, 3.5rem); align-items: start; }
+  .manifesto__lead {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 1.1rem + 2.4vw, 2.6rem);
+    font-weight: 500;
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  .manifesto__lead em { font-style: normal; color: var(--brand-ink); }
+  .manifesto__body { display: flex; flex-direction: column; gap: 1.25rem; max-width: 46ch; }
+  .manifesto__body p { font-size: var(--t-body-lg); color: var(--ink-muted); line-height: 1.6; }
+
+  @media (min-width: 56rem) {
+    .manifesto__grid { grid-template-columns: 1fr 1fr; gap: 4rem; }
+    .manifesto__lead { position: sticky; top: 7rem; }
+  }
+</style>

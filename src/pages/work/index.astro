@@ -1,0 +1,48 @@
+---
+import Base from '@layouts/Base.astro';
+import PageHero from '@components/blocks/PageHero.astro';
+import ProjectCard from '@components/blocks/ProjectCard.astro';
+import Partners from '@components/blocks/Partners.astro';
+import CtaBand from '@components/blocks/CtaBand.astro';
+import { projects } from '@data/site';
+---
+
+<Base
+  path="/work"
+  title="Work — Selected projects | Code Charmer"
+  description="Real projects, live in the world: capoeira communities, an apparel brand, and an editorial portfolio — plus the platforms and teams we work with."
+>
+  <PageHero
+    eyebrow="Selected work"
+    title="Built, shipped, and live."
+    intro="A sample of what we’ve put into the world — brands, communities, and portfolios that had to work as well as they look."
+    primary={{ label: 'Start a project', href: '/contact' }}
+  />
+
+  <section class="section work-grid">
+    <div class="container">
+      <ul role="list" class="work-grid__list">
+        {projects.map((p, i) => (
+          <li class="reveal" style={`--reveal-delay:${(i % 2) * 90}ms`}>
+            <ProjectCard project={p} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <Partners />
+
+  <CtaBand
+    heading="Your project could be the next one here."
+    body="Tell us what you’re building. A short conversation is usually enough to know whether we’re the right team."
+  />
+</Base>
+
+<style>
+  .work-grid__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
+    gap: clamp(1.5rem, 3vw, 2.25rem);
+  }
+</style>

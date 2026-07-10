@@ -1,0 +1,72 @@
+---
+const points = [
+  {
+    k: 'Revenue, not just presence',
+    v: 'Sites and tools designed to convert, automate, and compound — not just look the part.',
+  },
+  {
+    k: 'Leverage from automation',
+    v: 'We remove the manual, repetitive work so your team spends its time where it actually matters.',
+  },
+  {
+    k: 'Ownership by default',
+    v: 'You understand and control everything we deliver. No lock-in, no dependency, no black boxes.',
+  },
+];
+---
+
+<section class="section value">
+  <div class="container">
+    <div class="value__statement reveal">
+      <p class="value__lead">
+        Most agencies build you a website. We build the
+        <em>system it runs on</em> — engineered to generate revenue, remove manual
+        work, and stay under your control.
+      </p>
+    </div>
+
+    <ul role="list" class="value__points">
+      {
+        points.map((p, i) => (
+          <li class="value__point reveal" style={`--reveal-delay:${i * 90}ms`}>
+            <span class="value__marker" aria-hidden="true"></span>
+            <h3 class="value__k">{p.k}</h3>
+            <p class="value__v">{p.v}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .value__statement { max-width: 46rem; }
+  .value__lead {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 1.1rem + 2.2vw, 2.6rem);
+    font-weight: 500;
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+    color: var(--ink);
+  }
+  .value__lead em { font-style: normal; color: var(--brand-ink); }
+
+  .value__points {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 2rem;
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+  }
+  .value__point { padding-top: 1.25rem; border-top: 1px solid var(--border); position: relative; }
+  .value__marker {
+    position: absolute;
+    top: -1px;
+    left: 0;
+    width: 3rem;
+    height: 2px;
+    background: var(--brand);
+  }
+  .value__k { font-size: 1.1rem; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 0.5rem; }
+  .value__v { color: var(--ink-muted); line-height: 1.55; }
+</style>

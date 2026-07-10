@@ -1,0 +1,327 @@
+---
+import Logo from '@components/ui/Logo.astro';
+import Button from '@components/ui/Button.astro';
+import Icon from '@components/ui/Icon.astro';
+import { nav, pillars } from '@data/site';
+---
+
+<header class="site-header" data-header>
+  <div class="container header__bar">
+    <Logo href="/" />
+
+    <nav class="header__nav" aria-label="Primary">
+      <ul role="list" class="nav">
+        {
+          nav.primary.map((item) =>
+            item.hasMenu ? (
+              <li class="nav__item nav__item--menu" data-menu-root>
+                <button
+                  class="nav__link nav__trigger"
+                  aria-expanded="false"
+                  aria-controls="services-menu"
+                  data-menu-trigger
+                >
+                  {item.label}
+                  <svg class="nav__chevron" viewBox="0 0 12 12" width="12" height="12" fill="none" aria-hidden="true">
+                    <path d="m3 4.5 3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </button>
+
+                <div class="mega" id="services-menu" data-menu-panel hidden>
+                  <div class="mega__inner">
+                    <p class="mega__eyebrow eyebrow">What we build</p>
+                    <ul role="list" class="mega__grid">
+                      {pillars.map((p) => (
+                        <li>
+                          <a class="mega__card" href={p.href}>
+                            <span class="mega__icon"><Icon name={p.icon} size={22} /></span>
+                            <span class="mega__text">
+                              <span class="mega__name">{p.name}</span>
+                              <span class="mega__desc">{p.descriptor}</span>
+                            </span>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                    <div class="mega__foot">
+                      <a class="mega__link" href="/services">All services <Icon name="arrow" size={15} /></a>
+                      <a class="mega__link" href="/process">How we work <Icon name="arrow" size={15} /></a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            ) : (
+              <li class="nav__item">
+                <a class="nav__link" href={item.href}>{item.label}</a>
+              </li>
+            ),
+          )
+        }
+      </ul>
+    </nav>
+
+    <div class="header__actions">
+      <span class="header__cta"><Button href={nav.cta.href} variant="primary">{nav.cta.label}</Button></span>
+      <button
+        class="nav__toggle"
+        data-nav-toggle
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+        aria-label="Open menu"
+      >
+        <span class="nav__toggle-open"><Icon name="menu" size={24} /></span>
+        <span class="nav__toggle-close"><Icon name="close" size={24} /></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile overlay — sibling of <header>: the header's backdrop-filter makes it a
+     containing block for fixed descendants, which would collapse this overlay. -->
+<div class="mobile-nav band-ink" id="mobile-nav" data-mobile-nav hidden>
+    <nav class="mobile-nav__inner container" aria-label="Mobile">
+      <a class="mobile-nav__section-label eyebrow" href="/services">Services</a>
+      <ul role="list" class="mobile-nav__pillars">
+        {pillars.map((p) => (
+          <li>
+            <a class="mobile-nav__pillar" href={p.href}>
+              <Icon name={p.icon} size={20} /> {p.name}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <ul role="list" class="mobile-nav__links">
+        <li><a href="/work">Work</a></li>
+        <li><a href="/process">Process</a></li>
+        <li><a href="/about">About</a></li>
+      </ul>
+      <Button href={nav.cta.href} variant="primary" size="lg" class="mobile-nav__cta">{nav.cta.label}</Button>
+    </nav>
+</div>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-sticky);
+    background: color-mix(in oklab, var(--bg) 82%, transparent);
+    backdrop-filter: saturate(1.4) blur(14px);
+    border-bottom: 1px solid transparent;
+    transition:
+      background-color var(--dur) var(--ease-out-quart),
+      border-color var(--dur) var(--ease-out-quart);
+  }
+  .site-header[data-scrolled] {
+    background: color-mix(in oklab, var(--bg) 92%, transparent);
+    border-bottom-color: var(--border);
+  }
+
+  .header__bar {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-6);
+    height: clamp(4rem, 3.4rem + 1vw, 4.75rem);
+  }
+  .header__bar > :global(.logo) { margin-inline-end: auto; }
+
+  .header__nav { display: none; }
+  .nav { display: flex; align-items: center; gap: 0.35rem; }
+  .nav__item { position: relative; }
+
+  .nav__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.5rem 0.85rem;
+    border-radius: var(--radius-sm);
+    font-weight: 500;
+    color: var(--ink-muted);
+    transition: color var(--dur-fast) var(--ease-out-quart), background-color var(--dur-fast) var(--ease-out-quart);
+  }
+  .nav__link:hover,
+  .nav__item--menu[data-open] .nav__trigger { color: var(--ink); background: var(--surface-sunk); }
+
+  .nav__chevron { transition: transform var(--dur) var(--ease-out-expo); opacity: 0.7; }
+  .nav__item--menu[data-open] .nav__chevron { transform: rotate(180deg); }
+
+  /* Mega-menu */
+  .mega {
+    position: absolute;
+    top: calc(100% + 0.55rem);
+    left: 50%;
+    translate: -50% 0;
+    width: min(40rem, 92vw);
+    z-index: var(--z-dropdown);
+  }
+  .mega[hidden] { display: none; }
+  .mega__inner {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: 1.5rem;
+    transform-origin: top center;
+    animation: mega-in var(--dur) var(--ease-out-expo) both;
+  }
+  @keyframes mega-in {
+    from { opacity: 0; transform: translateY(-6px) scale(0.985); }
+    to { opacity: 1; transform: none; }
+  }
+  .mega__eyebrow { margin-bottom: 0.9rem; }
+  .mega__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem;
+  }
+  .mega__card {
+    display: flex;
+    gap: 0.85rem;
+    padding: 0.85rem;
+    border-radius: var(--radius);
+    border: 1px solid transparent;
+    transition: background-color var(--dur-fast) var(--ease-out-quart), border-color var(--dur-fast) var(--ease-out-quart);
+  }
+  .mega__card:hover { background: var(--surface-sunk); border-color: var(--border); }
+  .mega__icon {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: var(--radius-sm);
+    background: color-mix(in oklab, var(--brand) 14%, var(--surface));
+    color: var(--brand-ink);
+  }
+  .mega__text { display: flex; flex-direction: column; gap: 0.15rem; }
+  .mega__name { font-weight: 600; color: var(--ink); font-size: 0.95rem; }
+  .mega__desc { font-size: 0.85rem; color: var(--ink-muted); line-height: 1.4; }
+  .mega__foot {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+  .mega__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.9rem;
+    font-weight: 550;
+    color: var(--brand-ink);
+  }
+  .mega__link:hover { gap: 0.6rem; }
+
+  /* Mobile toggle */
+  .nav__toggle { display: inline-grid; place-items: center; width: 2.75rem; height: 2.75rem; color: var(--ink); border-radius: var(--radius-sm); }
+  .nav__toggle-open { display: block; }
+  .nav__toggle-close { display: none; }
+  .site-header[data-nav-open] .nav__toggle-open { display: none; }
+  .site-header[data-nav-open] .nav__toggle-close { display: block; }
+
+  /* Mobile overlay */
+  .mobile-nav {
+    position: fixed;
+    inset: clamp(4rem, 3.4rem + 1vw, 4.75rem) 0 0 0;
+    z-index: var(--z-dropdown);
+    overflow-y: auto;
+    animation: overlay-in var(--dur) var(--ease-out-quart) both;
+  }
+  .mobile-nav[hidden] { display: none; }
+  @keyframes overlay-in { from { opacity: 0; } to { opacity: 1; } }
+  .mobile-nav__inner { display: flex; flex-direction: column; gap: 1rem; padding-block: 2rem 3rem; }
+  .mobile-nav__section-label { display: block; margin-bottom: 0.25rem; }
+  .mobile-nav__pillars { display: flex; flex-direction: column; }
+  .mobile-nav__pillar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.9rem 0;
+    font-size: 1.15rem;
+    font-weight: 550;
+    border-bottom: 1px solid var(--border);
+    color: var(--on-ink);
+  }
+  .mobile-nav__pillar :global(svg) { color: var(--brand-glow); }
+  .mobile-nav__links { display: flex; flex-direction: column; margin-top: 0.5rem; }
+  .mobile-nav__links a {
+    padding: 0.75rem 0;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+  .mobile-nav__cta { margin-top: 1.5rem; justify-content: center; }
+
+  /* Desktop nav on wider viewports */
+  @media (min-width: 60rem) {
+    .header__nav { display: block; }
+    .nav__toggle { display: none; }
+  }
+  .header__cta { display: contents; }
+  /* Below this the logo + CTA + toggle stop fitting; the overlay carries the CTA. */
+  @media (max-width: 30rem) {
+    .header__cta { display: none; }
+  }
+</style>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  if (header) {
+    // Condense on scroll
+    const onScroll = () => header.toggleAttribute('data-scrolled', window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Mega-menu (pointer + keyboard)
+    const canHover = window.matchMedia('(hover: hover)');
+    document.querySelectorAll<HTMLElement>('[data-menu-root]').forEach((root) => {
+      const trigger = root.querySelector<HTMLButtonElement>('[data-menu-trigger]');
+      const panel = root.querySelector<HTMLElement>('[data-menu-panel]');
+      if (!trigger || !panel) return;
+      let closeTimer: number | undefined;
+
+      const open = () => {
+        window.clearTimeout(closeTimer);
+        root.setAttribute('data-open', '');
+        trigger.setAttribute('aria-expanded', 'true');
+        panel.hidden = false;
+      };
+      const close = () => {
+        root.removeAttribute('data-open');
+        trigger.setAttribute('aria-expanded', 'false');
+        panel.hidden = true;
+      };
+
+      trigger.addEventListener('click', () => (root.hasAttribute('data-open') ? close() : open()));
+      root.addEventListener('mouseenter', () => canHover.matches && open());
+      root.addEventListener('mouseleave', () => {
+        if (canHover.matches) closeTimer = window.setTimeout(close, 120);
+      });
+      root.addEventListener('focusout', (e) => {
+        if (!root.contains(e.relatedTarget as Node)) close();
+      });
+      root.addEventListener('keydown', (e) => {
+        if ((e as KeyboardEvent).key === 'Escape') { close(); trigger.focus(); }
+      });
+    });
+
+    // Mobile overlay
+    const toggle = header.querySelector<HTMLButtonElement>('[data-nav-toggle]');
+    const overlay = document.querySelector<HTMLElement>('[data-mobile-nav]');
+    if (toggle && overlay) {
+      const setOpen = (openState: boolean) => {
+        header.toggleAttribute('data-nav-open', openState);
+        toggle.setAttribute('aria-expanded', String(openState));
+        toggle.setAttribute('aria-label', openState ? 'Close menu' : 'Open menu');
+        overlay.hidden = !openState;
+        document.documentElement.style.overflow = openState ? 'hidden' : '';
+      };
+      toggle.addEventListener('click', () => setOpen(overlay.hidden));
+      overlay.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !overlay.hidden) { setOpen(false); toggle.focus(); }
+      });
+    }
+  }
+</script>

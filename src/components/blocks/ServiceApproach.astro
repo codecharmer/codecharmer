@@ -1,0 +1,108 @@
+---
+interface Step { title: string; body: string }
+interface Props {
+  title?: string;
+  intro?: string;
+  steps: Step[];
+}
+const { title = 'How we approach it', intro, steps } = Astro.props;
+---
+
+<section class="section approach band-ink">
+  <div class="approach__ambient" aria-hidden="true"></div>
+  <div class="container approach__inner">
+    <header class="approach__head reveal">
+      <p class="eyebrow">Approach</p>
+      <h2 class="approach__title">{title}</h2>
+      {intro && <p class="lead approach__intro">{intro}</p>}
+    </header>
+
+    <ol role="list" class="approach__steps">
+      {steps.map((s, i) => (
+        <li class="approach__step reveal" style={`--reveal-delay:${i * 90}ms`}>
+          <span class="approach__num">{String(i + 1).padStart(2, '0')}</span>
+          <div class="approach__body">
+            <h3 class="approach__step-title">{s.title}</h3>
+            <p class="approach__step-body">{s.body}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .approach { position: relative; overflow: clip; }
+  .approach__ambient {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(45% 55% at 12% 15%, oklch(0.79 0.12 202 / 0.12), transparent 70%);
+    pointer-events: none;
+  }
+  .approach__inner { position: relative; }
+  .approach__head { max-width: 40rem; }
+  .approach__title { margin-top: 0.9rem; }
+  .approach__intro { margin-top: 1rem; }
+
+  .approach__steps {
+    display: grid;
+    gap: 0;
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  }
+  .approach__step {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.5rem;
+    padding: 1.75rem 0;
+    border-top: 1px solid var(--border);
+    align-items: start;
+  }
+  .approach__step:last-child { border-bottom: 1px solid var(--border); }
+  .approach__num {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--brand-glow);
+    padding-top: 0.2rem;
+  }
+  .approach__step-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    color: var(--on-ink);
+  }
+  .approach__step-body { margin-top: 0.5rem; color: var(--on-ink-mut); line-height: 1.55; max-width: 46ch; }
+
+  @media (min-width: 52rem) {
+    .approach__steps { grid-template-columns: repeat(3, 1fr); gap: 0 2.5rem; }
+    .approach__step {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+      border-top: none;
+      border-bottom: none;
+      padding: 0;
+      position: relative;
+      padding-top: 2.5rem;
+    }
+    .approach__step:last-child { border-bottom: none; }
+    .approach__step::before {
+      content: '';
+      position: absolute;
+      top: 0.5rem;
+      left: 0;
+      right: 1.25rem;
+      height: 1.5px;
+      background: var(--border);
+    }
+    .approach__step::after {
+      content: '';
+      position: absolute;
+      top: calc(0.5rem - 4px);
+      left: 0;
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--ink-bg);
+      border: 2px solid var(--brand-glow);
+    }
+  }
+</style>

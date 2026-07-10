@@ -1,0 +1,46 @@
+---
+import Button from '@components/ui/Button.astro';
+import ProjectCard from '@components/blocks/ProjectCard.astro';
+import { projects } from '@data/site';
+
+// Homepage teaser — first three real projects.
+const featured = projects.slice(0, 3);
+---
+
+<section class="section work">
+  <div class="container">
+    <header class="work__head reveal">
+      <div>
+        <p class="eyebrow">Selected work</p>
+        <h2 class="work__title">Live in the world.</h2>
+      </div>
+      <Button href="/work" variant="ghost">See all work</Button>
+    </header>
+
+    <ul role="list" class="work__list">
+      {featured.map((p, i) => (
+        <li class="reveal" style={`--reveal-delay:${i * 80}ms`}>
+          <ProjectCard project={p} />
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .work__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1rem 2rem;
+  }
+  .work__title { margin-top: 0.9rem; }
+
+  .work__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    gap: clamp(1.5rem, 3vw, 2.25rem);
+    margin-top: clamp(2rem, 4vw, 3.25rem);
+  }
+</style>
