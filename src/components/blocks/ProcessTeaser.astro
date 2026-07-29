@@ -40,7 +40,8 @@ const stages = process.map((s) => {
 
       <div class="pt__track rail__track" aria-hidden="true">
         {stages.map((s) => (
-          <div class="rail__segment" style={`--w:${s.weight}`}>
+          <div class="rail__segment" style={`--w:${s.weight}`} data-from={s.from} data-to={s.to}>
+            <i class="rail__run"></i>
             <span class="rail__node rail__node--astride" data-from={s.from} data-to={s.to} />
           </div>
         ))}
@@ -49,9 +50,10 @@ const stages = process.map((s) => {
 
       <ol role="list" class="pt__stages">
         {stages.map((s) => (
-          <li class="pt__stage" style={`--w:${s.weight}`}>
+          <li class="pt__stage" style={`--w:${s.weight}`} data-from={s.from} data-to={s.to}>
             <span class="rail__coord">{String(s.n).padStart(2, '0')}</span>
             <span class="rail__label pt__name">{s.name}</span>
+            <span class="rail__status pt__stage-status" aria-hidden="true"></span>
           </li>
         ))}
       </ol>
@@ -59,8 +61,8 @@ const stages = process.map((s) => {
       <ul role="list" class="pt__readout">
         {stages.map((s) => (
           <li class="pt__out" data-from={s.from} data-to={s.to}>
-            <span class="pt__out-label">{s.name} delivers</span>
-            <span class="pt__out-text">{s.deliverable}</span>
+            <span class="pt__out-label">{String(s.n).padStart(2, '0')} {s.name}</span>
+            <span class="pt__out-text" data-type>{s.deliverable}</span>
           </li>
         ))}
       </ul>
@@ -81,14 +83,20 @@ const stages = process.map((s) => {
   .pt__title { margin-top: 0.9rem; }
   .pt__intro { max-width: 34rem; }
 
-  .pt__rail { margin-top: clamp(2.5rem, 5vw, 4rem); }
+  .pt__rail {
+    /* Flagship rail: chunkier than the shared default so the build run has
+       room to read — the stripes need material to sweep through. */
+    --rail-track-w: 7px;
+    --rail-node: 13px;
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+  }
   /* Fine ticks and boundary ticks share a baseline 4px above the track, so
      the boundary marks read as the taller ones on a single ruler. */
   .pt__ruler { margin-bottom: 4px; }
 
   .pt__stages {
     display: flex;
-    margin-top: 1.1rem;
+    margin-top: 1.2rem;
   }
   .pt__stage {
     flex: var(--w, 1) 1 0;
@@ -97,41 +105,69 @@ const stages = process.map((s) => {
   }
   .pt__name {
     margin-top: 0.3rem;
+    font-family: var(--font-display);
+    font-size: clamp(1rem, 0.85rem + 0.5vw, 1.2rem);
+    font-weight: 600;
+    letter-spacing: -0.015em;
     /* Seven columns of varying width: let the short names hold one line and
        the long ones wrap rather than overflow their segment. */
     overflow-wrap: break-word;
     hyphens: auto;
   }
+  .pt__stage-status { margin-top: 0.45rem; }
 
-  /* --- Deliverable readout ------------------------------------------------
-     Base: a plain list of what every stage delivers — copy that already
-     exists in the content model but that this block used to throw away.
-     Enhanced (scroll-driven): the same list collapses into a single readout
-     slot that tracks the playhead. Identical content in both modes. */
+  /* The build lights stages as it reaches them: queued recedes, running
+     leads. Default (no driver) keeps everything at full strength. */
+  .rail[data-rail-live] .pt__stage {
+    transition: opacity var(--dur-slow) var(--ease-out-quart);
+  }
+  .rail[data-rail-live] .pt__stage[data-state='queued'] { opacity: 0.42; }
+  .rail[data-rail-live] .pt__stage[data-state='active'] .pt__name { color: var(--brand-ink); }
+
+  /* --- Deliverable console ------------------------------------------------
+     A code well (per DESIGN.md: --surface-sunk, mono) that reads as the
+     build's log output. Base: the full log, every stage ✓-prefixed with its
+     deliverable — a finished run. Enhanced (scroll-driven): a single live
+     line that tracks the playhead, typing out as each stage executes.
+     Identical content in both modes. */
   .pt__readout {
     margin-top: clamp(1.75rem, 3vw, 2.25rem);
-    padding-top: 1.1rem;
-    border-top: 1px solid var(--border);
+    padding: 1rem 1.2rem;
+    background: var(--surface-sunk);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
     display: grid;
-    gap: 0.6rem;
-  }
-  .pt__out {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 0.5rem 0.75rem;
-  }
-  .pt__out-label {
+    gap: 0.55rem;
     font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.05em;
+    font-size: 0.84rem;
+    line-height: 1.55;
+  }
+  .pt__out { display: block; }
+  .pt__out-label {
     color: var(--logo-accent);
+    text-transform: lowercase;
     white-space: nowrap;
   }
-  .pt__out-text {
-    color: var(--ink-muted);
-    font-size: 0.95rem;
-    line-height: 1.5;
+  .pt__out-label::before { content: '✓ '; }
+  .pt__out-label::after { content: ' › '; color: var(--ink-faint); }
+  .pt__out-text { color: var(--ink-muted); }
+
+  .rail[data-rail-live] .pt__out[data-state='queued'] .pt__out-label::before { content: '· '; }
+  .rail[data-rail-live] .pt__out[data-state='active'] .pt__out-label::before { content: '▸ '; }
+  /* Block caret while the line is being written. */
+  .rail[data-rail-live] .pt__out[data-state='active'] .pt__out-text::after {
+    content: '';
+    display: inline-block;
+    width: 0.55ch;
+    height: 1em;
+    margin-left: 0.2ch;
+    vertical-align: -0.12em;
+    background: var(--brand-ink);
+    animation: caret-blink 1.1s step-end infinite;
+  }
+  @keyframes caret-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
   }
 
   .pt__cta { margin-top: clamp(2rem, 4vw, 2.75rem); }
@@ -228,26 +264,31 @@ const stages = process.map((s) => {
     display: grid;
     grid-template-areas: 'readout';
     gap: 0;
-    /* Reserve the tallest line so swapping never shifts the layout. */
-    min-height: 3.5rem;
+    /* Reserve two log lines so typing and swapping never shift the layout. */
+    min-height: calc(2 * 1.55em + 2rem);
   }
+  /* Console semantics: lines replace, they don't crossfade. The outgoing
+     line snaps away (no transition); the incoming one rises in while the
+     typewriter writes it. */
   .rail[data-rail-live] .pt__out {
     grid-area: readout;
     opacity: 0;
     translate: 0 5px;
-    transition:
-      opacity var(--dur) var(--ease-out-quart),
-      translate var(--dur) var(--ease-out-quart);
+    transition: none;
   }
   .rail[data-rail-live] .pt__out[data-state='active'] {
     opacity: 1;
     translate: 0 0;
+    transition:
+      opacity var(--dur) var(--ease-out-quart),
+      translate var(--dur) var(--ease-out-quart);
   }
   /* At progress 1 the final segment reads committed, not active — pin its
      readout rather than leaving the slot empty. */
   .rail[data-rail-live] .pt__out[data-state='committed']:last-child {
     opacity: 1;
     translate: 0 0;
+    transition: opacity var(--dur) var(--ease-out-quart);
   }
 
   @media (prefers-reduced-motion: reduce) {

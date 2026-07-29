@@ -35,12 +35,43 @@ export function initRails(root: ParentNode = document): void {
 
   let frame = 0;
 
-  const apply = (rail: HTMLElement): void => {
+  // --- Typewriter -----------------------------------------------------------
+  // Elements marked [data-type] get their text typed out, console-style, when
+  // their marker flips to `active`. Flipping away restores the full text, so
+  // the fallback (all lines shown, finished) is never partial.
+  const timers = new WeakMap<HTMLElement, number>();
+
+  const fullTextOf = (el: HTMLElement): string =>
+    el.dataset.full ?? (el.dataset.full = el.textContent ?? '');
+
+  const settle = (el: HTMLElement): void => {
+    const t = timers.get(el);
+    if (t) { window.clearInterval(t); timers.delete(el); }
+    el.textContent = fullTextOf(el);
+  };
+
+  const typeOut = (el: HTMLElement): void => {
+    const full = fullTextOf(el);
+    const prev = timers.get(el);
+    if (prev) window.clearInterval(prev);
+    let i = 0;
+    el.textContent = '';
+    const t = window.setInterval(() => {
+      i += 2;
+      el.textContent = full.slice(0, i);
+      if (i >= full.length) { window.clearInterval(t); timers.delete(el); }
+    }, 22);
+    timers.set(el, t);
+  };
+
+  const apply = (rail: HTMLElement, force = false): void => {
     const rect = rail.getBoundingClientRect();
     const vh = window.innerHeight || document.documentElement.clientHeight;
 
-    // Well outside the viewport: nothing to recompute this frame.
-    if (rect.bottom < -vh || rect.top > vh * 2) return;
+    // Well outside the viewport: nothing to recompute this frame. The init
+    // pass is exempt — a live rail must never sit stateless, or the rewound
+    // CSS renders an empty track until the next delivered frame.
+    if (!force && (rect.bottom < -vh || rect.top > vh * 2)) return;
 
     const p =
       rail.dataset.scrub === 'through'
@@ -58,7 +89,10 @@ export function initRails(root: ParentNode = document): void {
 
     const setState = (marker: HTMLElement, from: number, to: number): void => {
       const state = clamped < from ? 'queued' : clamped < to ? 'active' : 'committed';
-      if (marker.dataset.state !== state) marker.dataset.state = state;
+      if (marker.dataset.state === state) return;
+      marker.dataset.state = state;
+      const typed = marker.querySelector<HTMLElement>('[data-type]');
+      if (typed) (state === 'active' ? typeOut : settle)(typed);
     };
 
     // Authored spans: the block knew the weights at build time.
@@ -88,7 +122,7 @@ export function initRails(root: ParentNode = document): void {
   // Position first, then hand the rail over — so it never paints a frame of
   // empty track between "rewound by CSS" and "positioned by script".
   rails.forEach((rail) => {
-    apply(rail);
+    apply(rail, true);
     rail.setAttribute('data-rail-live', '');
   });
 

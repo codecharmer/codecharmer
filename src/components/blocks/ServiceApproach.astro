@@ -32,7 +32,8 @@ const marks = steps.map((s) => {
 
       <div class="approach__track rail__track" aria-hidden="true">
         {marks.map((s) => (
-          <div class="rail__segment" style={`--w:${s.w}`}>
+          <div class="rail__segment" style={`--w:${s.w}`} data-from={s.from} data-to={s.to}>
+            <i class="rail__run"></i>
             <span class="rail__node rail__node--astride" data-from={s.from} data-to={s.to} />
           </div>
         ))}
@@ -41,8 +42,11 @@ const marks = steps.map((s) => {
 
       <ol role="list" class="approach__steps">
         {marks.map((s, i) => (
-          <li class="approach__step" style={`--w:${s.w}`}>
-            <span class="rail__coord">{String(i + 1).padStart(2, '0')}</span>
+          <li class="approach__step" style={`--w:${s.w}`} data-from={s.from} data-to={s.to}>
+            <span class="approach__meta">
+              <span class="rail__coord">{String(i + 1).padStart(2, '0')}</span>
+              <span class="rail__status" aria-hidden="true"></span>
+            </span>
             <h3 class="approach__step-title">{s.title}</h3>
             <p class="approach__step-body">{s.body}</p>
           </li>
@@ -65,7 +69,11 @@ const marks = steps.map((s) => {
   .approach__title { margin-top: 0.9rem; }
   .approach__intro { margin-top: 1rem; }
 
-  .approach__rail { margin-top: clamp(2.5rem, 5vw, 3.5rem); }
+  .approach__rail {
+    --rail-track-w: 6px;
+    --rail-node: 12px;
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  }
   .approach__ruler { margin-bottom: 4px; }
 
   .approach__steps { display: flex; }
@@ -75,6 +83,11 @@ const marks = steps.map((s) => {
     padding-inline-end: clamp(1rem, 3vw, 2.5rem);
     min-width: 0;
   }
+  .approach__meta {
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+  }
   .approach__step-title {
     margin-top: 0.35rem;
     font-size: 1.25rem;
@@ -83,6 +96,19 @@ const marks = steps.map((s) => {
     color: var(--on-ink);
   }
   .approach__step-body { margin-top: 0.5rem; color: var(--on-ink-mut); line-height: 1.55; max-width: 46ch; }
+
+  /* Sequential lighting as the build reaches each step. Default: all lit. */
+  .rail[data-rail-live] .approach__step {
+    transition: opacity var(--dur-slow) var(--ease-out-quart);
+  }
+  .rail[data-rail-live] .approach__step[data-state='queued'] { opacity: 0.45; }
+  .rail[data-rail-live] .approach__step[data-state='active'] .approach__step-title {
+    color: var(--brand-glow);
+  }
+  /* On the ink band the faint queued-status color needs the muted on-ink. */
+  .rail[data-rail-live] .approach__step[data-state='queued'] .rail__status {
+    color: var(--on-ink-mut);
+  }
 
   /* Vertical below the 3-up breakpoint — the spine runs down the left. */
   @media (max-width: 52rem) {

@@ -298,9 +298,11 @@
   .rail[data-rail-live] .rail__node {
     border-color: var(--rail-node-idle);
     background: transparent;
+    scale: 1;
     transition:
       background-color var(--dur) var(--ease-out-quart),
       border-color var(--dur) var(--ease-out-quart),
+      scale var(--dur) var(--ease-out-expo),
       box-shadow var(--dur-slow) var(--ease-out-quart);
   }
   .rail[data-rail-live] .rail__node[data-state='committed'],
@@ -310,12 +312,67 @@
   }
   /* The stage the reader is inside — the only node carrying emphasis. */
   .rail[data-rail-live] .rail__node[data-state='active'] {
+    scale: 1.4;
     box-shadow:
       0 0 0 4px color-mix(in oklab, var(--brand-glow) 26%, transparent),
-      0 0 14px 1px color-mix(in oklab, var(--brand-glow) 55%, transparent);
+      0 0 16px 2px color-mix(in oklab, var(--brand-glow) 60%, transparent);
   }
 
   .rail[data-rail-live] .rail__playhead { opacity: 1; }
   /* Parked at either end it would read as a stray tick, so hide it there. */
   .rail[data-rail-live][data-at-edge] .rail__playhead { opacity: 0; }
+  .rail[data-rail-live]:not([data-at-edge]) .rail__playhead {
+    animation: playhead-pulse 1.3s ease-in-out infinite;
+  }
+  @keyframes playhead-pulse {
+    50% { box-shadow: 0 0 18px 4px color-mix(in oklab, var(--brand-glow) 75%, transparent); }
+  }
+
+  /* ----------------------------------------------------------- build run -- */
+  /* The stage under the playhead is EXECUTING: diagonal work stripes sweep
+     through its segment, CI-progress style. Sits above the track fill, below
+     the notches and nodes. Only under a live driver — the static default
+     stays a finished, quiet rail. */
+  .rail__run {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    opacity: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      color-mix(in oklab, var(--brand-glow) 60%, transparent) 0 5px,
+      transparent 5px 10px
+    );
+    transition: opacity var(--dur) var(--ease-out-quart);
+    pointer-events: none;
+  }
+  .rail[data-rail-live] .rail__segment[data-state='active'] .rail__run {
+    opacity: 1;
+    animation: rail-run 0.5s linear infinite;
+  }
+  /* 10px stripe period along the -45° axis → 14.14px horizontal loop. */
+  @keyframes rail-run {
+    to { background-position: 14.14px 0; }
+  }
+
+  /* Status readout under a stage: '· queued' → '▸ running' → '✓ done'.
+     Default (no JS / reduced motion) is the finished state. */
+  .rail__status {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--logo-accent);
+  }
+  .rail__status::before { content: '✓ done'; }
+  .rail[data-rail-live] [data-state='queued'] .rail__status { color: var(--ink-faint); }
+  .rail[data-rail-live] [data-state='queued'] .rail__status::before { content: '· queued'; }
+  .rail[data-rail-live] [data-state='active'] .rail__status {
+    color: var(--logo-accent);
+    animation: status-pulse 1.4s ease-in-out infinite;
+  }
+  .rail[data-rail-live] [data-state='active'] .rail__status::before { content: '▸ running'; }
+  @keyframes status-pulse {
+    50% { opacity: 0.45; }
+  }
 }

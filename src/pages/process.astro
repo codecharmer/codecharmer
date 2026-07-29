@@ -102,6 +102,24 @@ const principles = [
   .tstage__seg[data-state='committed'],
   .tstage__seg[data-state='active'] { background: var(--rail-fill); }
 
+  /* The executing stage runs: same work stripes as the horizontal rails. */
+  .tstage__seg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      color-mix(in oklab, var(--brand-glow) 60%, transparent) 0 5px,
+      transparent 5px 10px
+    );
+    transition: opacity var(--dur) var(--ease-out-quart);
+  }
+  .rail[data-rail-live] .tstage__seg[data-state='active']::after {
+    opacity: 1;
+    animation: rail-run 0.5s linear infinite;
+  }
+
   .tstage__node {
     position: absolute;
     top: 0.55rem;
