@@ -10,7 +10,11 @@ import { pillars } from '@data/site';
         pillars.map((p, i) => (
           <article class="psplit reveal" data-flip={i % 2 === 1 ? '' : undefined}>
             <div class="psplit__text">
-              <p class="psplit__kicker">{`0${i + 1}`}</p>
+              <p class="psplit__kicker" aria-hidden="true">
+                <span class="psplit__tick"></span>
+                <span class="rail__coord">{`0${i + 1}`}</span>
+                <span class="psplit__measure"></span>
+              </p>
               <h2 class="psplit__name">{p.name}</h2>
               <p class="psplit__thesis">{p.thesis}</p>
               <a class="psplit__link" href={p.href}>
@@ -42,7 +46,32 @@ import { pillars } from '@data/site';
     gap: clamp(1.5rem, 4vw, 3.5rem);
     align-items: center;
   }
-  .psplit__kicker { font-family: var(--font-mono); font-size: var(--t-small); color: var(--brand-ink); }
+  /* Not a bare ordinal — the coordinate sits on a length of the same measure
+     the process rails use, so the number reads as a position on an axis. */
+  .psplit__kicker {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .psplit__tick {
+    width: 1px;
+    height: var(--rail-tick-len-major, 9px);
+    background: var(--border-strong);
+  }
+  .psplit__measure {
+    flex: 1;
+    max-width: 7rem;
+    height: var(--rail-tick-len, 5px);
+    background-image: repeating-linear-gradient(
+      to right,
+      color-mix(in oklab, var(--border-strong) 55%, transparent) 0 1px,
+      transparent 1px var(--rail-tick-gap, 8px)
+    );
+    background-repeat: repeat-x;
+    background-size: var(--rail-tick-gap, 8px) var(--rail-tick-len, 5px);
+    background-position: 0 100%;
+    mask-image: linear-gradient(to right, #000, transparent);
+  }
   .psplit__name { margin-top: 0.75rem; font-size: var(--t-h2); letter-spacing: -0.02em; }
   .psplit__thesis { margin-top: 1rem; font-size: var(--t-body-lg); color: var(--ink-muted); line-height: 1.5; max-width: 42ch; }
   .psplit__link {

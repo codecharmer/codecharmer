@@ -1,0 +1,321 @@
+/* ==========================================================================
+   Code Charmer — the instrumented rail
+   ---------------------------------------------------------------------------
+   One measured, stateful primitive set shared by every stepped surface:
+   ProcessTeaser, the /process timeline, ServiceApproach, PillarSections.
+
+   Five primitives:
+     ruler    — tick measure; gives the rail scale
+     track    — the material the stages sit on (deliberately not a hairline)
+     segment  — flex weight = --w, the stage's relative weight
+     node     — 45° diamond; arrives lit as the playhead passes it
+     playhead — reading position; the track fills behind it
+
+   Default state is COMPLETE: full fill, all nodes committed. Scroll coupling
+   is an enhancement layered on top, so no support / reduced motion / no JS
+   all render a finished rail rather than a blank or half-drawn one.
+
+   Colors resolve through the surface tokens, so `.band-ink` remaps the whole
+   rail for deep-ink bands with no per-component overrides.
+   ========================================================================== */
+
+/* Registered so the scrub keyframe interpolates instead of snapping 0 -> 1. */
+@property --rail-progress {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@layer rail {
+  /* ------------------------------------------------------------- tokens -- */
+  .rail {
+    --rail-track-w: 3px;
+    --rail-tick-gap: 8px;
+    --rail-tick-len: 5px;
+    --rail-tick-len-major: 9px;
+    --rail-node: 9px;
+
+    /* The un-travelled track still has to read as instrument, not absence. */
+    --rail-track: var(--border);
+    --rail-tick: color-mix(in oklab, var(--border-strong) 55%, transparent);
+    --rail-tick-major: var(--border-strong);
+    /* Surface-aware: darker cyan on light, glow on ink. Keeps a committed
+       rail from reading as a candy progress bar on the off-white home base. */
+    --rail-fill: var(--logo-accent);
+    --rail-node-idle: var(--border-strong);
+    --rail-notch: var(--bg);
+
+    --rail-progress: 1;
+
+    position: relative;
+  }
+
+  /* Deep-ink bands: the sunk surface doesn't exist there, so derive. */
+  .band-ink .rail,
+  .rail.band-ink {
+    --rail-track: oklch(1 0 0 / 0.1);
+    --rail-tick: oklch(1 0 0 / 0.17);
+    --rail-tick-major: oklch(1 0 0 / 0.32);
+    --rail-node-idle: oklch(1 0 0 / 0.34);
+    --rail-notch: var(--ink-bg);
+  }
+
+  /* -------------------------------------------------------------- ruler -- */
+  /* Fine, even measure. The *meaningful* ticks are the taller boundary marks
+     drawn per segment below — those land on the stage divisions, so the ruler
+     reads as an axis the stages are plotted against rather than texture. */
+  .rail__ruler {
+    height: var(--rail-tick-len);
+    background-image: repeating-linear-gradient(
+      to right,
+      var(--rail-tick) 0 1px,
+      transparent 1px var(--rail-tick-gap)
+    );
+    background-repeat: repeat-x;
+    background-size: var(--rail-tick-gap) var(--rail-tick-len);
+    background-position: 0 100%;
+    /* An axis continuing past the frame, not a box that stops. */
+    mask-image: linear-gradient(to right, #000 72%, transparent);
+  }
+
+  .rail__ruler--v {
+    width: var(--rail-tick-len-major);
+    height: 100%;
+    background-image:
+      repeating-linear-gradient(
+        to bottom,
+        var(--rail-tick-major) 0 1px,
+        transparent 1px calc(var(--rail-tick-gap) * 5)
+      ),
+      repeating-linear-gradient(
+        to bottom,
+        var(--rail-tick) 0 1px,
+        transparent 1px var(--rail-tick-gap)
+      );
+    background-repeat: repeat-y;
+    background-size:
+      var(--rail-tick-len-major) calc(var(--rail-tick-gap) * 5),
+      var(--rail-tick-len) var(--rail-tick-gap);
+    mask-image: linear-gradient(to bottom, #000 90%, transparent);
+  }
+
+  /* -------------------------------------------------------------- track -- */
+  .rail__track {
+    position: relative;
+    display: flex;
+    height: var(--rail-track-w);
+    background: var(--rail-track);
+    /* Gives the playhead a `cqw` basis to travel across without reading
+       layout on every frame. No paint containment, so nodes still overflow. */
+    container-type: inline-size;
+  }
+
+  /* Fill behind the playhead. scaleX is compositor-cheap. */
+  .rail__track::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transform-origin: left center;
+    transform: scaleX(var(--rail-progress));
+    /* Committed track is solid; only the last stretch before the playhead
+       carries extra energy, so the fill reads as travelled distance rather
+       than a bar that has been filled in. */
+    background: linear-gradient(
+      to right,
+      var(--rail-fill) 0 88%,
+      var(--brand-glow) 100%
+    );
+  }
+
+  /* Vertical orientation — mobile teaser and the /process timeline. */
+  .rail__track--v {
+    flex-direction: column;
+    width: var(--rail-track-w);
+    height: 100%;
+    min-height: 100%;
+    container-type: size;
+  }
+  .rail__track--v::after {
+    transform-origin: center top;
+    transform: scaleY(var(--rail-progress));
+    background: linear-gradient(
+      to bottom,
+      var(--rail-fill) 0 88%,
+      var(--brand-glow) 100%
+    );
+  }
+  .rail__track--v .rail__segment + .rail__segment::before {
+    inset-block: auto;
+    inset-inline: -1px;
+    top: 0;
+    left: auto;
+    width: auto;
+    height: 2px;
+  }
+  .rail__track--v .rail__node--astride {
+    left: 50%;
+    top: 0;
+  }
+  .rail__track--v .rail__segment::after {
+    bottom: auto;
+    left: auto;
+    right: calc(100% + 4px);
+    top: 0;
+    width: var(--rail-tick-len-major);
+    height: 1px;
+  }
+  .rail__track--v .rail__playhead {
+    inset-block: auto;
+    inset-inline: -4px;
+    top: 0;
+    left: auto;
+    width: auto;
+    height: 2px;
+    translate: 0 calc(var(--rail-progress) * var(--rail-span, 100cqh));
+  }
+  .rail__track--v .rail__playhead::before,
+  .rail__track--v .rail__playhead::after {
+    top: -2px;
+    left: auto;
+    width: 2px;
+    height: 6px;
+  }
+  .rail__track--v .rail__playhead::before { left: 0; }
+  .rail__track--v .rail__playhead::after { right: 0; }
+
+  /* ------------------------------------------------------------ segment -- */
+  /* Width carries the stage's weight. Boundaries are notches cut into a
+     continuous track — one system divided, not N separate bars. */
+  .rail__segment {
+    flex: var(--w, 1) 1 0;
+    position: relative;
+  }
+  .rail__segment + .rail__segment::before {
+    content: '';
+    position: absolute;
+    inset-block: -1px;
+    left: 0;
+    width: 2px;
+    background: var(--rail-notch);
+    z-index: 2;
+  }
+
+  /* Boundary tick: the stage division projected up into the ruler band, so
+     the measure above the track is actually measuring these stages. */
+  .rail__segment::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: calc(100% + 4px);
+    width: 1px;
+    height: var(--rail-tick-len-major);
+    background: var(--rail-tick-major);
+  }
+
+  /* --------------------------------------------------------------- node -- */
+  /* Diamond, not a circle — the ring-on-a-hairline is the generic tell.
+     Default is committed; the scroll layer below rewinds it to queued. */
+  .rail__node {
+    position: relative;
+    z-index: 3; /* above the track fill and the segment notches */
+    width: var(--rail-node);
+    height: var(--rail-node);
+    rotate: 45deg;
+    border: 1.5px solid var(--rail-fill);
+    background: var(--rail-fill);
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--brand-glow) 60%, transparent);
+  }
+
+  /* Astride the track, at the segment's leading edge. */
+  .rail__node--astride {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    translate: -50% -50%;
+  }
+
+  /* ----------------------------------------------------------- playhead -- */
+  .rail__playhead {
+    position: absolute;
+    inset-block: -4px;
+    left: 0;
+    width: 2px;
+    background: var(--brand-glow);
+    translate: calc(var(--rail-progress) * var(--rail-span, 100cqw)) 0;
+    box-shadow: 0 0 10px 1px color-mix(in oklab, var(--brand-glow) 55%, transparent);
+    opacity: 0;
+    pointer-events: none;
+  }
+  .rail__playhead::before,
+  .rail__playhead::after {
+    content: '';
+    position: absolute;
+    left: -2px;
+    width: 6px;
+    height: 2px;
+    background: var(--brand-glow);
+  }
+  .rail__playhead::before { top: 0; }
+  .rail__playhead::after { bottom: 0; }
+
+  /* -------------------------------------------------------- axis labels -- */
+  /* The ordinal demotes to an axis coordinate — sequence stays legible but
+     stops being the marker. Mono here is measurement, not costume. */
+  .rail__coord {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: var(--logo-accent);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .rail__label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: -0.012em;
+    color: var(--ink);
+  }
+
+  /* ---------------------------------------------------- scroll coupling -- */
+  /* Scroll position IS process position — the one place scroll-linked motion
+     carries real meaning here.
+
+     This was authored against CSS `animation-timeline: view()`, but Chrome 148
+     reports CSS.supports('animation-timeline','view()') === true while the
+     CSS-declared timeline resolves inactive (a JS-constructed ViewTimeline on
+     the same element scrubs correctly). Firefox has no support at all. So the
+     driver lives in rail.ts instead — it sets --rail-progress and the node
+     states, and stops entirely when the rail is off screen.
+
+     Everything below only engages once that script adds [data-rail-live].
+     Without it — no JS, reduced motion, script error — the rail keeps the
+     finished default above: full track, all nodes committed. Never blank,
+     never half-drawn. */
+  .rail[data-rail-live] { --rail-progress: 0; }
+
+  .rail[data-rail-live] .rail__node {
+    border-color: var(--rail-node-idle);
+    background: transparent;
+    transition:
+      background-color var(--dur) var(--ease-out-quart),
+      border-color var(--dur) var(--ease-out-quart),
+      box-shadow var(--dur-slow) var(--ease-out-quart);
+  }
+  .rail[data-rail-live] .rail__node[data-state='committed'],
+  .rail[data-rail-live] .rail__node[data-state='active'] {
+    border-color: var(--rail-fill);
+    background: var(--rail-fill);
+  }
+  /* The stage the reader is inside — the only node carrying emphasis. */
+  .rail[data-rail-live] .rail__node[data-state='active'] {
+    box-shadow:
+      0 0 0 4px color-mix(in oklab, var(--brand-glow) 26%, transparent),
+      0 0 14px 1px color-mix(in oklab, var(--brand-glow) 55%, transparent);
+  }
+
+  .rail[data-rail-live] .rail__playhead { opacity: 1; }
+  /* Parked at either end it would read as a stray tick, so hide it there. */
+  .rail[data-rail-live][data-at-edge] .rail__playhead { opacity: 0; }
+}

@@ -4,7 +4,7 @@
    Organized with @layer so component styles always win predictably.
    ========================================================================== */
 
-@layer reset, tokens, base, utilities;
+@layer reset, tokens, base, utilities, rail;
 
 /* ---------------------------------------------------------------- tokens -- */
 @layer tokens {

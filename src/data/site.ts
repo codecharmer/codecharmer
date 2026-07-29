@@ -25,8 +25,13 @@ export type Pillar = {
   problem: string;
   /** Capabilities list ("What's included"). */
   included: string[];
-  /** Ordered approach — a real sequence. */
-  approach: { title: string; body: string }[];
+  /**
+   * Ordered approach — a real sequence. `weight` is optional and follows the
+   * same rule as Stage['weight']: a design-authored proportion, never data.
+   * Omitted here on purpose — these three steps carry no weighting claim in
+   * the copy, so the rail renders them evenly rather than inventing one.
+   */
+  approach: { title: string; body: string; weight?: number }[];
   faq: { q: string; a: string }[];
   /** Slug of a related case study. */
   relatedCase: string;
@@ -204,16 +209,33 @@ export const beliefs: Belief[] = [
   },
 ];
 
-export type Stage = { n: number; name: string; body: string; deliverable: string };
+export type Stage = {
+  n: number;
+  name: string;
+  body: string;
+  deliverable: string;
+  /**
+   * Relative *decision leverage* of this stage — how much of the project's
+   * eventual cost is determined here. Drives the width of the stage's segment
+   * on the instrumented rail, so the copy's own claims ("deliberately
+   * front-loaded", "each one making the next cheaper", "this is where the
+   * biggest costs are won or lost") render as geometry instead of adjectives.
+   *
+   * NOT duration, NOT budget share, NOT measured data — a design-authored
+   * proportion. Render it as unlabeled relative width only; never attach
+   * units, weeks, or percentages to it.
+   */
+  weight: number;
+};
 
 export const process: Stage[] = [
-  { n: 1, name: 'Discovery', body: 'Understand the business, the users, and the real problem before proposing anything. We ask more questions than most agencies do — it’s cheaper than building the wrong thing.', deliverable: 'A shared understanding of the problem and what success looks like.' },
-  { n: 2, name: 'Architecture', body: 'Design the system — data, structure, and integrations — so everything downstream is cheaper. This is where the biggest costs are won or lost.', deliverable: 'A system design and a plan you can budget against.' },
-  { n: 3, name: 'Design', body: 'Interface and experience that serve the workflow and the brand, not decoration. Every screen earns its place.', deliverable: 'Interfaces and flows, ready to build.' },
-  { n: 4, name: 'Development', body: 'Production-grade engineering: maintainable, accessible, and fast by default. Tested as it’s written, not bolted on at the end.', deliverable: 'Working software you can actually read and extend.' },
-  { n: 5, name: 'Testing', body: 'Verify against real conditions and edge cases before anything ships. Empty states, error states, the messy middle — all of it.', deliverable: 'Confidence it holds up under real use.' },
-  { n: 6, name: 'Launch', body: 'Deploy with confidence, hand over the keys, and make sure the team can drive. Documentation and workflows included.', deliverable: 'A live platform and a team that can run it.' },
-  { n: 7, name: 'Growth', body: 'Measure, iterate, and extend — the platform compounds instead of stalling. We stay as long as we’re adding value, and no longer.', deliverable: 'A roadmap and the data to prioritize it.' },
+  { n: 1, name: 'Discovery', weight: 3.6, body: 'Understand the business, the users, and the real problem before proposing anything. We ask more questions than most agencies do — it’s cheaper than building the wrong thing.', deliverable: 'A shared understanding of the problem and what success looks like.' },
+  { n: 2, name: 'Architecture', weight: 4.4, body: 'Design the system — data, structure, and integrations — so everything downstream is cheaper. This is where the biggest costs are won or lost.', deliverable: 'A system design and a plan you can budget against.' },
+  { n: 3, name: 'Design', weight: 2.8, body: 'Interface and experience that serve the workflow and the brand, not decoration. Every screen earns its place.', deliverable: 'Interfaces and flows, ready to build.' },
+  { n: 4, name: 'Development', weight: 2.2, body: 'Production-grade engineering: maintainable, accessible, and fast by default. Tested as it’s written, not bolted on at the end.', deliverable: 'Working software you can actually read and extend.' },
+  { n: 5, name: 'Testing', weight: 1.5, body: 'Verify against real conditions and edge cases before anything ships. Empty states, error states, the messy middle — all of it.', deliverable: 'Confidence it holds up under real use.' },
+  { n: 6, name: 'Launch', weight: 1.1, body: 'Deploy with confidence, hand over the keys, and make sure the team can drive. Documentation and workflows included.', deliverable: 'A live platform and a team that can run it.' },
+  { n: 7, name: 'Growth', weight: 1.4, body: 'Measure, iterate, and extend — the platform compounds instead of stalling. We stay as long as we’re adding value, and no longer.', deliverable: 'A roadmap and the data to prioritize it.' },
 ];
 
 /** Contact form option sets. */

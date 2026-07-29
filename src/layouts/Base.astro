@@ -5,6 +5,7 @@ import '@fontsource-variable/bricolage-grotesque/index.css';
 import '@fontsource-variable/hanken-grotesk/wght.css';
 import '@fontsource-variable/geist-mono/wght.css';
 import '@styles/global.css';
+import '@styles/rail.css';
 
 import Header from '@components/layout/Header.astro';
 import Footer from '@components/layout/Footer.astro';
@@ -45,9 +46,16 @@ const favicon =
     <meta property="og:url" content={canonical} />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <!-- Enable scroll reveals only when motion is allowed (before paint, no flash) -->
+    <!-- Arm scroll reveals before paint (no flash), but only when they can
+         actually be delivered. IntersectionObserver callbacks ride rendering
+         opportunities, so a tab that starts hidden may never get one — arming
+         the gate there would hide the whole page indefinitely. Motion off or
+         document hidden: never gate, content just renders. -->
     <script is:inline>
-      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      if (
+        !window.matchMedia('(prefers-reduced-motion: reduce)').matches &&
+        document.visibilityState !== 'hidden'
+      ) {
         document.documentElement.classList.add('reveals-ready');
       }
     </script>
@@ -61,9 +69,22 @@ const favicon =
     <Footer />
 
     <script>
+      import { initRails } from '@scripts/rail';
+      initRails();
+    </script>
+
+    <script>
       // Reveal-on-scroll: enhance an already-visible default.
+      //
+      // Nothing here may leave content hidden. IntersectionObserver only
+      // delivers callbacks on rendering opportunities, so a hidden, throttled,
+      // or instantly-jumped-past element can go without one indefinitely —
+      // and an element gated at opacity 0 that never gets its callback is a
+      // permanently invisible section. Every path below ends in `is-in`.
       const revealables = document.querySelectorAll<HTMLElement>('.reveal');
-      if (revealables.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const revealAll = () => revealables.forEach((el) => el.classList.add('is-in'));
+
+      if (revealables.length && document.documentElement.classList.contains('reveals-ready')) {
         const io = new IntersectionObserver(
           (entries, obs) => {
             for (const entry of entries) {
@@ -76,8 +97,23 @@ const favicon =
           { rootMargin: '0px 0px -10% 0px', threshold: 0.12 },
         );
         revealables.forEach((el) => io.observe(el));
+
+        // Failsafe: whatever the observer has not reached by now becomes
+        // visible anyway. Bounds worst-case invisibility to one beat.
+        const failsafe = window.setTimeout(revealAll, 1600);
+
+        // Leaving the tab stops rendering, and therefore stops callbacks.
+        // Reveal everything rather than let a backgrounded page freeze
+        // half-hidden; also covers bfcache restores.
+        document.addEventListener('visibilitychange', () => {
+          if (document.visibilityState === 'hidden') {
+            window.clearTimeout(failsafe);
+            revealAll();
+          }
+        });
+        window.addEventListener('pageshow', revealAll);
       } else {
-        revealables.forEach((el) => el.classList.add('is-in'));
+        revealAll();
       }
     </script>
   </body>

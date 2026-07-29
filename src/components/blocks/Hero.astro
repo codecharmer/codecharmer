@@ -113,7 +113,9 @@ import { nav } from '@data/site';
   }
 
   @media (min-width: 62rem) {
-    .hero__inner { grid-template-columns: 1.05fr 0.95fr; }
+    /* minmax(0,…) so the display type's min-content can't quietly annex the
+       diagram's column — the system graphic is half the argument here. */
+    .hero__inner { grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr); }
     .hero__visual { max-width: none; }
   }
 

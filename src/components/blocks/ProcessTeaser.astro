@@ -4,6 +4,23 @@ import { process } from '@data/site';
 
 interface Props { tone?: 'light' | 'ink' }
 const { tone = 'light' } = Astro.props;
+
+/**
+ * Instrumented rail geometry.
+ *
+ * Segment width = stage weight (decision leverage — see Stage['weight']).
+ * Each stage's span along the rail is emitted as data-from/data-to fractions;
+ * rail.ts compares the scroll progress against them to set node and readout
+ * state. Computed here because the weights are known at build time.
+ */
+const total = process.reduce((sum, s) => sum + s.weight, 0);
+
+let cursor = 0;
+const stages = process.map((s) => {
+  const from = cursor / total;
+  cursor += s.weight;
+  return { ...s, from: +from.toFixed(4), to: +(cursor / total).toFixed(4) };
+});
 ---
 
 <section class:list={['section process-teaser', tone === 'ink' && 'band-ink']}>
@@ -18,16 +35,36 @@ const { tone = 'light' } = Astro.props;
       </p>
     </header>
 
-    <ol role="list" class="pt__track reveal">
-      {
-        process.map((s) => (
-          <li class="pt__step">
-            <span class="pt__num">{String(s.n).padStart(2, '0')}</span>
-            <span class="pt__name">{s.name}</span>
+    <div class="pt__rail rail reveal" data-scrub="band">
+      <div class="pt__ruler rail__ruler" aria-hidden="true"></div>
+
+      <div class="pt__track rail__track" aria-hidden="true">
+        {stages.map((s) => (
+          <div class="rail__segment" style={`--w:${s.weight}`}>
+            <span class="rail__node rail__node--astride" data-from={s.from} data-to={s.to} />
+          </div>
+        ))}
+        <span class="rail__playhead"></span>
+      </div>
+
+      <ol role="list" class="pt__stages">
+        {stages.map((s) => (
+          <li class="pt__stage" style={`--w:${s.weight}`}>
+            <span class="rail__coord">{String(s.n).padStart(2, '0')}</span>
+            <span class="rail__label pt__name">{s.name}</span>
           </li>
-        ))
-      }
-    </ol>
+        ))}
+      </ol>
+
+      <ul role="list" class="pt__readout">
+        {stages.map((s) => (
+          <li class="pt__out" data-from={s.from} data-to={s.to}>
+            <span class="pt__out-label">{s.name} delivers</span>
+            <span class="pt__out-text">{s.deliverable}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
 
     <div class="pt__cta reveal">
       <Button href="/process" variant="ghost">See the full process</Button>
@@ -44,55 +81,57 @@ const { tone = 'light' } = Astro.props;
   .pt__title { margin-top: 0.9rem; }
   .pt__intro { max-width: 34rem; }
 
-  .pt__track {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    margin-top: clamp(2.5rem, 5vw, 4rem);
-    counter-reset: step;
+  .pt__rail { margin-top: clamp(2.5rem, 5vw, 4rem); }
+  /* Fine ticks and boundary ticks share a baseline 4px above the track, so
+     the boundary marks read as the taller ones on a single ruler. */
+  .pt__ruler { margin-bottom: 4px; }
+
+  .pt__stages {
+    display: flex;
+    margin-top: 1.1rem;
   }
-  .pt__step {
-    position: relative;
-    padding-top: 2.4rem;
-    padding-inline: 0.4rem;
-  }
-  /* connecting line */
-  .pt__step::before {
-    content: '';
-    position: absolute;
-    top: 0.6rem;
-    left: 0;
-    right: 0;
-    height: 1.5px;
-    background: var(--border);
-  }
-  .pt__step:first-child::before { left: 0.6rem; border-radius: 2px 0 0 2px; }
-  .pt__step:last-child::before { right: 0.6rem; }
-  /* node dot */
-  .pt__step::after {
-    content: '';
-    position: absolute;
-    top: calc(0.6rem - 4.5px);
-    left: 0;
-    width: 11px;
-    height: 11px;
-    border-radius: 50%;
-    background: var(--surface);
-    border: 2px solid var(--brand);
-  }
-  .pt__num {
-    display: block;
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    color: var(--logo-accent);
-    letter-spacing: 0.02em;
+  .pt__stage {
+    flex: var(--w, 1) 1 0;
+    padding-inline-end: 0.75rem;
+    min-width: 0;
   }
   .pt__name {
-    display: block;
-    margin-top: 0.35rem;
-    font-weight: 600;
-    font-size: 0.98rem;
-    letter-spacing: -0.01em;
-    color: var(--ink);
+    margin-top: 0.3rem;
+    /* Seven columns of varying width: let the short names hold one line and
+       the long ones wrap rather than overflow their segment. */
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+
+  /* --- Deliverable readout ------------------------------------------------
+     Base: a plain list of what every stage delivers — copy that already
+     exists in the content model but that this block used to throw away.
+     Enhanced (scroll-driven): the same list collapses into a single readout
+     slot that tracks the playhead. Identical content in both modes. */
+  .pt__readout {
+    margin-top: clamp(1.75rem, 3vw, 2.25rem);
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--border);
+    display: grid;
+    gap: 0.6rem;
+  }
+  .pt__out {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 0.75rem;
+  }
+  .pt__out-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    color: var(--logo-accent);
+    white-space: nowrap;
+  }
+  .pt__out-text {
+    color: var(--ink-muted);
+    font-size: 0.95rem;
+    line-height: 1.5;
   }
 
   .pt__cta { margin-top: clamp(2rem, 4vw, 2.75rem); }
@@ -100,15 +139,118 @@ const { tone = 'light' } = Astro.props;
   @media (min-width: 48rem) {
     .pt__head { grid-template-columns: 1fr 1fr; }
   }
-  @media (max-width: 52rem) {
-    .pt__track { grid-template-columns: repeat(2, 1fr); gap: 0.5rem 1.5rem; }
-    .pt__step { padding-top: 0; padding-left: 1.5rem; padding-block: 0.7rem; }
-    .pt__step::before { top: 0; bottom: 0; left: 5px; right: auto; width: 1.5px; height: auto; }
-    .pt__step:first-child::before,
-    .pt__step:last-child::before { left: 5px; right: auto; }
-    .pt__step::after { top: 0.85rem; left: 0; }
+
+  /* --- Vertical below the 7-column breakpoint ---------------------------- */
+  @media (max-width: 60rem) {
+    .pt__rail {
+      display: grid;
+      grid-template-columns: auto auto 1fr;
+      gap: 0 1rem;
+    }
+    .pt__ruler {
+      width: var(--rail-tick-len-major);
+      height: auto;
+      margin-bottom: 0;
+      background-image:
+        repeating-linear-gradient(to bottom, var(--rail-tick-major) 0 1px, transparent 1px calc(var(--rail-tick-gap) * 5)),
+        repeating-linear-gradient(to bottom, var(--rail-tick) 0 1px, transparent 1px var(--rail-tick-gap));
+      background-repeat: repeat-y;
+      background-size:
+        var(--rail-tick-len-major) calc(var(--rail-tick-gap) * 5),
+        var(--rail-tick-len) var(--rail-tick-gap);
+      mask-image: linear-gradient(to bottom, #000 90%, transparent);
+    }
+    .pt__track {
+      flex-direction: column;
+      width: var(--rail-track-w);
+      height: auto;
+      container-type: size;
+    }
+    .pt__track::after {
+      transform-origin: center top;
+      transform: scaleY(var(--rail-progress));
+      background: linear-gradient(to bottom, color-mix(in oklab, var(--rail-fill) 55%, transparent), var(--rail-fill));
+    }
+    .pt__track .rail__segment + .rail__segment::before {
+      inset-block: auto;
+      inset-inline: -1px;
+      top: 0;
+      left: auto;
+      width: auto;
+      height: 2px;
+    }
+    .pt__track .rail__node--astride { left: 50%; top: 0; }
+    .pt__track .rail__playhead {
+      inset-block: auto;
+      inset-inline: -4px;
+      top: 0;
+      left: auto;
+      width: auto;
+      height: 2px;
+      translate: 0 calc(var(--rail-progress) * var(--rail-span, 100cqh));
+    }
+    .pt__track .rail__playhead::before,
+    .pt__track .rail__playhead::after {
+      top: -2px; left: auto; width: 2px; height: 6px;
+    }
+    .pt__track .rail__playhead::before { left: 0; }
+    .pt__track .rail__playhead::after { right: 0; }
+
+    .pt__stages {
+      flex-direction: column;
+      margin-top: 0;
+    }
+    .pt__stage {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      padding-inline-end: 0;
+      /* Row height carries the weight in this orientation, so the segments
+         beside it stay in register with their labels. */
+      flex: var(--w, 1) 1 0;
+      min-height: 2.75rem;
+    }
+    .pt__name { margin-top: 0; }
+
+    .pt__readout { grid-column: 1 / -1; }
   }
+
   @media (max-width: 30rem) {
-    .pt__track { grid-template-columns: 1fr; }
+    .pt__stage { flex-direction: column; gap: 0.15rem; justify-content: center; }
+  }
+
+  /* --- Scroll-coupled readout --------------------------------------------
+     Only once rail.ts marks the rail live. Until then (and forever without
+     JS or with reduced motion) the block above stands: a plain list of what
+     every stage delivers. Same content either way — the enhancement changes
+     the presentation, never the information. */
+  .rail[data-rail-live] .pt__readout {
+    display: grid;
+    grid-template-areas: 'readout';
+    gap: 0;
+    /* Reserve the tallest line so swapping never shifts the layout. */
+    min-height: 3.5rem;
+  }
+  .rail[data-rail-live] .pt__out {
+    grid-area: readout;
+    opacity: 0;
+    translate: 0 5px;
+    transition:
+      opacity var(--dur) var(--ease-out-quart),
+      translate var(--dur) var(--ease-out-quart);
+  }
+  .rail[data-rail-live] .pt__out[data-state='active'] {
+    opacity: 1;
+    translate: 0 0;
+  }
+  /* At progress 1 the final segment reads committed, not active — pin its
+     readout rather than leaving the slot empty. */
+  .rail[data-rail-live] .pt__out[data-state='committed']:last-child {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rail .pt__out { transition: none; }
   }
 </style>
