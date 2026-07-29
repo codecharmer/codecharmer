@@ -1,0 +1,87 @@
+/* Beliefs / principles band — ported from the original components. */
+
+.beliefs {
+	position: relative;
+	overflow: clip;
+}
+
+.beliefs__ambient {
+	position: absolute;
+	inset: 0;
+	background: radial-gradient(45% 55% at 85% 12%, oklch(0.79 0.12 202 / 0.12), transparent 70%);
+	pointer-events: none;
+}
+
+.beliefs__inner {
+	position: relative;
+}
+
+.beliefs__head {
+	max-width: 40rem;
+}
+
+.beliefs__intro {
+	margin-top: 1rem;
+}
+
+.beliefs__grid {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: clamp(1.75rem, 4vw, 3rem) clamp(2rem, 5vw, 3rem);
+	margin-top: clamp(2.5rem, 5vw, 3.75rem);
+}
+
+@media (min-width: 40rem) {
+
+	.beliefs__grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media (min-width: 64rem) {
+
+	.beliefs--cols-2 .beliefs__grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.beliefs--cols-3 .beliefs__grid {
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+	.beliefs--cols-4 .beliefs__grid {
+		grid-template-columns: repeat(4, 1fr);
+	}
+}
+
+.belief {
+	max-width: 34ch;
+}
+
+.belief__mark {
+	display: grid;
+	place-items: center;
+	width: 2.5rem;
+	height: 2.5rem;
+	border-radius: var(--radius-sm);
+	background: oklch(0.83 0.13 200 / 0.12);
+	color: var(--brand-glow);
+	margin-bottom: 1rem;
+}
+
+.belief__title {
+	font-size: 1.2rem;
+	font-weight: 600;
+	letter-spacing: -0.015em;
+	color: var(--on-ink);
+	margin-bottom: 0.5rem;
+}
+
+.belief__body {
+	color: var(--on-ink-mut);
+	line-height: 1.55;
+}
+
+.cc-beliefs-editor {
+	padding: 2rem;
+	border-radius: 0.75rem;
+}

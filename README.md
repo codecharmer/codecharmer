@@ -1,101 +1,60 @@
 # Code Charmer
 
-Marketing site for [codecharmer.io](https://codecharmer.io), built with [Astro](https://astro.build). Ships as a static HTML/CSS/JS site, with components structured so each maps cleanly to a future block-based WordPress theme.
+Site for [codecharmer.io](https://codecharmer.io) — a custom **WordPress block theme + core plugin** monorepo. Every section is a server-rendered Gutenberg block; the site converted from (and stays pixel-faithful to) the original static Astro build, which lives in git history.
+
+```
+wp-content/themes/codecharmer/        Block theme — presentation only
+wp-content/plugins/codecharmer-core/  Engine: blocks, CPTs, REST, SEO, seeder
+```
 
 ## Requirements
 
-- **Node.js** `>=18.20.8` (the repo is pinned to **22** via [`.nvmrc`](.nvmrc))
-- **npm** (bundled with Node)
-
-If you use [nvm](https://github.com/nvm-sh/nvm), run `nvm use` in the project root to switch to the expected version:
-
-```bash
-nvm use
-```
+- **Node.js ≥ 20** (pinned via [`.nvmrc`](.nvmrc) — run `nvm use`)
+- **Composer** (PHP tooling; code targets PHP 8.3 / WP 6.8+)
+- **Docker** (for `wp-env` local WordPress)
 
 ## Getting started
 
-Clone the repo and install dependencies:
+```bash
+nvm use
+npm install          # workspaces: theme + plugin (+ @wordpress/scripts)
+composer install     # phpcs (WordPress + WordPress VIP standards), phpstan
+npm run build        # compile the Gutenberg blocks into the plugin's build/
+npm run env:start    # boot local WordPress (wp-env)
+```
+
+Then activate and seed:
 
 ```bash
-git clone git@github.com:codecharmer/codecharmer.git
-cd codecharmer
-npm install
+npm run env:cli -- theme activate codecharmer
+npm run env:cli -- plugin activate codecharmer-core
+npm run env:install-content    # wp codecharmer install — pages, projects, media
 ```
 
-Start the development server:
+Local site: http://localhost:8888 (admin: `admin` / `password`).
+
+## Quality gates
 
 ```bash
-npm run dev
+composer run lint    # PHPCS: WordPress-Core/Extra/Docs + WordPress-VIP-Go — must be clean
+composer run analyze # PHPStan level 6 (advisory)
+npm run lint         # eslint + stylelint (@wordpress presets)
+npm run build        # blocks must compile
 ```
 
-The site will be available at [http://localhost:4321](http://localhost:4321) with hot-module reloading.
+CI (`.github/workflows/ci.yml`) enforces the same on every push and PR.
 
-## Scripts
+## Content model
 
-| Command           | Description                                        |
-| ----------------- | -------------------------------------------------- |
-| `npm run dev`     | Start the local dev server at `localhost:4321`     |
-| `npm run build`   | Build the production site to `./dist/`             |
-| `npm run preview` | Serve the built site locally to preview the output |
-| `npm run astro`   | Run Astro CLI commands (e.g. `npm run astro check`)|
+Pages are seeded once by `wp codecharmer install` from `wp-content/plugins/codecharmer-core/data/*.php` (block-grammar heredocs — the "brand layer"). After the first deploy the marker file `.wp-content-seeded` prevents re-seeding, so owner edits are never overwritten. Projects are `cc_project` posts; services are pages under `/services` carrying `cc_icon` / `cc_descriptor` / `cc_thesis` meta that the mega-menu and services blocks query.
 
-## Building for production
+## Deploy
 
-```bash
-npm run build
-```
+Pushing `wp-content/**` (or the manifests) to `master` triggers `.github/workflows/deploy.yml`:
 
-Static output is written to `./dist/`. Preview the exact build before deploying:
+1. Build blocks (npm workspaces).
+2. Bootstrap WordPress core on the VPS if absent (first deploy only).
+3. `rsync --delete` scoped to the theme + plugin directories — core, `wp-config.php`, and uploads are never touched.
+4. Activate theme + plugin, seed once, flush object + cPanel NGINX caches.
 
-```bash
-npm run preview
-```
-
-## Project structure
-
-```
-src/
-├── pages/          # Routes — each file maps to a URL
-├── layouts/        # Shared page shells (Base.astro)
-├── components/
-│   ├── blocks/     # Page sections (Hero, Faq, CtaBand…) — future Gutenberg blocks
-│   ├── layout/     # Header, Footer
-│   ├── ui/         # Primitives (Button, Icon, Logo)
-│   └── graphics/   # SVG / diagram components
-├── data/           # Site content and configuration (site.ts)
-├── styles/         # Global CSS and design tokens (global.css)
-└── env.d.ts        # Astro type definitions
-
-docs/               # Internal planning notes
-```
-
-### Path aliases
-
-Import aliases are configured in [`tsconfig.json`](tsconfig.json):
-
-| Alias           | Resolves to        |
-| --------------- | ------------------ |
-| `@components/*` | `src/components/*` |
-| `@layouts/*`    | `src/layouts/*`    |
-| `@data/*`       | `src/data/*`       |
-| `@styles/*`     | `src/styles/*`     |
-
-```astro
----
-import Base from '@layouts/Base.astro';
-import Hero from '@components/blocks/Hero.astro';
----
-```
-
-## Adding a page
-
-Create a `.astro` file under `src/pages/`. The file path becomes the route — for example, `src/pages/about.astro` serves `/about`. Nested routes live in subdirectories (`src/pages/services/index.astro` → `/services`).
-
-## Fonts
-
-Web fonts are self-hosted via [Fontsource](https://fontsource.org) and imported in the layout, so there are no external font requests at runtime:
-
-- Bricolage Grotesque (variable)
-- Hanken Grotesk (variable)
-- Geist Mono (variable)
+Deploy plumbing is generated by `~/setup-vps-deploy.sh` (see that script's `--help` for the WordPress mode flags, including `--wp-reseed`).

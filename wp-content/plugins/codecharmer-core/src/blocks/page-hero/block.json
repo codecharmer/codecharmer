@@ -1,0 +1,27 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "codecharmer/page-hero",
+	"title": "Page Hero",
+	"category": "codecharmer",
+	"icon": "cover-image",
+	"description": "Interior page hero: eyebrow, display title, lead intro and optional CTAs, on the light or deep-ink surface.",
+	"textdomain": "codecharmer-core",
+	"attributes": {
+		"tone": { "type": "string", "default": "light", "enum": [ "light", "ink" ] },
+		"eyebrow": { "type": "string", "default": "" },
+		"title": { "type": "string", "default": "" },
+		"intro": { "type": "string", "default": "" },
+		"primaryLabel": { "type": "string", "default": "" },
+		"primaryUrl": { "type": "string", "default": "" },
+		"secondaryLabel": { "type": "string", "default": "" },
+		"secondaryUrl": { "type": "string", "default": "" },
+		"note": { "type": "string", "default": "" }
+	},
+	"supports": {
+		"html": false
+	},
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

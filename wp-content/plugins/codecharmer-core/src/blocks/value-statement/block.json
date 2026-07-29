@@ -1,0 +1,19 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "codecharmer/value-statement",
+	"title": "Value Statement",
+	"category": "codecharmer",
+	"icon": "editor-quote",
+	"description": "Display-face value statement with emphasized phrase and a row of supporting points.",
+	"textdomain": "codecharmer-core",
+	"attributes": {
+		"lead": { "type": "string", "default": "Most agencies build you a website. We build the <em>system it runs on</em> — engineered to generate revenue, remove manual work, and stay under your control." }
+	},
+	"supports": {
+		"html": false
+	},
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

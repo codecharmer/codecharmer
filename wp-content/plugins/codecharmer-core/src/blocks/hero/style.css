@@ -1,0 +1,359 @@
+/* Hero + system diagram — ported from the original components. */
+
+.hero {
+	position: relative;
+	overflow: clip;
+	padding-block: clamp(3.5rem, 2rem + 9vw, 7.5rem) clamp(4rem, 2.5rem + 9vw, 8rem);
+}
+
+.hero__ambient {
+	position: absolute;
+	inset: 0;
+	background:
+		radial-gradient(60% 55% at 78% 30%, oklch(0.79 0.12 202 / 0.18), transparent 70%),
+		radial-gradient(50% 60% at 8% 90%, oklch(0.6 0.1 250 / 0.14), transparent 70%);
+	pointer-events: none;
+}
+
+.hero__inner {
+	position: relative;
+	display: grid;
+	gap: clamp(2.5rem, 5vw, 4rem);
+	align-items: center;
+}
+
+.hero__kicker {
+	margin-bottom: 1.25rem;
+}
+
+.hero__title {
+	font-size: var(--t-display);
+	font-weight: 750;
+	line-height: 1.02;
+	letter-spacing: -0.03em;
+	text-wrap: balance;
+	font-variation-settings: "opsz" 48;
+}
+
+/* Charm underline */
+.charm {
+	position: relative;
+	white-space: nowrap;
+	color: var(--brand-glow);
+}
+
+.charm__line {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: -0.14em;
+	width: 100%;
+	height: 0.42em;
+	overflow: visible;
+}
+
+.charm__line path {
+	fill: none;
+	stroke: var(--brand);
+	stroke-width: 3;
+	stroke-linecap: round;
+	filter: drop-shadow(0 0 6px oklch(0.79 0.12 202 / 0.5));
+}
+
+.hero__sub {
+	max-width: 34rem;
+	margin-top: 1.5rem;
+	font-size: var(--t-body-lg);
+	line-height: 1.55;
+	color: var(--on-ink-mut);
+	text-wrap: pretty;
+}
+
+.hero__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.85rem;
+	margin-top: 2rem;
+}
+
+.hero__trust {
+	margin-top: 1.5rem;
+	font-family: var(--font-mono);
+	font-size: var(--t-small);
+	color: var(--on-ink-mut);
+}
+
+.hero__visual {
+	justify-self: center;
+	width: 100%;
+	max-width: 34rem;
+}
+
+@media (min-width: 62rem) {
+
+	.hero__inner {
+		grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+	}
+
+	.hero__visual {
+		max-width: none;
+	}
+}
+
+/* Load orchestration — only when motion is welcome; default state is visible */
+@media (prefers-reduced-motion: no-preference) {
+
+	.hero__kicker,
+	.hero__title,
+	.hero__sub,
+	.hero__actions,
+	.hero__trust {
+		animation: hero-rise 0.72s var(--ease-out-expo) both;
+	}
+
+	.hero__kicker {
+		animation-delay: 0.05s;
+	}
+
+	.hero__title {
+		animation-delay: 0.14s;
+	}
+
+	.hero__sub {
+		animation-delay: 0.28s;
+	}
+
+	.hero__actions {
+		animation-delay: 0.4s;
+	}
+
+	.hero__trust {
+		animation-delay: 0.5s;
+	}
+
+	.hero__visual {
+		animation: hero-fade 1s var(--ease-out-quart) 0.3s both;
+	}
+
+	.charm__line path {
+		stroke-dasharray: 1;
+		stroke-dashoffset: 1;
+		animation: charm-draw 0.7s var(--ease-out-quart) 0.75s forwards;
+	}
+
+	@keyframes hero-rise {
+
+		from {
+			opacity: 0;
+			transform: translateY(18px);
+		}
+
+		to {
+			opacity: 1;
+			transform: none;
+		}
+	}
+
+	@keyframes hero-fade {
+
+		from {
+			opacity: 0;
+			transform: scale(0.97);
+		}
+
+		to {
+			opacity: 1;
+			transform: none;
+		}
+	}
+
+	@keyframes charm-draw {
+
+		to {
+			stroke-dashoffset: 0;
+		}
+	}
+}
+
+/* — System diagram — */
+.sysdiagram {
+	width: 100%;
+	height: auto;
+	overflow: visible;
+}
+
+.sd-plane-label {
+	font-family: var(--font-mono);
+	font-size: 11.5px;
+	letter-spacing: 0.14em;
+}
+
+.sd-node-label {
+	font-family: var(--font-mono);
+	font-size: 13px;
+	letter-spacing: 0.01em;
+}
+
+.sd-core-label {
+	font-family: var(--font-mono);
+	font-size: 14px;
+	font-weight: 500;
+	letter-spacing: 0.06em;
+}
+
+/* Static default: a complete, legible system. Motion only adds life. */
+.sd-packet,
+.sd-lateral {
+	opacity: 0;
+}
+
+.sd-bar {
+	opacity: 0.28;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+	.sd-core-glow {
+		transform-origin: 260px 231px;
+		animation: sd-pulse 5s var(--ease-out-quart) infinite;
+	}
+
+	@keyframes sd-pulse {
+
+		0%,
+		100% {
+			opacity: 0.5;
+			transform: scale(0.94);
+		}
+
+		50% {
+			opacity: 1;
+			transform: scale(1.05);
+		}
+	}
+
+	.sd-packet {
+		opacity: 1;
+		stroke-dasharray: 16 60;
+		animation: sd-send 2.6s linear infinite;
+		animation-delay: var(--d, 0ms);
+	}
+
+	@keyframes sd-send {
+
+		from {
+			stroke-dashoffset: 60;
+		}
+
+		to {
+			stroke-dashoffset: -46;
+		}
+	}
+
+	.sd-packet--up {
+		animation-name: sd-send-up;
+	}
+
+	@keyframes sd-send-up {
+
+		from {
+			stroke-dashoffset: -46;
+		}
+
+		to {
+			stroke-dashoffset: 60;
+		}
+	}
+
+	.sd-lateral {
+		opacity: 1;
+		stroke-dasharray: 14 80;
+		animation: sd-lateral-move 3.2s linear infinite;
+		animation-delay: var(--d, 0ms);
+	}
+
+	@keyframes sd-lateral-move {
+
+		from {
+			stroke-dashoffset: 80;
+		}
+
+		to {
+			stroke-dashoffset: -60;
+		}
+	}
+
+	.sd-bar {
+		animation: sd-work 1.9s var(--ease-out-quart) infinite;
+		animation-delay: calc(var(--i) * 90ms);
+		transform-box: fill-box;
+		transform-origin: center bottom;
+	}
+
+	@keyframes sd-work {
+
+		0%,
+		100% {
+			opacity: 0.22;
+			transform: scaleY(0.45);
+		}
+
+		45% {
+			opacity: 1;
+			transform: scaleY(1);
+		}
+	}
+
+	.sd-node {
+		animation: sd-arrive 0.7s var(--ease-out-expo) both;
+		animation-delay: var(--d, 0ms);
+		transform-box: fill-box;
+		transform-origin: center;
+	}
+
+	@keyframes sd-arrive {
+
+		from {
+			opacity: 0;
+			transform: translateY(10px) scale(0.94);
+		}
+
+		to {
+			opacity: 1;
+			transform: none;
+		}
+	}
+}
+
+/* Editor preview */
+.cc-hero-editor {
+	padding: 2.5rem;
+	border-radius: 1rem;
+}
+
+.cc-hero-editor__title {
+	font-size: 2.4rem;
+	line-height: 1.05;
+	margin-top: 0.75rem;
+}
+
+.cc-hero-editor__charm {
+	color: var(--brand-glow, #45d3e6);
+}
+
+.cc-hero-editor__sub {
+	margin-top: 1rem;
+	max-width: 34rem;
+}
+
+.cc-hero-editor__trust {
+	margin-top: 1rem;
+	font-family: var(--font-mono, monospace);
+	font-size: 0.8rem;
+}
+
+.cc-hero-editor__note {
+	margin-top: 1.25rem;
+	font-size: 0.8rem;
+	opacity: 0.6;
+}

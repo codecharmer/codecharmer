@@ -1,0 +1,16 @@
+{
+  "name": "@codecharmer/core",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Code Charmer core plugin — Gutenberg blocks built with @wordpress/scripts.",
+  "license": "GPL-2.0-or-later",
+  "scripts": {
+    "build": "wp-scripts build",
+    "start": "wp-scripts start",
+    "lint:js": "wp-scripts lint-js src",
+    "lint:css": "wp-scripts lint-style 'src/**/*.css'"
+  },
+  "devDependencies": {
+    "@wordpress/scripts": "^30.0.0"
+  }
+}

@@ -1,0 +1,21 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "codecharmer/feature-list",
+	"title": "Feature List",
+	"category": "codecharmer",
+	"icon": "yes-alt",
+	"description": "Capabilities grid with check marks — the “what’s included” section.",
+	"textdomain": "codecharmer-core",
+	"attributes": {
+		"eyebrow": { "type": "string", "default": "Capabilities" },
+		"heading": { "type": "string", "default": "" },
+		"intro": { "type": "string", "default": "" }
+	},
+	"supports": {
+		"html": false
+	},
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

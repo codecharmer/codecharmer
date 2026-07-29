@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "codecharmer/projects",
+	"title": "Projects",
+	"category": "codecharmer",
+	"icon": "portfolio",
+	"description": "Selected work: project cards from the Projects post type — as a homepage teaser or the full grid.",
+	"textdomain": "codecharmer-core",
+	"attributes": {
+		"variant": { "type": "string", "default": "teaser", "enum": [ "teaser", "grid" ] },
+		"count": { "type": "number", "default": 3 },
+		"eyebrow": { "type": "string", "default": "Selected work" },
+		"heading": { "type": "string", "default": "Live in the world." },
+		"ctaLabel": { "type": "string", "default": "See all work" },
+		"ctaUrl": { "type": "string", "default": "/work" }
+	},
+	"supports": {
+		"html": false
+	},
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

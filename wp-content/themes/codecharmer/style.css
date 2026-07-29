@@ -1,0 +1,17 @@
+/*
+Theme Name:        Code Charmer
+Theme URI:         https://codecharmer.io/
+Author:            Code Charmer
+Author URI:        https://codecharmer.io/
+Description:       Block theme for Code Charmer — a premium digital engineering studio. Dual-surface system (off-white home base, deep-ink art-directed bands) with a committed cyan accent. Presentation only: all business logic lives in the codecharmer-core plugin.
+Version:           1.0.0
+Requires at least: 6.8
+Tested up to:      6.9
+Requires PHP:      8.3
+License:           GPL-2.0-or-later
+License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain:       codecharmer
+Tags:              block-theme, one-column, custom-colors, editor-style
+*/
+
+/* Design tokens live in theme.json and assets/css/global.css. */

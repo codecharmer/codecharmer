@@ -1,0 +1,105 @@
+/* Services grid — ported from the original PillarGrid component. */
+
+.pillars__head {
+	max-width: 42rem;
+}
+
+.pillars__title {
+	margin-top: 0.9rem;
+}
+
+.pillars__intro {
+	margin-top: 1rem;
+}
+
+.pillars__list {
+	margin-top: clamp(2rem, 4vw, 3.25rem);
+}
+
+.pillars__list > li {
+	border-top: 1px solid var(--border);
+}
+
+.pillars__list > li:last-child {
+	border-bottom: 1px solid var(--border);
+}
+
+.pillar {
+	display: grid;
+	grid-template-columns: auto 1fr auto;
+	align-items: center;
+	gap: clamp(1rem, 3vw, 2rem);
+	padding: clamp(1.25rem, 3vw, 1.9rem) 0.25rem;
+	transition: padding-inline var(--dur) var(--ease-out-expo);
+}
+
+.pillar:hover {
+	padding-inline: 1.1rem 0.25rem;
+}
+
+.pillar__icon {
+	display: grid;
+	place-items: center;
+	width: 3.25rem;
+	height: 3.25rem;
+	border-radius: var(--radius);
+	background: color-mix(in oklab, var(--brand) 12%, var(--surface));
+	color: var(--brand-ink);
+	border: 1px solid var(--border);
+	transition: background-color var(--dur) var(--ease-out-quart), color var(--dur) var(--ease-out-quart);
+}
+
+.pillar:hover .pillar__icon {
+	background: var(--brand);
+	color: var(--on-brand);
+	border-color: transparent;
+}
+
+.pillar__body {
+	display: flex;
+	flex-direction: column;
+	gap: 0.3rem;
+}
+
+.pillar__name {
+	font-family: var(--font-display);
+	font-size: clamp(1.2rem, 0.9rem + 1vw, 1.6rem);
+	font-weight: 600;
+	letter-spacing: -0.02em;
+	color: var(--ink);
+}
+
+.pillar__desc {
+	color: var(--ink-muted);
+	max-width: 44ch;
+}
+
+.pillar__go {
+	display: grid;
+	place-items: center;
+	width: 2.75rem;
+	height: 2.75rem;
+	border-radius: var(--radius-pill);
+	color: var(--ink-muted);
+	transition: transform var(--dur) var(--ease-out-expo), color var(--dur) var(--ease-out-quart), background-color var(--dur) var(--ease-out-quart);
+}
+
+.pillar:hover .pillar__go {
+	color: var(--brand-ink);
+	transform: translateX(4px);
+}
+
+@media (max-width: 34rem) {
+
+	.pillar {
+		grid-template-columns: auto 1fr;
+	}
+
+	.pillar__go {
+		display: none;
+	}
+}
+
+.cc-services-grid-editor {
+	padding: 1.5rem;
+}

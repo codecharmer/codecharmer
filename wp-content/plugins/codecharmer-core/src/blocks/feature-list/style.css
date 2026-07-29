@@ -1,0 +1,50 @@
+/* Feature list — ported from the original component. */
+
+.featurelist__head {
+	max-width: 40rem;
+}
+
+.featurelist__title {
+	margin-top: 0.9rem;
+}
+
+.featurelist__intro {
+	margin-top: 1rem;
+}
+
+.featurelist__grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+	gap: 0.85rem 2rem;
+	margin-top: clamp(2rem, 4vw, 3rem);
+}
+
+.featurelist__item {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	padding: 0.9rem 0;
+	border-top: 1px solid var(--border);
+	font-weight: 500;
+	color: var(--ink);
+}
+
+.featurelist__mark {
+	flex: none;
+	display: grid;
+	place-items: center;
+	width: 1.6rem;
+	height: 1.6rem;
+	border-radius: var(--radius-sm);
+	background: color-mix(in oklab, var(--brand) 16%, var(--surface));
+	color: var(--brand-ink);
+}
+
+.band-ink .featurelist__mark {
+	color: var(--brand-glow);
+	background: oklch(0.83 0.13 200 / 0.14);
+}
+
+.cc-featurelist-editor {
+	padding: 1.5rem;
+}

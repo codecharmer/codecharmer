@@ -1,0 +1,138 @@
+/* Services showcase — ported from the original PillarSections component. */
+
+.pillar-sections__list {
+	display: grid;
+	gap: clamp(2.5rem, 6vw, 5rem);
+}
+
+.psplit {
+	display: grid;
+	gap: clamp(1.5rem, 4vw, 3.5rem);
+	align-items: center;
+}
+
+/* Not a bare ordinal — the coordinate sits on a length of the same measure
+   the process rails use, so the number reads as a position on an axis. */
+.psplit__kicker {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.psplit__tick {
+	width: 1px;
+	height: var(--rail-tick-len-major, 9px);
+	background: var(--border-strong);
+}
+
+.psplit__measure {
+	flex: 1;
+	max-width: 7rem;
+	height: var(--rail-tick-len, 5px);
+	background-image:
+		repeating-linear-gradient(to right, color-mix(in oklab, var(--border-strong) 55%, transparent) 0 1px, transparent 1px var(--rail-tick-gap, 8px));
+	background-repeat: repeat-x;
+	background-size: var(--rail-tick-gap, 8px) var(--rail-tick-len, 5px);
+	background-position: 0 100%;
+	mask-image: linear-gradient(to right, #000, transparent);
+}
+
+.psplit__name {
+	margin-top: 0.75rem;
+	font-size: var(--t-h2);
+	letter-spacing: -0.02em;
+}
+
+.psplit__thesis {
+	margin-top: 1rem;
+	font-size: var(--t-body-lg);
+	color: var(--ink-muted);
+	line-height: 1.5;
+	max-width: 42ch;
+}
+
+.psplit__link {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	margin-top: 1.5rem;
+	font-weight: 600;
+	color: var(--brand-ink);
+	transition: gap var(--dur) var(--ease-out-expo);
+}
+
+.psplit__link:hover {
+	gap: 0.75rem;
+}
+
+.psplit__panel {
+	position: relative;
+	overflow: clip;
+	padding: clamp(1.75rem, 4vw, 2.5rem);
+	min-height: 15rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: 2rem;
+	border: 1px solid var(--border);
+	border-radius: var(--radius-lg);
+	background: color-mix(in oklab, var(--brand) 6%, var(--surface));
+}
+
+.psplit__grid {
+	position: absolute;
+	inset: 0;
+	background-image:
+		linear-gradient(oklch(0.48 0.1 216 / 0.06) 1px, transparent 1px),
+		linear-gradient(90deg, oklch(0.48 0.1 216 / 0.06) 1px, transparent 1px);
+	background-size: 2.25rem 2.25rem;
+	mask-image: radial-gradient(120% 100% at 100% 0, #000, transparent 70%);
+}
+
+.psplit__icon {
+	position: relative;
+	display: grid;
+	place-items: center;
+	width: 3.5rem;
+	height: 3.5rem;
+	border-radius: var(--radius);
+	background: var(--brand);
+	color: var(--on-brand);
+	box-shadow: 0 8px 24px -8px oklch(0.79 0.12 202 / 0.5);
+}
+
+.psplit__caps {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.psplit__caps li {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 0.9rem;
+	font-weight: 500;
+	color: var(--ink);
+}
+
+.psplit__caps svg {
+	color: var(--brand-ink);
+	flex: none;
+}
+
+@media (min-width: 52rem) {
+
+	.psplit {
+		grid-template-columns: 1fr 1fr;
+	}
+
+	.psplit[data-flip] .psplit__text {
+		order: 2;
+	}
+}
+
+.cc-services-showcase-editor {
+	padding: 1.5rem;
+}

@@ -1,0 +1,63 @@
+/* Value statement — ported from the original ValueStatement component. */
+
+.value__statement {
+	max-width: 46rem;
+}
+
+.value__lead {
+	font-family: var(--font-display);
+	font-size: clamp(1.6rem, 1.1rem + 2.2vw, 2.6rem);
+	font-weight: 500;
+	line-height: 1.18;
+	letter-spacing: -0.02em;
+	text-wrap: balance;
+	color: var(--ink);
+}
+
+.value__lead em {
+	font-style: normal;
+	color: var(--brand-ink);
+}
+
+.value__points {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+	gap: 2rem;
+	margin-top: clamp(2.5rem, 5vw, 4rem);
+}
+
+.value__point {
+	padding-top: 1.25rem;
+	border-top: 1px solid var(--border);
+	position: relative;
+}
+
+.value__marker {
+	position: absolute;
+	top: -1px;
+	left: 0;
+	width: 3rem;
+	height: 2px;
+	background: var(--brand);
+}
+
+.value__k {
+	font-size: 1.1rem;
+	font-weight: 600;
+	letter-spacing: -0.01em;
+	margin-bottom: 0.5rem;
+}
+
+.value__v {
+	color: var(--ink-muted);
+	line-height: 1.55;
+}
+
+.cc-value-editor {
+	padding: 1.5rem;
+}
+
+.cc-value-editor__lead {
+	font-size: 1.5rem;
+	font-weight: 500;
+}

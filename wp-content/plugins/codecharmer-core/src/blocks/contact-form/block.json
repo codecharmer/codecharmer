@@ -1,0 +1,18 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "codecharmer/contact-form",
+	"title": "Contact Section",
+	"category": "codecharmer",
+	"icon": "email",
+	"description": "The contact experience: qualifying inquiry form (REST-backed, mailto fallback) with the what-happens-next and scheduling cards.",
+	"textdomain": "codecharmer-core",
+	"attributes": {},
+	"supports": {
+		"html": false,
+		"multiple": false
+	},
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

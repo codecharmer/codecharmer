@@ -1,0 +1,21 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "codecharmer/beliefs",
+	"title": "Beliefs",
+	"category": "codecharmer",
+	"icon": "lightbulb",
+	"description": "Deep-ink band of studio beliefs (or principles): spark-marked cards with title and body.",
+	"textdomain": "codecharmer-core",
+	"attributes": {
+		"heading": { "type": "string", "default": "We have opinions about this work." },
+		"intro": { "type": "string", "default": "" },
+		"columns": { "type": "number", "default": 4 }
+	},
+	"supports": {
+		"html": false
+	},
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

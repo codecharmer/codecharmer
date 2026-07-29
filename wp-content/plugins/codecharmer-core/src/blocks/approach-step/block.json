@@ -1,0 +1,32 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "codecharmer/approach-step",
+	"title": "Approach Step",
+	"category": "codecharmer",
+	"icon": "editor-ol",
+	"description": "One step on the approach rail.",
+	"textdomain": "codecharmer-core",
+	"parent": [
+		"codecharmer/approach"
+	],
+	"attributes": {
+		"title": {
+			"type": "string",
+			"default": ""
+		},
+		"body": {
+			"type": "string",
+			"default": ""
+		},
+		"weight": {
+			"type": "number",
+			"default": 1
+		}
+	},
+	"supports": {
+		"html": false,
+		"reusable": false
+	},
+	"editorScript": "file:./index.js"
+}

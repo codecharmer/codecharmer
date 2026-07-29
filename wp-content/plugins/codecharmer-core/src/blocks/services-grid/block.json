@@ -1,0 +1,21 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "codecharmer/services-grid",
+	"title": "Services Grid",
+	"category": "codecharmer",
+	"icon": "screenoptions",
+	"description": "The four service disciplines as a linked list with icons, driven by the real service pages.",
+	"textdomain": "codecharmer-core",
+	"attributes": {
+		"eyebrow": { "type": "string", "default": "What we build" },
+		"heading": { "type": "string", "default": "Four disciplines, engineered to work as one system." },
+		"intro": { "type": "string", "default": "Most projects touch more than one. That’s the point — the value shows up where they connect." }
+	},
+	"supports": {
+		"html": false
+	},
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

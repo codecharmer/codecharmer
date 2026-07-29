@@ -1,0 +1,28 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "codecharmer/hero",
+	"title": "Hero",
+	"category": "codecharmer",
+	"icon": "superhero",
+	"description": "The homepage hero: kicker, display headline with the charm underline, lead, CTAs, trust line, and the live system diagram.",
+	"textdomain": "codecharmer-core",
+	"attributes": {
+		"kicker": { "type": "string", "default": "Digital engineering studio" },
+		"titleBefore": { "type": "string", "default": "We build digital systems that" },
+		"charm": { "type": "string", "default": "earn their keep" },
+		"sub": { "type": "string", "default": "AI-first architecture, serious WordPress engineering, and custom software — built to generate revenue, automate the busywork, and stay yours to run." },
+		"primaryLabel": { "type": "string", "default": "Book a consultation" },
+		"primaryUrl": { "type": "string", "default": "/contact" },
+		"secondaryLabel": { "type": "string", "default": "See our work" },
+		"secondaryUrl": { "type": "string", "default": "/work" },
+		"trust": { "type": "string", "default": "No lock-in. You own everything we build." }
+	},
+	"supports": {
+		"html": false,
+		"multiple": false
+	},
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

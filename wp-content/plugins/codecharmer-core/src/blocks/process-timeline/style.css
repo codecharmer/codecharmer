@@ -1,0 +1,126 @@
+/* Process timeline — the vertical instrumented rail (ported). */
+
+/* Instrumented rail, vertical. Each stage owns its slice of the spine, so
+   the track stays continuous while stage extents follow the copy rather
+   than a number invented in the data. */
+.timeline {
+	display: flex;
+	flex-direction: column;
+}
+
+.tstage {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	gap: clamp(1.25rem, 3vw, 2.25rem);
+}
+
+.tstage__rail {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	width: var(--rail-track-w);
+	margin-inline-start: calc(var(--rail-tick-len-major) + 6px);
+}
+
+.tstage__seg {
+	position: absolute;
+	inset: 0;
+	background: var(--rail-track);
+}
+
+/* Stages already read stay filled; the current one fills too — you are
+   inside it, not approaching it. */
+.tstage__seg[data-state="committed"],
+.tstage__seg[data-state="active"] {
+	background: var(--rail-fill);
+}
+
+/* The executing stage runs: same work stripes as the horizontal rails. */
+.tstage__seg::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	opacity: 0;
+	background:
+		repeating-linear-gradient(-45deg, color-mix(in oklab, var(--brand-glow) 60%, transparent) 0 5px, transparent 5px 10px);
+	transition: opacity var(--dur) var(--ease-out-quart);
+}
+
+.rail[data-rail-live] .tstage__seg[data-state="active"]::after {
+	opacity: 1;
+	animation: rail-run 0.5s linear infinite;
+}
+
+.tstage__node {
+	position: absolute;
+	top: 0.55rem;
+	left: 50%;
+	translate: -50% 0;
+}
+
+/* Boundary tick, projected out into the ruler like the horizontal rail. */
+.tstage__rail::after {
+	content: "";
+	position: absolute;
+	top: 0.55rem;
+	right: calc(100% + 6px);
+	width: var(--rail-tick-len-major);
+	height: 1px;
+	background: var(--rail-tick-major);
+}
+
+.tstage__ruler {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: calc(100% + 6px);
+	height: auto;
+	mask-image: none;
+}
+
+.tstage__content {
+	padding-bottom: clamp(2rem, 4vw, 3rem);
+	max-width: 46rem;
+}
+
+.tstage:last-child .tstage__content {
+	padding-bottom: 0;
+}
+
+.tstage__coord {
+	display: block;
+	margin-bottom: 0.35rem;
+}
+
+.tstage__name {
+	font-size: var(--t-h3);
+	letter-spacing: -0.02em;
+}
+
+.tstage__body {
+	margin-top: 0.75rem;
+	color: var(--ink-muted);
+	line-height: 1.6;
+}
+
+.tstage__deliverable {
+	display: inline-flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 0.5rem;
+	margin-top: 1.15rem;
+	padding: 0.65rem 1rem;
+	border-radius: var(--radius-sm);
+	background: color-mix(in oklab, var(--brand) 8%, var(--surface));
+	border: 1px solid var(--border);
+	color: var(--ink);
+	font-weight: 500;
+}
+
+.tstage__deliverable-label {
+	font-family: var(--font-mono);
+	font-size: 0.72rem;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--brand-ink);
+}

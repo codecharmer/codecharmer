@@ -1,0 +1,37 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "codecharmer/process-stage",
+	"title": "Process Stage",
+	"category": "codecharmer",
+	"icon": "controls-forward",
+	"description": "One stage of the process: name, story, deliverable and rail weight.",
+	"textdomain": "codecharmer-core",
+	"parent": [
+		"codecharmer/process-teaser",
+		"codecharmer/process-timeline"
+	],
+	"attributes": {
+		"name": {
+			"type": "string",
+			"default": ""
+		},
+		"body": {
+			"type": "string",
+			"default": ""
+		},
+		"deliverable": {
+			"type": "string",
+			"default": ""
+		},
+		"weight": {
+			"type": "number",
+			"default": 1
+		}
+	},
+	"supports": {
+		"html": false,
+		"reusable": false
+	},
+	"editorScript": "file:./index.js"
+}

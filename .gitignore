@@ -1,12 +1,29 @@
-# build output
-dist/
-# generated types
-.astro/
-.claude/
 # dependencies
 node_modules/
+vendor/
+
+# build output (wp-scripts; compiled in CI/deploy)
+wp-content/plugins/codecharmer-core/build/
+wp-content/themes/codecharmer/assets/build/
+
+# third-party plugins/themes are Composer-managed, never committed
+wp-content/plugins/*/
+!wp-content/plugins/codecharmer-core/
+wp-content/themes/*/
+!wp-content/themes/codecharmer/
+wp-content/mu-plugins/
+wp-content/uploads/
+
+# local dev
+.wp-env.override.json
+.claude/
+.astro/
+dist/
+
 # logs
 npm-debug.log*
+*.log
+
 # environment / editor
 .env
 .env.production

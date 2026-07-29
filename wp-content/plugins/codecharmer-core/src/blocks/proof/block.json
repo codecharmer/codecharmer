@@ -1,0 +1,23 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "codecharmer/proof",
+	"title": "Proof Strip",
+	"category": "codecharmer",
+	"icon": "awards",
+	"description": "Compact proof section: eyebrow, claim, supporting line and a work CTA.",
+	"textdomain": "codecharmer-core",
+	"attributes": {
+		"eyebrow": { "type": "string", "default": "Proof" },
+		"heading": { "type": "string", "default": "Every claim here has shipped." },
+		"intro": { "type": "string", "default": "See the projects we’ve put into the world — built to work as well as they look." },
+		"ctaLabel": { "type": "string", "default": "View our work" },
+		"ctaUrl": { "type": "string", "default": "/work" }
+	},
+	"supports": {
+		"html": false
+	},
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

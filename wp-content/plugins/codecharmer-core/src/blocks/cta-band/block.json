@@ -1,0 +1,20 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "codecharmer/cta-band",
+	"title": "CTA Band",
+	"category": "codecharmer",
+	"icon": "megaphone",
+	"description": "Closing call-to-action band on the deep-ink surface: heading, supporting line, consultation and email buttons.",
+	"textdomain": "codecharmer-core",
+	"attributes": {
+		"heading": { "type": "string", "default": "Tell us what you’re trying to build." },
+		"body": { "type": "string", "default": "A short conversation is usually enough to know whether we’re the right team. No pitch deck, no obligation." }
+	},
+	"supports": {
+		"html": false
+	},
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

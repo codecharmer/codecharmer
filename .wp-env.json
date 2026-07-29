@@ -1,0 +1,33 @@
+{
+  "$schema": "https://raw.githubusercontent.com/WordPress/gutenberg/trunk/schemas/json/wp-env.json",
+  "core": null,
+  "phpVersion": "8.3",
+  "plugins": [
+    "./wp-content/plugins/codecharmer-core"
+  ],
+  "themes": [
+    "./wp-content/themes/codecharmer"
+  ],
+  "mappings": {
+    "wp-content/plugins/codecharmer-core": "./wp-content/plugins/codecharmer-core",
+    "wp-content/themes/codecharmer": "./wp-content/themes/codecharmer"
+  },
+  "config": {
+    "WP_DEBUG": true,
+    "WP_DEBUG_LOG": true,
+    "WP_DEBUG_DISPLAY": false,
+    "SCRIPT_DEBUG": true,
+    "WP_ENVIRONMENT_TYPE": "local"
+  },
+  "lifecycleScripts": {
+    "afterStart": "echo '[codecharmer] wp-env is up. Activate the theme and plugin, then seed content with:  wp-env run cli wp codecharmer install'"
+  },
+  "env": {
+    "tests": {
+      "config": {
+        "WP_DEBUG": true,
+        "SCRIPT_DEBUG": true
+      }
+    }
+  }
+}

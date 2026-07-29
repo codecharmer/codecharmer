@@ -1,0 +1,17 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "codecharmer/services-showcase",
+	"title": "Services Showcase",
+	"category": "codecharmer",
+	"icon": "align-pull-left",
+	"description": "Alternating split sections for each service page: coordinate, name, thesis and a capabilities panel.",
+	"textdomain": "codecharmer-core",
+	"attributes": {},
+	"supports": {
+		"html": false
+	},
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

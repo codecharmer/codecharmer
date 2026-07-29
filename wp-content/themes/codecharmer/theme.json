@@ -1,0 +1,163 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"settings": {
+		"appearanceTools": true,
+		"useRootPaddingAwareAlignments": true,
+		"layout": {
+			"contentSize": "68rem",
+			"wideSize": "75rem"
+		},
+		"color": {
+			"defaultPalette": false,
+			"defaultGradients": false,
+			"defaultDuotone": false,
+			"palette": [
+				{ "slug": "bg", "name": "Background", "color": "oklch(0.980 0.004 214)" },
+				{ "slug": "surface", "name": "Surface", "color": "oklch(0.997 0.002 214)" },
+				{ "slug": "surface-sunk", "name": "Surface (sunk)", "color": "oklch(0.955 0.006 214)" },
+				{ "slug": "border", "name": "Border", "color": "oklch(0.905 0.008 214)" },
+				{ "slug": "ink", "name": "Ink", "color": "oklch(0.225 0.020 232)" },
+				{ "slug": "ink-muted", "name": "Ink (muted)", "color": "oklch(0.450 0.018 232)" },
+				{ "slug": "ink-bg", "name": "Deep ink", "color": "oklch(0.190 0.025 236)" },
+				{ "slug": "on-ink", "name": "On ink", "color": "oklch(0.965 0.005 214)" },
+				{ "slug": "brand", "name": "Brand cyan", "color": "oklch(0.790 0.120 202)" },
+				{ "slug": "brand-ink", "name": "Brand cyan (text)", "color": "oklch(0.480 0.100 216)" }
+			]
+		},
+		"typography": {
+			"defaultFontSizes": false,
+			"fluid": true,
+			"fontFamilies": [
+				{
+					"slug": "display",
+					"name": "Bricolage Grotesque",
+					"fontFamily": "\"Bricolage Grotesque Variable\", \"Bricolage Grotesque\", system-ui, sans-serif",
+					"fontFace": [
+						{
+							"fontFamily": "Bricolage Grotesque Variable",
+							"fontStyle": "normal",
+							"fontWeight": "200 800",
+							"fontDisplay": "swap",
+							"src": [ "file:./assets/fonts/bricolage-grotesque-latin-standard-normal.woff2" ]
+						},
+						{
+							"fontFamily": "Bricolage Grotesque Variable",
+							"fontStyle": "normal",
+							"fontWeight": "200 800",
+							"fontDisplay": "swap",
+							"unicodeRange": "U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF",
+							"src": [ "file:./assets/fonts/bricolage-grotesque-latin-ext-standard-normal.woff2" ]
+						}
+					]
+				},
+				{
+					"slug": "body",
+					"name": "Hanken Grotesk",
+					"fontFamily": "\"Hanken Grotesk Variable\", \"Hanken Grotesk\", system-ui, -apple-system, sans-serif",
+					"fontFace": [
+						{
+							"fontFamily": "Hanken Grotesk Variable",
+							"fontStyle": "normal",
+							"fontWeight": "100 900",
+							"fontDisplay": "swap",
+							"src": [ "file:./assets/fonts/hanken-grotesk-latin-wght-normal.woff2" ]
+						},
+						{
+							"fontFamily": "Hanken Grotesk Variable",
+							"fontStyle": "normal",
+							"fontWeight": "100 900",
+							"fontDisplay": "swap",
+							"unicodeRange": "U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF",
+							"src": [ "file:./assets/fonts/hanken-grotesk-latin-ext-wght-normal.woff2" ]
+						}
+					]
+				},
+				{
+					"slug": "mono",
+					"name": "Geist Mono",
+					"fontFamily": "\"Geist Mono Variable\", \"Geist Mono\", ui-monospace, \"SFMono-Regular\", monospace",
+					"fontFace": [
+						{
+							"fontFamily": "Geist Mono Variable",
+							"fontStyle": "normal",
+							"fontWeight": "100 900",
+							"fontDisplay": "swap",
+							"src": [ "file:./assets/fonts/geist-mono-latin-wght-normal.woff2" ]
+						},
+						{
+							"fontFamily": "Geist Mono Variable",
+							"fontStyle": "normal",
+							"fontWeight": "100 900",
+							"fontDisplay": "swap",
+							"unicodeRange": "U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF",
+							"src": [ "file:./assets/fonts/geist-mono-latin-ext-wght-normal.woff2" ]
+						}
+					]
+				}
+			],
+			"fontSizes": [
+				{ "slug": "small", "name": "Small", "size": "0.8125rem", "fluid": false },
+				{ "slug": "body", "name": "Body", "size": "1rem", "fluid": false },
+				{ "slug": "body-lg", "name": "Lead", "size": "1.1875rem", "fluid": false },
+				{ "slug": "h3", "name": "Heading 3", "size": "1.65rem", "fluid": { "min": "1.3rem", "max": "1.65rem" } },
+				{ "slug": "h2", "name": "Heading 2", "size": "2.5rem", "fluid": { "min": "1.6rem", "max": "2.5rem" } },
+				{ "slug": "h1", "name": "Heading 1", "size": "3.5rem", "fluid": { "min": "2.1rem", "max": "3.5rem" } },
+				{ "slug": "display", "name": "Display", "size": "5.25rem", "fluid": { "min": "2.5rem", "max": "5.25rem" } }
+			]
+		},
+		"spacing": {
+			"defaultSpacingSizes": false,
+			"units": [ "px", "rem", "em", "%", "vw", "vh" ],
+			"spacingSizes": [
+				{ "slug": "10", "name": "1", "size": "0.25rem" },
+				{ "slug": "20", "name": "2", "size": "0.5rem" },
+				{ "slug": "30", "name": "3", "size": "0.75rem" },
+				{ "slug": "40", "name": "4", "size": "1rem" },
+				{ "slug": "50", "name": "6", "size": "1.5rem" },
+				{ "slug": "60", "name": "8", "size": "2rem" },
+				{ "slug": "70", "name": "12", "size": "3rem" },
+				{ "slug": "80", "name": "16", "size": "4rem" },
+				{ "slug": "90", "name": "24", "size": "6rem" },
+				{ "slug": "100", "name": "Section", "size": "clamp(4rem, 2rem + 9vw, 9rem)" }
+			]
+		},
+		"custom": {
+			"radius": { "sm": "0.5rem", "md": "0.75rem", "lg": "1.25rem", "pill": "999px" },
+			"ease": { "outQuart": "cubic-bezier(0.25, 1, 0.5, 1)", "outExpo": "cubic-bezier(0.16, 1, 0.3, 1)" },
+			"duration": { "fast": "180ms", "base": "260ms", "slow": "420ms", "hero": "720ms" }
+		}
+	},
+	"styles": {
+		"color": {
+			"background": "var(--wp--preset--color--bg)",
+			"text": "var(--wp--preset--color--ink)"
+		},
+		"typography": {
+			"fontFamily": "var(--wp--preset--font-family--body)",
+			"fontSize": "var(--wp--preset--font-size--body)",
+			"lineHeight": "1.6"
+		},
+		"elements": {
+			"heading": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--display)",
+					"fontWeight": "700",
+					"letterSpacing": "-0.02em",
+					"lineHeight": "1.08"
+				}
+			},
+			"h1": { "typography": { "fontSize": "var(--wp--preset--font-size--h-1)" } },
+			"h2": { "typography": { "fontSize": "var(--wp--preset--font-size--h-2)" } },
+			"h3": { "typography": { "fontSize": "var(--wp--preset--font-size--h-3)", "fontWeight": "600", "letterSpacing": "-0.015em" } },
+			"link": {
+				"color": { "text": "inherit" },
+				"typography": { "textDecoration": "none" }
+			}
+		}
+	},
+	"templateParts": [
+		{ "name": "header", "title": "Header", "area": "header" },
+		{ "name": "footer", "title": "Footer", "area": "footer" }
+	]
+}

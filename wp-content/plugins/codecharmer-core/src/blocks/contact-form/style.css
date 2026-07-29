@@ -1,0 +1,299 @@
+/* Contact section (form + aside) — ported from the original components. */
+
+.cform {
+	display: flex;
+	flex-direction: column;
+	gap: 1.25rem;
+}
+
+.cform__hp {
+	position: absolute;
+	left: -9999px;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+}
+
+.cform__grid {
+	display: grid;
+	gap: 1.25rem;
+}
+
+@media (min-width: 34rem) {
+
+	.cform__grid {
+		grid-template-columns: 1fr 1fr;
+	}
+}
+
+.field {
+	display: flex;
+	flex-direction: column;
+	gap: 0.45rem;
+}
+
+.field label {
+	font-size: 0.9rem;
+	font-weight: 550;
+	color: var(--ink);
+}
+
+.req {
+	color: var(--brand-ink);
+}
+
+.opt {
+	font-weight: 400;
+	color: var(--ink-faint);
+	font-size: 0.8rem;
+}
+
+.field input,
+.field textarea,
+.select select {
+	width: 100%;
+	font-family: inherit;
+	font-size: 1rem;
+	color: var(--ink);
+	background: var(--surface);
+	border: 1.5px solid var(--border-strong);
+	border-radius: var(--radius-sm);
+	padding: 0.75rem 0.9rem;
+	transition: border-color var(--dur-fast) var(--ease-out-quart), box-shadow var(--dur-fast) var(--ease-out-quart);
+}
+
+.field textarea {
+	resize: vertical;
+	min-height: 7rem;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+	color: var(--ink-faint);
+}
+
+.field input:focus-visible,
+.field textarea:focus-visible,
+.select select:focus-visible {
+	outline: none;
+	border-color: var(--brand-ink);
+	box-shadow: 0 0 0 3px color-mix(in oklab, var(--brand) 30%, transparent);
+}
+
+/* Select with custom chevron */
+.select {
+	position: relative;
+}
+
+.select select {
+	appearance: none;
+	padding-right: 2.5rem;
+	cursor: pointer;
+}
+
+.select .select__chev {
+	position: absolute;
+	right: 0.85rem;
+	top: 50%;
+	transform: translateY(-50%) rotate(90deg);
+	color: var(--ink-muted);
+	pointer-events: none;
+}
+
+/* Error state */
+.field[data-invalid] input,
+.field[data-invalid] textarea,
+.field[data-invalid] .select select {
+	border-color: var(--danger);
+}
+
+.field__err {
+	font-size: 0.82rem;
+	color: var(--danger);
+	min-height: 0;
+}
+
+.field__err:empty {
+	display: none;
+}
+
+.cform__foot {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 1rem 1.5rem;
+	margin-top: 0.25rem;
+}
+
+.cform__submit {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-family: var(--font-body);
+	font-weight: 600;
+	font-size: 1rem;
+	color: var(--on-brand);
+	background: var(--brand);
+	border-radius: var(--radius-pill);
+	padding: 0.85rem 1.75rem;
+	box-shadow: 0 1px 2px oklch(0.2 0.02 236 / 0.15);
+	transition: transform var(--dur-fast) var(--ease-out-quart), background-color var(--dur) var(--ease-out-quart), box-shadow var(--dur) var(--ease-out-quart);
+}
+
+.cform__submit:hover:not(:disabled) {
+	background: var(--brand-glow);
+	transform: translateY(-2px);
+	box-shadow: 0 10px 26px -8px oklch(0.79 0.12 202 / 0.5);
+}
+
+.cform__submit:disabled {
+	opacity: 0.65;
+	cursor: progress;
+}
+
+.cform__note {
+	font-size: 0.88rem;
+	color: var(--ink-muted);
+}
+
+.cform__note[data-tone="error"] {
+	color: var(--danger);
+}
+
+.cform-done {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 0.85rem;
+	padding: clamp(1.75rem, 4vw, 2.5rem);
+	border: 1px solid var(--border);
+	border-radius: var(--radius-lg);
+	background: color-mix(in oklab, var(--brand) 7%, var(--surface));
+}
+
+.cform-done[hidden] {
+	display: none;
+}
+
+.cform-done__mark {
+	display: grid;
+	place-items: center;
+	width: 3rem;
+	height: 3rem;
+	border-radius: var(--radius-pill);
+	background: var(--brand);
+	color: var(--on-brand);
+}
+
+.cform-done__title {
+	font-size: 1.4rem;
+	letter-spacing: -0.02em;
+}
+
+.cform-done__body {
+	color: var(--ink-muted);
+	line-height: 1.55;
+}
+
+.cform-done:focus-visible {
+	outline: 2px solid var(--brand-ink);
+	outline-offset: 3px;
+}
+
+.contact__grid {
+	display: grid;
+	gap: clamp(2.5rem, 5vw, 4rem);
+	align-items: start;
+}
+
+.aside-card {
+	padding: clamp(1.5rem, 3vw, 2rem);
+	border: 1px solid var(--border);
+	border-radius: var(--radius-lg);
+	background: var(--surface);
+}
+
+.aside-card + .aside-card {
+	margin-top: 1.25rem;
+}
+
+.aside-card__title {
+	font-size: 1.2rem;
+	letter-spacing: -0.015em;
+}
+
+.aside-card--talk {
+	background: color-mix(in oklab, var(--brand) 7%, var(--surface));
+}
+
+.aside-card__icon {
+	display: grid;
+	place-items: center;
+	width: 2.5rem;
+	height: 2.5rem;
+	margin-bottom: 0.85rem;
+	border-radius: var(--radius-sm);
+	background: color-mix(in oklab, var(--brand) 16%, var(--surface));
+	color: var(--brand-ink);
+}
+
+.aside-card__body {
+	margin: 0.6rem 0 1.15rem;
+	color: var(--ink-muted);
+	line-height: 1.5;
+}
+
+.steps {
+	display: flex;
+	flex-direction: column;
+	gap: 1.1rem;
+	margin-top: 1.25rem;
+}
+
+.step {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	gap: 0.9rem;
+}
+
+.step__n {
+	display: grid;
+	place-items: center;
+	width: 1.75rem;
+	height: 1.75rem;
+	border-radius: var(--radius-pill);
+	background: var(--brand);
+	color: var(--on-brand);
+	font-family: var(--font-mono);
+	font-size: 0.85rem;
+	font-weight: 500;
+}
+
+.step__t {
+	font-weight: 600;
+	color: var(--ink);
+}
+
+.step__b {
+	margin-top: 0.2rem;
+	color: var(--ink-muted);
+	font-size: 0.92rem;
+	line-height: 1.5;
+}
+
+.contact__direct {
+	margin-top: 1.5rem;
+	color: var(--ink-muted);
+	font-size: 0.92rem;
+}
+
+@media (min-width: 56rem) {
+
+	.contact__grid {
+		grid-template-columns: 1.4fr 0.85fr;
+	}
+}
+
+.cc-contact-editor {
+	padding: 1.5rem;
+}

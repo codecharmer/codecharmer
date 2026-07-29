@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "codecharmer/process-teaser",
+	"title": "Process Teaser",
+	"category": "codecharmer",
+	"icon": "chart-line",
+	"description": "The instrumented process rail: weighted stage segments, scroll playhead, build-run states and the deliverable console.",
+	"textdomain": "codecharmer-core",
+	"attributes": {
+		"tone": { "type": "string", "default": "light", "enum": [ "light", "ink" ] },
+		"eyebrow": { "type": "string", "default": "How we work" },
+		"heading": { "type": "string", "default": "A process that compounds." },
+		"intro": { "type": "string", "default": "Seven stages, each one making the next cheaper. Architecture before code, ownership before launch." },
+		"ctaLabel": { "type": "string", "default": "See the full process" },
+		"ctaUrl": { "type": "string", "default": "/process" }
+	},
+	"supports": {
+		"html": false
+	},
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

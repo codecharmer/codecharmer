@@ -1,0 +1,25 @@
+/* Proof strip — ported from the service page's proof section. */
+
+.proof__inner {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1.5rem 2.5rem;
+}
+
+.proof__inner > div {
+	max-width: 44rem;
+}
+
+.proof__title {
+	margin-top: 0.9rem;
+}
+
+.proof__intro {
+	margin-top: 0.85rem;
+}
+
+.cc-proof-editor {
+	padding: 1.5rem;
+}

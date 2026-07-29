@@ -1,0 +1,19 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "codecharmer/site-header",
+	"title": "Site Header",
+	"category": "codecharmer",
+	"icon": "menu-alt",
+	"description": "The Code Charmer header: logo, primary navigation with the services mega-menu, mobile overlay, and the consultation CTA.",
+	"textdomain": "codecharmer-core",
+	"attributes": {},
+	"supports": {
+		"html": false,
+		"multiple": false,
+		"inserter": true
+	},
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

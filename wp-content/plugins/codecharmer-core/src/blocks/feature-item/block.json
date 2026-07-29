@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "codecharmer/feature-item",
+	"title": "Capability",
+	"category": "codecharmer",
+	"icon": "yes-alt",
+	"description": "One capability line in the feature list.",
+	"textdomain": "codecharmer-core",
+	"parent": [
+		"codecharmer/feature-list"
+	],
+	"attributes": {
+		"text": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"html": false,
+		"reusable": false
+	},
+	"editorScript": "file:./index.js"
+}

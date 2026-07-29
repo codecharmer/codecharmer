@@ -1,0 +1,22 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "codecharmer/partners",
+	"title": "Partners",
+	"category": "codecharmer",
+	"icon": "groups",
+	"description": "Platform partners and collaborators as a typographic cloud.",
+	"textdomain": "codecharmer-core",
+	"attributes": {
+		"partnersLabel": { "type": "string", "default": "Platform partners" },
+		"partners": { "type": "array", "default": [ "WordPress VIP", "Kinsta", "WP Engine" ], "items": { "type": "string" } },
+		"collaboratorsLabel": { "type": "string", "default": "Collaborated with" },
+		"collaborators": { "type": "array", "default": [ "10up", "Capgemini", "Enzo Biochem" ], "items": { "type": "string" } }
+	},
+	"supports": {
+		"html": false
+	},
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

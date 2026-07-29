@@ -1,0 +1,15 @@
+parameters:
+    level: 6
+    paths:
+        - wp-content/plugins/codecharmer-core/src
+        - wp-content/plugins/codecharmer-core/codecharmer-core.php
+        - wp-content/themes/codecharmer/functions.php
+        - wp-content/themes/codecharmer/inc
+    bootstrapFiles:
+        - vendor/php-stubs/wordpress-stubs/wordpress-stubs.php
+    scanDirectories:
+        - wp-content/plugins/codecharmer-core/src
+    ignoreErrors:
+        # WP-CLI classes are only present under wp-cli; the code guards on the constant.
+        - '#unknown class WP_CLI#'
+        - '#WP_CLI#'

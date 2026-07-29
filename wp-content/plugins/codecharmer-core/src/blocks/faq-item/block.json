@@ -1,0 +1,28 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "codecharmer/faq-item",
+	"title": "FAQ Item",
+	"category": "codecharmer",
+	"icon": "editor-help",
+	"description": "One question and its answer.",
+	"textdomain": "codecharmer-core",
+	"parent": [
+		"codecharmer/faq"
+	],
+	"attributes": {
+		"question": {
+			"type": "string",
+			"default": ""
+		},
+		"answer": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"html": false,
+		"reusable": false
+	},
+	"editorScript": "file:./index.js"
+}

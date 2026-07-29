@@ -1,0 +1,76 @@
+{
+  "name": "codecharmer/site",
+  "description": "Code Charmer — premium digital engineering studio. Block theme + core plugin monorepo with WordPress, WordPress-Extra and WordPress VIP coding standards enforced.",
+  "type": "project",
+  "license": "GPL-2.0-or-later",
+  "keywords": [
+    "wordpress",
+    "block-theme",
+    "gutenberg",
+    "vip",
+    "coding-standards"
+  ],
+  "authors": [
+    {
+      "name": "Code Charmer",
+      "homepage": "https://codecharmer.io/"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org",
+      "only": [
+        "wpackagist-plugin/*",
+        "wpackagist-theme/*"
+      ]
+    }
+  ],
+  "require": {
+    "php": ">=8.3",
+    "composer/installers": "^2.2"
+  },
+  "require-dev": {
+    "automattic/vipwpcs": "^3.0",
+    "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+    "php-stubs/wordpress-stubs": "^6.8",
+    "phpcompatibility/phpcompatibility-wp": "^2.1",
+    "phpstan/phpstan": "^1.12",
+    "squizlabs/php_codesniffer": "^3.10",
+    "wp-coding-standards/wpcs": "^3.1"
+  },
+  "scripts": {
+    "lint": "phpcs -q --standard=phpcs.xml.dist",
+    "lint:fix": "phpcbf --standard=phpcs.xml.dist",
+    "analyze": "phpstan analyse --configuration=phpstan.neon.dist --memory-limit=1G",
+    "check": [
+      "@lint",
+      "@analyze"
+    ]
+  },
+  "scripts-descriptions": {
+    "lint": "Run WordPress + WordPress VIP coding-standards checks (phpcs).",
+    "lint:fix": "Auto-fix fixable coding-standards violations (phpcbf).",
+    "analyze": "Run PHPStan static analysis (level 6) against the plugin source.",
+    "check": "Run lint + analyze together (CI gate)."
+  },
+  "extra": {
+    "installer-paths": {
+      "wp-content/plugins/{$name}/": ["type:wordpress-plugin"],
+      "wp-content/themes/{$name}/": ["type:wordpress-theme"],
+      "wp-content/mu-plugins/{$name}/": ["type:wordpress-muplugin"]
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "composer/installers": true
+    },
+    "platform": {
+      "php": "8.3.0"
+    },
+    "sort-packages": true,
+    "optimize-autoloader": true,
+    "platform-check": false
+  }
+}

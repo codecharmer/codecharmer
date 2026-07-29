@@ -1,23 +1,34 @@
 {
   "name": "codecharmer",
-  "type": "module",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
-  "description": "Code Charmer — premium digital engineering studio. Static Astro build, architected to become a block-based WordPress theme.",
+  "description": "Code Charmer — premium digital engineering studio. WordPress block theme + core plugin monorepo. Root workspace: tooling, local dev, and block builds.",
+  "author": "Code Charmer",
+  "license": "GPL-2.0-or-later",
   "engines": {
-    "node": ">=18.20.8"
+    "node": ">=20",
+    "npm": ">=10"
   },
+  "workspaces": [
+    "wp-content/themes/codecharmer",
+    "wp-content/plugins/codecharmer-core"
+  ],
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
+    "build": "npm run build:blocks",
+    "build:blocks": "npm run build --workspace=wp-content/plugins/codecharmer-core",
+    "start": "npm run start --workspace=wp-content/plugins/codecharmer-core",
+    "lint:js": "npm run lint:js --workspace=wp-content/plugins/codecharmer-core",
+    "lint:css": "npm run lint:css --workspace=wp-content/plugins/codecharmer-core",
+    "lint": "npm run lint:js && npm run lint:css",
+    "env": "wp-env",
+    "env:start": "wp-env start",
+    "env:stop": "wp-env stop",
+    "env:clean": "wp-env clean all",
+    "env:cli": "wp-env run cli wp",
+    "env:install-content": "wp-env run cli wp codecharmer install"
   },
-  "dependencies": {
-    "astro": "^4.16.18",
-    "@fontsource-variable/bricolage-grotesque": "^5.1.1",
-    "@fontsource-variable/hanken-grotesk": "^5.1.1",
-    "@fontsource-variable/geist-mono": "^5.1.1"
+  "devDependencies": {
+    "@wordpress/env": "^10.0.0",
+    "typescript": "~5.5.4"
   }
 }
