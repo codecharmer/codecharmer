@@ -28,6 +28,7 @@ BLOCKS;
 $cc_flagship_band = <<<'BLOCKS'
 <!-- wp:codecharmer/flagship {"name":"Praxis","tagline":"— the control room for a company’s content.","description":"Our own product, built the way we tell clients to build: an AI-native orchestration layer that connects WordPress, metered AI drafting, and enterprise search on one board. Live right now on a single VPS — architected for many.","stackLine":"Laravel · FrankenPHP · Next.js 16 · React 19 · RabbitMQ · OpenSearch · Redis · MariaDB · MinIO · Traefik · Docker Compose","primaryLabel":"Open the live demo","primaryUrl":"https://praxis.codecharmer.io","secondaryLabel":"Read the case study","secondaryUrl":"/work/praxis"} -->
 <!-- wp:codecharmer/feature-item {"text":"Mixed provenance on one board — WordPress-authored, platform, and AI-drafted content, each tagged with its origin"} /-->
+<!-- wp:codecharmer/feature-item {"text":"The machine drafts, a human approves — AI output opens its own review, and nothing publishes without a person saying yes"} /-->
 <!-- wp:codecharmer/feature-item {"text":"AI drafting with a meter — every generation costed in integer micro-cents against a budget, prompts versioned"} /-->
 <!-- wp:codecharmer/feature-item {"text":"Search as a read model — an event-driven OpenSearch pipeline returning highlighted results in about 90 ms"} /-->
 <!-- /wp:codecharmer/flagship -->
@@ -416,7 +417,7 @@ $cc_pages['work/praxis'] = array(
 	'order'   => 0,
 	'excerpt' => 'Praxis — an AI-native orchestration layer for digital operations. WordPress connected, AI metered, search in about 90 ms. Our flagship product, live at praxis.codecharmer.io.',
 	'content' => <<<'BLOCKS'
-<!-- wp:codecharmer/page-hero {"tone":"ink","eyebrow":"Praxis — flagship product","title":"The control room for a company’s content.","intro":"An AI-native orchestration layer for digital operations. Praxis connects the systems an organization already runs — starting with WordPress — and adds a canonical content model, metered AI drafting, and enterprise search behind one API.","primaryLabel":"Open the live demo","primaryUrl":"https://praxis.codecharmer.io","note":"v0.1 · Foundation — authenticate, generate, publish, search, observe. Thirteen services on one VPS."} /-->
+<!-- wp:codecharmer/page-hero {"tone":"ink","eyebrow":"Praxis — flagship product","title":"The control room for a company’s content.","intro":"An AI-native orchestration layer for digital operations. Praxis connects the systems an organization already runs — starting with WordPress — and adds a canonical content model, metered AI drafting, and enterprise search behind one API.","primaryLabel":"Open the live demo","primaryUrl":"https://praxis.codecharmer.io","note":"v0.2 · The machine drafts, a human approves. Thirteen services on one VPS."} /-->
 
 <!-- wp:codecharmer/value-statement {"lead":"Most platforms ask you to migrate. Praxis <em>connects</em> — WordPress stays where the authors are, the platform holds the canonical model, and AI and search operate on that."} -->
 <!-- wp:codecharmer/value-point {"title":"Provenance first","body":"Every item is tagged by origin: WordPress, platform, or an AI draft nobody has reviewed yet. A machine’s draft is never mistaken for a decision."} /-->
@@ -424,9 +425,11 @@ $cc_pages['work/praxis'] = array(
 <!-- wp:codecharmer/value-point {"title":"Search that keeps up","body":"OpenSearch consumes the platform’s event stream: highlighted full-text in about 90 ms, edge-ngram autocomplete, zero-downtime reindexes."} /-->
 <!-- /wp:codecharmer/value-statement -->
 
-<!-- wp:codecharmer/feature-list {"eyebrow":"Shipped in v0.1","heading":"The walking skeleton, working end to end.","intro":"Each capability verified against the live public endpoints — not a demo reel."} -->
+<!-- wp:codecharmer/feature-list {"eyebrow":"Shipped and verified","heading":"What it does today, end to end.","intro":"Each capability verified against the live public endpoints — not a demo reel."} -->
 <!-- wp:codecharmer/feature-item {"text":"Register, log in, session — RS256 JWTs in httpOnly cookies"} /-->
-<!-- wp:codecharmer/feature-item {"text":"AI drafts land on the board, metered per generation"} /-->
+<!-- wp:codecharmer/feature-item {"text":"AI drafts land in review, metered per generation — the OpenAI provider runs live"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Submit → approve or send back, with a written reason — approval is the publish"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Every review decision recorded in an audit ledger — who, when, and what they said"} /-->
 <!-- wp:codecharmer/feature-item {"text":"WordPress post → webhook → board → searchable, automatically"} /-->
 <!-- wp:codecharmer/feature-item {"text":"Full-text search with highlights across every origin"} /-->
 <!-- wp:codecharmer/feature-item {"text":"Health endpoint with every dependency reporting green"} /-->
@@ -450,12 +453,17 @@ $cc_pages['work/praxis'] = array(
 <!-- wp:codecharmer/stack-group {"label":"Quality","items":"Pest / PHPUnit\nPHPStan level 6\nLaravel Pint\nVitest + Testing Library\nESLint\nArchitecture tests"} /-->
 <!-- /wp:codecharmer/stack -->
 
-<!-- wp:codecharmer/demo-access {"heading":"Walk the board yourself.","intro":"A demo organization with clearly labelled demonstration content — including an unreviewed AI draft, exactly as an operations lead would find it.","url":"https://praxis.codecharmer.io","email":"demo@praxis.codecharmer.io","password":"ward-board-praxis-2026","note":"Shared demo credentials for a sandbox organization. It is reset from time to time, so anything you add may disappear."} /-->
+<!-- wp:codecharmer/changelog {"heading":"Release by release.","intro":"Semantic versions, Keep-a-Changelog format, and the bugs admitted alongside the features — the way a changelog should read."} -->
+<!-- wp:codecharmer/changelog-entry {"version":"v0.2.0","date":"2026-07-30","title":"Review, and real AI.","summary":"Content now moves through an explicit approval step before it can publish, and the OpenAI provider runs live — production-tested, no longer leaning on the deterministic fake outside development.","items":"Review & approval workflow — nothing reaches WordPress without a person saying yes; approving is the publish, and every decision lands in a review ledger\nA review queue — anything awaiting a decision surfaces as the highest-acuity obligation, with an In-review filter\nAI drafts open their own review — “a model wrote this and nobody has checked it” is an explicit, surfaced state\nThe OpenAI provider tested against a faked HTTP client — every error mapping covered with no key and no network\nFixed: the AI cost table read ten times too high — corrected against real pricing and re-pinned in the tests"} /-->
+<!-- wp:codecharmer/changelog-entry {"version":"v0.1.0","date":"2026-07-28","title":"Foundation.","summary":"The complete walking skeleton, deployable to a single VPS with docker compose: authenticate, generate with AI, sync WordPress, search it, observe the system.","items":"Identity and multi-tenancy — RS256 cookies, rotating refresh tokens with reuse detection, non-bypassable organization scoping from the first migration\nCanonical content model with WordPress as an authoring adapter behind a repository port — signed webhooks, hash-based drift detection\nAI gateway with integer-precise cost metering, per-organization daily budgets, and prompt versioning\nOpenSearch as a rebuildable read model — outbox → RabbitMQ → indexer, edge-ngram type-ahead, alias-swap reindexes\nObservability, contract-first OpenAPI 3.1 types with a CI drift gate, and twelve Architecture Decision Records"} /-->
+<!-- /wp:codecharmer/changelog -->
+
+<!-- wp:codecharmer/demo-access {"heading":"Walk the board yourself.","intro":"A demo organization with clearly labelled demonstration content — including an AI draft sitting in review, exactly as an operations lead would find it.","url":"https://praxis.codecharmer.io","email":"demo@praxis.codecharmer.io","password":"ward-board-praxis-2026","note":"Shared demo credentials for a sandbox organization. It is reset from time to time, so anything you add may disappear."} /-->
 
 <!-- wp:codecharmer/faq {"heading":"Straight answers."} -->
 <!-- wp:codecharmer/faq-item {"question":"Why put WordPress under an AI platform?","answer":"Because organizations have years of content and workflow there. Praxis treats WordPress as an authoring adapter behind a port — the canonical model lives in the platform, so AI and search never depend on any one CMS’s schema. That decision is written down as ADR 0002."} /-->
-<!-- wp:codecharmer/faq-item {"question":"Is the RAG / embeddings layer live?","answer":"Not yet — and we won’t claim it before it ships. The architecture reserves the seams (provider ports, a vector-search slot), but v0.1 deliberately stops at the walking skeleton. Everything listed on this page is verified against the live endpoints."} /-->
-<!-- wp:codecharmer/faq-item {"question":"Can it really run a company’s content operation?","answer":"v0.1 is a foundation, not a finished ops suite. What it proves is the hard part: the event-driven spine, tenant isolation, cost metering, and CMS integration that everything else builds on."} /-->
+<!-- wp:codecharmer/faq-item {"question":"Is the RAG / embeddings layer live?","answer":"Not yet — and we won’t claim it before it ships. The architecture reserves the seams (provider ports, a vector-search slot); v0.2 spent its effort on the review workflow and hardening the live OpenAI provider instead. Everything listed on this page is verified against the live endpoints."} /-->
+<!-- wp:codecharmer/faq-item {"question":"Can it really run a company’s content operation?","answer":"It’s a foundation, not a finished ops suite. What it proves is the hard part: the event-driven spine, tenant isolation, cost metering, CMS integration — and as of v0.2, an approval workflow where a human decision gates every publish."} /-->
 <!-- /wp:codecharmer/faq -->
 
 <!-- wp:codecharmer/cta-band {"heading":"Want a platform with this kind of spine?","body":"Praxis is how we build when nobody is constraining us. A short conversation is usually enough to see whether your project deserves the same treatment."} /-->

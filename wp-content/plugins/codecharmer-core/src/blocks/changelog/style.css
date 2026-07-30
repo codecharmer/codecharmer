@@ -1,0 +1,114 @@
+/* Changelog — versioned entries on the coordinate register. */
+
+.changelog__head { max-width: 40rem; }
+
+.changelog__title { margin-top: 0.9rem; }
+
+.changelog__intro { margin-top: 1rem; }
+
+.changelog__list {
+	display: grid;
+	gap: clamp(2.25rem, 4vw, 3.25rem);
+	margin-top: clamp(2.25rem, 4vw, 3.25rem);
+}
+
+.clentry {
+	display: grid;
+	gap: 1rem 3rem;
+	padding-top: clamp(1.5rem, 3vw, 2rem);
+	border-top: 1px solid var(--border);
+}
+
+/* Version as a coordinate on the house measure — tick, coord, fading ruler. */
+.clentry__coord {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.clentry__tick {
+	width: 1px;
+	height: var(--rail-tick-len-major, 9px);
+	background: var(--border-strong);
+}
+
+.clentry__version {
+	font-family: var(--font-mono);
+	font-size: 0.8rem;
+	font-weight: 500;
+	letter-spacing: 0.04em;
+	color: var(--brand-ink);
+	font-variant-numeric: tabular-nums;
+}
+
+.clentry__measure {
+	flex: 1;
+	max-width: 7rem;
+	height: var(--rail-tick-len, 5px);
+	background-image: repeating-linear-gradient(
+		to right,
+		color-mix(in oklab, var(--border-strong) 55%, transparent) 0 1px,
+		transparent 1px var(--rail-tick-gap, 8px)
+	);
+	background-repeat: repeat-x;
+	background-size: var(--rail-tick-gap, 8px) var(--rail-tick-len, 5px);
+	background-position: 0 100%;
+	mask-image: linear-gradient(to right, #000, transparent);
+}
+
+.clentry__date {
+	margin-top: 0.5rem;
+	font-family: var(--font-mono);
+	font-size: 0.72rem;
+	letter-spacing: 0.05em;
+	color: var(--ink-faint);
+}
+
+.clentry__name {
+	font-size: var(--t-h3);
+	letter-spacing: -0.015em;
+}
+
+.clentry__summary {
+	margin-top: 0.65rem;
+	color: var(--ink-muted);
+	line-height: 1.6;
+	max-width: 62ch;
+}
+
+.clentry__items {
+	display: grid;
+	gap: 0.55rem;
+	margin-top: 1.1rem;
+}
+
+.clentry__items li {
+	display: flex;
+	align-items: baseline;
+	gap: 0.7rem;
+	color: var(--ink);
+	line-height: 1.55;
+	max-width: 68ch;
+}
+
+.clentry__mark {
+	flex: none;
+	width: 0.55rem;
+	height: 0.55rem;
+	rotate: 45deg;
+	translate: 0 -0.05rem;
+	border: 1.5px solid var(--brand-ink);
+}
+
+@media (min-width: 56rem) {
+
+	.clentry {
+		grid-template-columns: 11rem 1fr;
+	}
+
+	.clentry__date {
+		margin-top: 0.6rem;
+	}
+}
+
+.cc-changelog-editor { padding: 1.5rem; }
