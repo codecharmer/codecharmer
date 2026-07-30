@@ -1,0 +1,68 @@
+/* Demo access — try-it panel with a console-well credentials card. */
+
+.demo__grid {
+	display: grid;
+	gap: clamp(2rem, 4vw, 3.5rem);
+	align-items: center;
+}
+
+.demo__head { max-width: 40rem; }
+
+.demo__title { margin-top: 0.9rem; }
+
+.demo__intro { margin-top: 1rem; }
+
+.demo__cta { margin-top: 1.75rem; }
+
+.demo__panel {
+	padding: clamp(1.5rem, 3vw, 2rem);
+	background: var(--surface-sunk);
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	font-family: var(--font-mono);
+	font-size: 0.88rem;
+}
+
+.demo__creds {
+	display: grid;
+	gap: 0.7rem;
+	margin: 0;
+}
+
+.demo__row {
+	display: grid;
+	grid-template-columns: 6.5rem 1fr;
+	gap: 1rem;
+	align-items: baseline;
+}
+
+.demo__row dt {
+	color: var(--brand-ink);
+	font-size: 0.72rem;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+}
+
+.demo__row dd {
+	margin: 0;
+	color: var(--ink);
+	overflow-wrap: anywhere;
+}
+
+.demo__note {
+	margin-top: 1.1rem;
+	padding-top: 1rem;
+	border-top: 1px solid var(--border);
+	color: var(--ink-muted);
+	font-size: 0.8rem;
+	line-height: 1.55;
+}
+
+@media (min-width: 56rem) {
+
+	.demo__grid {
+		grid-template-columns: 1.15fr 0.85fr;
+	}
+}
+
+.cc-demo-editor { padding: 1.5rem; }

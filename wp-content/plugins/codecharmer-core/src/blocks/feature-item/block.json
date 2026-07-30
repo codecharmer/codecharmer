@@ -8,7 +8,8 @@
 	"description": "One capability line in the feature list.",
 	"textdomain": "codecharmer-core",
 	"parent": [
-		"codecharmer/feature-list"
+		"codecharmer/feature-list",
+		"codecharmer/flagship"
 	],
 	"attributes": {
 		"text": {

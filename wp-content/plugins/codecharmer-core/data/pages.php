@@ -25,6 +25,14 @@ $cc_process_stages = <<<'BLOCKS'
 <!-- wp:codecharmer/process-stage {"name":"Growth","weight":1.4,"body":"Measure, iterate, and extend — the platform compounds instead of stalling. We stay as long as we’re adding value, and no longer.","deliverable":"A roadmap and the data to prioritize it."} /-->
 BLOCKS;
 
+$cc_flagship_band = <<<'BLOCKS'
+<!-- wp:codecharmer/flagship {"name":"Praxis","tagline":"— the control room for a company’s content.","description":"Our own product, built the way we tell clients to build: an AI-native orchestration layer that connects WordPress, metered AI drafting, and enterprise search on one board. Live right now on a single VPS — architected for many.","stackLine":"Laravel · FrankenPHP · Next.js 16 · React 19 · RabbitMQ · OpenSearch · Redis · MariaDB · MinIO · Traefik · Docker Compose","primaryLabel":"Open the live demo","primaryUrl":"https://praxis.codecharmer.io","secondaryLabel":"Read the case study","secondaryUrl":"/work/praxis"} -->
+<!-- wp:codecharmer/feature-item {"text":"Mixed provenance on one board — WordPress-authored, platform, and AI-drafted content, each tagged with its origin"} /-->
+<!-- wp:codecharmer/feature-item {"text":"AI drafting with a meter — every generation costed in integer micro-cents against a budget, prompts versioned"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Search as a read model — an event-driven OpenSearch pipeline returning highlighted results in about 90 ms"} /-->
+<!-- /wp:codecharmer/flagship -->
+BLOCKS;
+
 $cc_beliefs_items = <<<'BLOCKS'
 <!-- wp:codecharmer/belief-item {"title":"AI should solve real business problems","body":"Not a demo bolted onto a homepage. Automation earns its place by removing manual work and creating leverage."} /-->
 <!-- wp:codecharmer/belief-item {"title":"WordPress is an asset, not a burden","body":"Engineered properly, it stops being technical debt and becomes a platform your team can actually run."} /-->
@@ -229,6 +237,8 @@ $cc_pages['home'] = array(
 {$cc_process_stages}
 <!-- /wp:codecharmer/process-teaser -->
 
+{$cc_flagship_band}
+
 <!-- wp:codecharmer/projects /-->
 
 <!-- wp:codecharmer/cta-band /-->
@@ -281,9 +291,11 @@ foreach ( $cc_services as $cc_slug => $cc_service ) {
 $cc_pages['work'] = array(
 	'title'   => 'Work',
 	'order'   => 2,
-	'excerpt' => 'Real projects, live in the world: capoeira communities, an apparel brand, and an editorial portfolio — plus the platforms and teams we work with.',
-	'content' => <<<'BLOCKS'
-<!-- wp:codecharmer/page-hero {"eyebrow":"Selected work","title":"Built, shipped, and live.","intro":"A sample of what we’ve put into the world — brands, communities, and portfolios that had to work as well as they look.","primaryLabel":"Start a project","primaryUrl":"/contact"} /-->
+	'excerpt' => 'Praxis, our flagship AI orchestration platform — plus real client projects live in the world: communities, a brand store, and an editorial portfolio.',
+	'content' => <<<BLOCKS
+<!-- wp:codecharmer/page-hero {"eyebrow":"Selected work","title":"Built, shipped, and live.","intro":"Our flagship product and a sample of client work — brands, communities, and portfolios that had to work as well as they look.","primaryLabel":"Start a project","primaryUrl":"/contact"} /-->
+
+{$cc_flagship_band}
 
 <!-- wp:codecharmer/projects {"variant":"grid","count":0} /-->
 
@@ -394,6 +406,59 @@ $cc_pages['privacy'] = array(
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></section>
 <!-- /wp:group -->
+BLOCKS
+	,
+);
+
+// ------------------------------------------------------- work/praxis -- //
+$cc_pages['work/praxis'] = array(
+	'title'   => 'Praxis',
+	'order'   => 0,
+	'excerpt' => 'Praxis — an AI-native orchestration layer for digital operations. WordPress connected, AI metered, search in about 90 ms. Our flagship product, live at praxis.codecharmer.io.',
+	'content' => <<<'BLOCKS'
+<!-- wp:codecharmer/page-hero {"tone":"ink","eyebrow":"Praxis — flagship product","title":"The control room for a company’s content.","intro":"An AI-native orchestration layer for digital operations. Praxis connects the systems an organization already runs — starting with WordPress — and adds a canonical content model, metered AI drafting, and enterprise search behind one API.","primaryLabel":"Open the live demo","primaryUrl":"https://praxis.codecharmer.io","note":"v0.1 · Foundation — authenticate, generate, publish, search, observe. Thirteen services on one VPS."} /-->
+
+<!-- wp:codecharmer/value-statement {"lead":"Most platforms ask you to migrate. Praxis <em>connects</em> — WordPress stays where the authors are, the platform holds the canonical model, and AI and search operate on that."} -->
+<!-- wp:codecharmer/value-point {"title":"Provenance first","body":"Every item is tagged by origin: WordPress, platform, or an AI draft nobody has reviewed yet. A machine’s draft is never mistaken for a decision."} /-->
+<!-- wp:codecharmer/value-point {"title":"AI with a meter","body":"Every generation is costed in integer micro-cents against a budget, with versioned prompts. AI spend is never a surprise."} /-->
+<!-- wp:codecharmer/value-point {"title":"Search that keeps up","body":"OpenSearch consumes the platform’s event stream: highlighted full-text in about 90 ms, edge-ngram autocomplete, zero-downtime reindexes."} /-->
+<!-- /wp:codecharmer/value-statement -->
+
+<!-- wp:codecharmer/feature-list {"eyebrow":"Shipped in v0.1","heading":"The walking skeleton, working end to end.","intro":"Each capability verified against the live public endpoints — not a demo reel."} -->
+<!-- wp:codecharmer/feature-item {"text":"Register, log in, session — RS256 JWTs in httpOnly cookies"} /-->
+<!-- wp:codecharmer/feature-item {"text":"AI drafts land on the board, metered per generation"} /-->
+<!-- wp:codecharmer/feature-item {"text":"WordPress post → webhook → board → searchable, automatically"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Full-text search with highlights across every origin"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Health endpoint with every dependency reporting green"} /-->
+<!-- wp:codecharmer/feature-item {"text":"One-command Docker Compose deploy behind Traefik TLS"} /-->
+<!-- /wp:codecharmer/feature-list -->
+
+<!-- wp:codecharmer/beliefs {"heading":"Engineering that shows its work.","intro":"The same standards we sell to clients — applied to our own product, and documented as it was decided.","columns":4} -->
+<!-- wp:codecharmer/belief-item {"title":"A monolith with discipline","body":"Modular monolith with domain-driven layering and architecture tests that enforce the module boundaries. Twelve ADRs record every consequential decision."} /-->
+<!-- wp:codecharmer/belief-item {"title":"Events you can trust","body":"Transactional outbox, RabbitMQ topic exchange, CQRS-style read models — the search index can always be rebuilt from the source of truth."} /-->
+<!-- wp:codecharmer/belief-item {"title":"Tenancy that can’t leak","body":"Multi-tenant from day one with non-bypassable global-scope isolation, because bolting isolation on later never ends well."} /-->
+<!-- wp:codecharmer/belief-item {"title":"Security as a posture","body":"Rotating refresh tokens with reuse detection, HMAC-signed webhooks, breach-checked passwords, stored-XSS prevention."} /-->
+<!-- /wp:codecharmer/beliefs -->
+
+<!-- wp:codecharmer/stack {"eyebrow":"Under the hood","heading":"The stack, plainly.","intro":"Chosen for operational honesty: every piece runs today on one 8 GB machine, and every piece scales past it."} -->
+<!-- wp:codecharmer/stack-group {"label":"Backend","items":"Laravel\nFrankenPHP\nHorizon\nEloquent\nphp-amqplib\npredis\nopensearch-php\nFlysystem S3"} /-->
+<!-- wp:codecharmer/stack-group {"label":"Frontend","items":"Next.js 16 (App Router)\nReact 19 Server Components\nTypeScript (strict)\nTailwind CSS v4\nTanStack Query\nZustand\nZod\nRadix UI"} /-->
+<!-- wp:codecharmer/stack-group {"label":"Data · search · messaging","items":"MariaDB\nRedis\nRabbitMQ\nOpenSearch\nMinIO"} /-->
+<!-- wp:codecharmer/stack-group {"label":"Infrastructure","items":"Docker Compose\nTraefik\nGitHub Actions\nTurborepo + pnpm\nPrometheus\nGrafana"} /-->
+<!-- wp:codecharmer/stack-group {"label":"AI","items":"OpenAI API behind a provider port\nInteger micro-cent cost metering\nPrompt versioning"} /-->
+<!-- wp:codecharmer/stack-group {"label":"API · contract","items":"OpenAPI 3.1 as source of truth\nGenerated TS types + CI drift gate\nRFC 9457 Problem Details\nHMAC-signed webhooks"} /-->
+<!-- wp:codecharmer/stack-group {"label":"Quality","items":"Pest / PHPUnit\nPHPStan level 6\nLaravel Pint\nVitest + Testing Library\nESLint\nArchitecture tests"} /-->
+<!-- /wp:codecharmer/stack -->
+
+<!-- wp:codecharmer/demo-access {"heading":"Walk the board yourself.","intro":"A demo organization with clearly labelled demonstration content — including an unreviewed AI draft, exactly as an operations lead would find it.","url":"https://praxis.codecharmer.io","email":"demo@praxis.codecharmer.io","password":"ward-board-praxis-2026","note":"Shared demo credentials for a sandbox organization. It is reset from time to time, so anything you add may disappear."} /-->
+
+<!-- wp:codecharmer/faq {"heading":"Straight answers."} -->
+<!-- wp:codecharmer/faq-item {"question":"Why put WordPress under an AI platform?","answer":"Because organizations have years of content and workflow there. Praxis treats WordPress as an authoring adapter behind a port — the canonical model lives in the platform, so AI and search never depend on any one CMS’s schema. That decision is written down as ADR 0002."} /-->
+<!-- wp:codecharmer/faq-item {"question":"Is the RAG / embeddings layer live?","answer":"Not yet — and we won’t claim it before it ships. The architecture reserves the seams (provider ports, a vector-search slot), but v0.1 deliberately stops at the walking skeleton. Everything listed on this page is verified against the live endpoints."} /-->
+<!-- wp:codecharmer/faq-item {"question":"Can it really run a company’s content operation?","answer":"v0.1 is a foundation, not a finished ops suite. What it proves is the hard part: the event-driven spine, tenant isolation, cost metering, and CMS integration that everything else builds on."} /-->
+<!-- /wp:codecharmer/faq -->
+
+<!-- wp:codecharmer/cta-band {"heading":"Want a platform with this kind of spine?","body":"Praxis is how we build when nobody is constraining us. A short conversation is usually enough to see whether your project deserves the same treatment."} /-->
 BLOCKS
 	,
 );

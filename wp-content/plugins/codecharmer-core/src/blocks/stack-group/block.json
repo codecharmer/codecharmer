@@ -1,0 +1,20 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "codecharmer/stack-group",
+	"title": "Stack Group",
+	"category": "codecharmer",
+	"icon": "tag",
+	"description": "One labelled group of technology chips.",
+	"textdomain": "codecharmer-core",
+	"parent": [ "codecharmer/stack" ],
+	"attributes": {
+		"label": { "type": "string", "default": "" },
+		"items": { "type": "string", "default": "" }
+	},
+	"supports": {
+		"html": false,
+		"reusable": false
+	},
+	"editorScript": "file:./index.js"
+}

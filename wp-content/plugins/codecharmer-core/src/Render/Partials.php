@@ -213,6 +213,97 @@ final class Partials {
 	}
 
 	/**
+	 * The Praxis board vignette — flagship-product artwork in the house style.
+	 *
+	 * An honest schematic of what the product actually does: one board of
+	 * mixed-provenance content (wp / ai / px origin badges), live search with
+	 * a timing readout, and the AI cost meter. Cyan line-art on deep ink,
+	 * mono labels as measurement — same register as the system diagram.
+	 *
+	 * @return void
+	 */
+	public static function praxis_board(): void {
+		$line   = 'oklch(0.83 0.13 200 / 0.34)';
+		$edge   = 'oklch(0.83 0.13 200 / 0.2)';
+		$bright = 'oklch(0.83 0.13 200)';
+		$raised = 'oklch(0.245 0.026 236)';
+		$dark   = 'oklch(0.19 0.025 236)';
+		$label  = 'oklch(0.72 0.015 216)';
+		$tick   = 'oklch(1 0 0 / 0.16)';
+
+		$columns = array(
+			array( 30, __( 'draft', 'codecharmer-core' ) ),
+			array( 186, __( 'review', 'codecharmer-core' ) ),
+			array( 342, __( 'published', 'codecharmer-core' ) ),
+		);
+		?>
+		<svg class="praxisboard" viewBox="0 0 490 420" fill="none" role="img"
+			aria-label="<?php esc_attr_e( 'A schematic of the Praxis board: a search bar with a 90 millisecond timing readout above three workflow columns. Cards carry origin badges — wp for WordPress, ai for unreviewed AI drafts, px for platform content — and a meter reads the AI generation cost.', 'codecharmer-core' ); ?>">
+			<!-- ruler: the house measure -->
+			<g aria-hidden="true">
+				<?php for ( $i = 0; $i < 44; $i++ ) : ?>
+					<?php $y = 24 + $i * 9; ?>
+					<line x1="6" y1="<?php echo esc_attr( (string) $y ); ?>" x2="<?php echo 6 === $i % 5 ? 17 : 12; ?>" y2="<?php echo esc_attr( (string) $y ); ?>" stroke="<?php echo esc_attr( $tick ); ?>" stroke-width="1"/>
+				<?php endfor; ?>
+			</g>
+
+			<!-- search field -->
+			<g>
+				<rect x="30" y="24" width="332" height="40" rx="9" fill="<?php echo esc_attr( $raised ); ?>" stroke="<?php echo esc_attr( $line ); ?>" stroke-width="1.25"/>
+				<circle cx="52" cy="44" r="6.5" stroke="<?php echo esc_attr( $bright ); ?>" stroke-width="1.5"/>
+				<path d="M57 49l5 5" stroke="<?php echo esc_attr( $bright ); ?>" stroke-width="1.5" stroke-linecap="round"/>
+				<text class="pb-mono" x="72" y="49" fill="<?php echo esc_attr( $label ); ?>"><?php esc_html_e( 'launch checklist', 'codecharmer-core' ); ?></text>
+				<rect class="pb-hl" x="70" y="32" width="118" height="22" rx="4" fill="<?php echo esc_attr( $bright ); ?>" opacity="0.14"/>
+				<rect x="376" y="24" width="84" height="40" rx="9" fill="<?php echo esc_attr( $dark ); ?>" stroke="<?php echo esc_attr( $edge ); ?>" stroke-width="1.25"/>
+				<text class="pb-mono pb-bright" x="392" y="49" fill="<?php echo esc_attr( $bright ); ?>"><?php esc_html_e( '~90 ms', 'codecharmer-core' ); ?></text>
+			</g>
+
+			<!-- board frame -->
+			<rect x="30" y="86" width="430" height="252" rx="12" stroke="<?php echo esc_attr( $edge ); ?>" stroke-width="1.25"/>
+
+			<?php foreach ( $columns as $ci => $col ) : ?>
+				<?php $cx = 30 + 16 + $ci * 146; ?>
+				<text class="pb-mono pb-col" x="<?php echo esc_attr( (string) $cx ); ?>" y="112" fill="<?php echo esc_attr( $label ); ?>"><?php echo esc_html( $col[1] ); ?></text>
+				<line x1="<?php echo esc_attr( (string) $cx ); ?>" y1="120" x2="<?php echo esc_attr( (string) ( $cx + 114 ) ); ?>" y2="120" stroke="<?php echo esc_attr( $edge ); ?>" stroke-width="1" stroke-dasharray="2 5"/>
+			<?php endforeach; ?>
+
+			<!-- cards: [x, y, badge, glow?] -->
+			<?php
+			$cards = array(
+				array( 46, 134, 'wp', false ),
+				array( 46, 200, 'px', false ),
+				array( 192, 134, 'ai', true ),
+				array( 192, 214, 'wp', false ),
+				array( 338, 134, 'px', false ),
+				array( 338, 200, 'wp', false ),
+				array( 338, 266, 'px', false ),
+			);
+			?>
+			<?php foreach ( $cards as $i => $card ) : ?>
+				<?php list( $x, $y, $badge, $glow ) = $card; ?>
+				<g class="pb-card" style="--d:<?php echo esc_attr( (string) ( 150 + $i * 90 ) ); ?>ms">
+					<rect x="<?php echo esc_attr( (string) $x ); ?>" y="<?php echo esc_attr( (string) $y ); ?>" width="114" height="56" rx="8" fill="<?php echo esc_attr( $raised ); ?>" stroke="<?php echo $glow ? esc_attr( $bright ) : esc_attr( $line ); ?>" stroke-width="<?php echo $glow ? '1.5' : '1.25'; ?>"/>
+					<path d="M<?php echo esc_attr( (string) ( $x + 12 ) ); ?> <?php echo esc_attr( (string) ( $y + 16 ) ); ?>h56M<?php echo esc_attr( (string) ( $x + 12 ) ); ?> <?php echo esc_attr( (string) ( $y + 26 ) ); ?>h72" stroke="<?php echo esc_attr( $line ); ?>" stroke-width="1.5" stroke-linecap="round"/>
+					<rect class="<?php echo 'ai' === $badge ? 'pb-ai' : ''; ?>" x="<?php echo esc_attr( (string) ( $x + 12 ) ); ?>" y="<?php echo esc_attr( (string) ( $y + 36 ) ); ?>" width="26" height="13" rx="3" fill="<?php echo 'ai' === $badge ? esc_attr( $bright ) : 'none'; ?>" stroke="<?php echo esc_attr( 'ai' === $badge ? $bright : $edge ); ?>" stroke-width="1" opacity="<?php echo 'ai' === $badge ? '0.9' : '1'; ?>"/>
+					<text class="pb-badge" x="<?php echo esc_attr( (string) ( $x + 25 ) ); ?>" y="<?php echo esc_attr( (string) ( $y + 46 ) ); ?>" text-anchor="middle" fill="<?php echo 'ai' === $badge ? esc_attr( $dark ) : esc_attr( $label ); ?>"><?php echo esc_html( $badge ); ?></text>
+				</g>
+			<?php endforeach; ?>
+
+			<!-- cost meter -->
+			<g>
+				<rect x="30" y="358" width="430" height="40" rx="9" fill="<?php echo esc_attr( $dark ); ?>" stroke="<?php echo esc_attr( $edge ); ?>" stroke-width="1.25"/>
+				<text class="pb-mono" x="46" y="383" fill="<?php echo esc_attr( $label ); ?>"><?php esc_html_e( 'ai spend · metered per generation', 'codecharmer-core' ); ?></text>
+				<g class="pb-meter">
+					<?php for ( $i = 0; $i < 10; $i++ ) : ?>
+						<rect class="pb-bar" style="--i:<?php echo esc_attr( (string) $i ); ?>" x="<?php echo esc_attr( (string) ( 356 + $i * 9 ) ); ?>" y="370" width="5" height="16" rx="1" fill="<?php echo esc_attr( $bright ); ?>" opacity="<?php echo $i < 4 ? '0.9' : '0.22'; ?>"/>
+					<?php endfor; ?>
+				</g>
+			</g>
+		</svg>
+		<?php
+	}
+
+	/**
 	 * The hero system diagram — three labeled planes with live traffic.
 	 *
 	 * Static brand artwork; identical geometry to the original build.

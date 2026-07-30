@@ -1,0 +1,21 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "codecharmer/stack",
+	"title": "Tech Stack",
+	"category": "codecharmer",
+	"icon": "editor-code",
+	"description": "Grouped technology chips in the mono measurement register.",
+	"textdomain": "codecharmer-core",
+	"attributes": {
+		"eyebrow": { "type": "string", "default": "Stack" },
+		"heading": { "type": "string", "default": "" },
+		"intro": { "type": "string", "default": "" }
+	},
+	"supports": {
+		"html": false
+	},
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

@@ -1,0 +1,26 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "codecharmer/demo-access",
+	"title": "Demo Access",
+	"category": "codecharmer",
+	"icon": "unlock",
+	"description": "Live-demo access panel: URL and demo credentials in the mono register, with a context note.",
+	"textdomain": "codecharmer-core",
+	"attributes": {
+		"eyebrow": { "type": "string", "default": "Try it" },
+		"heading": { "type": "string", "default": "" },
+		"intro": { "type": "string", "default": "" },
+		"url": { "type": "string", "default": "" },
+		"email": { "type": "string", "default": "" },
+		"password": { "type": "string", "default": "" },
+		"note": { "type": "string", "default": "" },
+		"ctaLabel": { "type": "string", "default": "Open the live demo" }
+	},
+	"supports": {
+		"html": false
+	},
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}
