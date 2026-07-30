@@ -171,6 +171,7 @@ final class Installer {
 			update_post_meta( $post_id, 'cc_url', esc_url_raw( (string) $project['url'] ) );
 			update_post_meta( $post_id, 'cc_descriptor', sanitize_textarea_field( (string) $project['descriptor'] ) );
 			update_post_meta( $post_id, 'cc_tags', array_map( 'sanitize_text_field', (array) $project['tags'] ) );
+			update_post_meta( $post_id, 'cc_case_url', sanitize_text_field( (string) ( $project['case'] ?? '' ) ) );
 
 			if ( ! empty( $project['image'] ) ) {
 				$attachment_id = MediaImporter::import(

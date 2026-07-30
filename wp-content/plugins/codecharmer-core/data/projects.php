@@ -16,6 +16,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 return array(
 	array(
+		'name'       => 'Gramo Café',
+		'url'        => 'https://gramo.cafe',
+		'descriptor' => 'The digital home of a specialty coffee brand with eight cafés across Cuernavaca and Mexico City — bilingual, headless WordPress + Gatsby, with pay-on-delivery commerce and SMS-driven operations.',
+		'tags'       => array( 'Headless WordPress', 'E-commerce', 'Bilingual' ),
+		'image'      => 'gramo-cafe',
+		'case'       => '/work/gramo',
+	),
+	array(
 		'name'       => 'Pura Capoeira',
 		'url'        => 'https://puracapoeira.com',
 		'descriptor' => 'The home of an international capoeira school spanning Mexico, Brazil, Angola and the USA — locations, professors, events and gallery, in three languages.',

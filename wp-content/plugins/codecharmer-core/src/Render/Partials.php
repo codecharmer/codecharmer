@@ -126,9 +126,20 @@ final class Partials {
 		$tags       = get_post_meta( $project->ID, 'cc_tags', true );
 		$tags       = is_array( $tags ) ? $tags : array();
 		$host       = preg_replace( '#^https?://#', '', $url );
+		$case_url   = (string) get_post_meta( $project->ID, 'cc_case_url', true );
 		?>
-		<a class="project" href="<?php echo esc_url( $url ); ?>" target="_blank" rel="noopener noreferrer">
-			<div class="project__shot">
+		<article class="project">
+			<a class="project__shot" href="<?php echo esc_url( $url ); ?>" target="_blank" rel="noopener noreferrer" aria-label="
+			<?php
+			echo esc_attr(
+				sprintf(
+					/* translators: %s: project name */
+					__( 'Visit the %s website', 'codecharmer-core' ),
+					get_the_title( $project )
+				)
+			);
+			?>
+			">
 				<?php
 				if ( has_post_thumbnail( $project ) ) {
 					echo get_the_post_thumbnail(
@@ -146,10 +157,12 @@ final class Partials {
 				}
 				?>
 				<span class="project__visit"><?php self::icon( 'external', 18 ); ?></span>
-			</div>
+			</a>
 			<div class="project__body">
 				<div class="project__row">
-					<h3 class="project__name"><?php echo esc_html( get_the_title( $project ) ); ?></h3>
+					<h3 class="project__name">
+						<a href="<?php echo esc_url( $url ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html( get_the_title( $project ) ); ?></a>
+					</h3>
 					<span class="project__host"><?php echo esc_html( (string) $host ); ?></span>
 				</div>
 				<p class="project__desc"><?php echo esc_html( $descriptor ); ?></p>
@@ -160,8 +173,14 @@ final class Partials {
 						<?php endforeach; ?>
 					</ul>
 				<?php endif; ?>
+				<?php if ( '' !== $case_url ) : ?>
+					<a class="project__case" href="<?php echo esc_url( $case_url ); ?>">
+						<?php esc_html_e( 'Read the case study', 'codecharmer-core' ); ?>
+						<?php self::icon( 'arrow', 16 ); ?>
+					</a>
+				<?php endif; ?>
 			</div>
-		</a>
+		</article>
 		<?php
 	}
 

@@ -77,6 +77,16 @@ final class PostTypes implements Bootable {
 		);
 		register_post_meta(
 			self::PROJECT,
+			'cc_case_url',
+			array(
+				'type'              => 'string',
+				'single'            => true,
+				'show_in_rest'      => true,
+				'sanitize_callback' => 'sanitize_text_field',
+			)
+		);
+		register_post_meta(
+			self::PROJECT,
 			'cc_descriptor',
 			array(
 				'type'              => 'string',

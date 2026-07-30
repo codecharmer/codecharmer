@@ -471,4 +471,55 @@ BLOCKS
 	,
 );
 
+// -------------------------------------------------------- work/gramo -- //
+$cc_pages['work/gramo'] = array(
+	'title'   => 'Gramo Café',
+	'order'   => 1,
+	'excerpt' => 'Gramo Café — a bilingual headless WordPress + Gatsby build for a specialty coffee brand with eight cafés: block-composed editing, pay-on-delivery commerce, SMS-driven operations.',
+	'content' => <<<'BLOCKS'
+<!-- wp:codecharmer/page-hero {"tone":"ink","eyebrow":"Case study — Gramo Café","title":"Quiet luxury, engineered underneath.","intro":"Gramo is a specialty coffee brand from Cuernavaca with eight cafés across two cities. Its digital home is a bilingual, statically rendered storefront with WordPress behind it — every page composed from custom blocks, every order and inquiry reaching staff by SMS.","primaryLabel":"Visit gramo.cafe","primaryUrl":"https://gramo.cafe","note":"es-MX / EN · headless WordPress + Gatsby · WooCommerce, pay on delivery"} /-->
+
+<!-- wp:codecharmer/value-statement {"lead":"The brand register is quiet luxury. The engineering underneath is anything but quiet — <em>editors own every word</em>, and the storefront ships as static pages."} -->
+<!-- wp:codecharmer/value-point {"title":"Blocks in, React out","body":"Pages are composed from a curated set of custom Gutenberg blocks and rendered through a block→React map. Editors compose in WordPress; Gatsby ships static, fast, safe pages."} /-->
+<!-- wp:codecharmer/value-point {"title":"Bilingual by structure","body":"Spanish and English live as linked translation pairs on every content surface. A missing translation is omitted — never silently swapped for the other language."} /-->
+<!-- wp:codecharmer/value-point {"title":"Commerce that fits the counter","body":"WooCommerce in MXN with pay-on-delivery, and Twilio SMS alerts so orders and inquiries reach staff where they actually work — on their phones."} /-->
+<!-- /wp:codecharmer/value-statement -->
+
+<!-- wp:codecharmer/feature-list {"eyebrow":"Shipped","heading":"What the platform carries.","intro":"Thirteen page types in two languages, and the structured content behind them — all editable from WordPress by non-technical staff."} -->
+<!-- wp:codecharmer/feature-item {"text":"Coffees with origin, roast, tasting notes and brew guidance"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Eight café locations with hours, amenities, maps and galleries"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Menu with prices, journal, team, testimonials and events"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Pay-on-delivery checkout in MXN through WooCommerce"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Subscription and wholesale inquiry pipelines"} /-->
+<!-- wp:codecharmer/feature-item {"text":"A careers flow with a real CV pipeline"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Twilio SMS / WhatsApp alerts for orders and inquiries"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Idempotent content seeding — wp gramo install"} /-->
+<!-- /wp:codecharmer/feature-list -->
+
+<!-- wp:codecharmer/beliefs {"heading":"Engineering that shows its work.","intro":"Gramo is where our commerce engine methodology lives — the documented engine-versus-brand split our WordPress builds share.","columns":4} -->
+<!-- wp:codecharmer/belief-item {"title":"Plugin decides, theme presents","body":"All business logic lives in the gramo-core plugin — CPTs, blocks, GraphQL, ordering, SMS, SEO. The theme is a minimal admin shell; the public frontend is Gatsby."} /-->
+<!-- wp:codecharmer/belief-item {"title":"Content seeded from code","body":"One idempotent command installs pages, products, locations and translations. The brand layer is data files; re-running never destroys an editor’s work."} /-->
+<!-- wp:codecharmer/belief-item {"title":"The contract is GraphQL","body":"WPGraphQL feeds static builds, and publishing content triggers a frontend rebuild automatically — editors never think about deploys."} /-->
+<!-- wp:codecharmer/belief-item {"title":"Performance in the brief","body":"Lighthouse-100 targets, WCAG AA contrast, reduced-motion support — written into the product record, not bolted on."} /-->
+<!-- /wp:codecharmer/beliefs -->
+
+<!-- wp:codecharmer/stack {"eyebrow":"Under the hood","heading":"The stack, plainly."} -->
+<!-- wp:codecharmer/stack-group {"label":"Frontend","items":"Gatsby 5\nReact\nTypeScript\nSCSS Modules\nGSAP (sparing)"} /-->
+<!-- wp:codecharmer/stack-group {"label":"Backend","items":"Headless WordPress\nWPGraphQL\nWooCommerce (COD, MXN)\ngramo-core plugin\nCustom meta boxes — no ACF"} /-->
+<!-- wp:codecharmer/stack-group {"label":"Operations","items":"Twilio SMS / WhatsApp\nInquiry pipelines\nAdmin ops dashboard\nProduction calendar\nReports"} /-->
+<!-- wp:codecharmer/stack-group {"label":"Quality","items":"PHPCS (WordPress-Core + Extra)\nPHPStan level 6\nJS + SCSS linting\nCI on every push"} /-->
+<!-- wp:codecharmer/stack-group {"label":"Infrastructure","items":"GitHub Actions\nwp-env local\ncPanel VPS\nScoped rsync deploys\nContent-triggered rebuilds"} /-->
+<!-- /wp:codecharmer/stack -->
+
+<!-- wp:codecharmer/faq {"heading":"Straight answers."} -->
+<!-- wp:codecharmer/faq-item {"question":"Why headless here?","answer":"The brand demanded total design control and speed — a quiet-luxury register that no theme could deliver. Headless keeps WordPress for the editors and gives the storefront to a static frontend that hits performance targets by construction."} /-->
+<!-- wp:codecharmer/faq-item {"question":"Why pay-on-delivery?","answer":"Because that’s how this market buys at launch. Card payments, gift cards and loyalty are architected-for, deliberately not built yet — the checkout doesn’t block them, and we don’t claim them."} /-->
+<!-- wp:codecharmer/faq-item {"question":"Can the café’s staff really run it?","answer":"That’s the point of the build. Every page is composed from blocks in WordPress, structured content uses purpose-built meta boxes, and publishing triggers the rebuild. No developer in the loop for content."} /-->
+<!-- /wp:codecharmer/faq -->
+
+<!-- wp:codecharmer/cta-band {"heading":"Want a brand site with this much under the hood?","body":"Tell us what you’re building. A short conversation is usually enough to know whether we’re the right team."} /-->
+BLOCKS
+	,
+);
+
 return $cc_pages;
