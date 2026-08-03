@@ -10,7 +10,7 @@
 	"attributes": {
 		"eyebrow": { "type": "string", "default": "What we build" },
 		"heading": { "type": "string", "default": "Four disciplines, engineered to work as one system." },
-		"intro": { "type": "string", "default": "Most projects touch more than one. That’s the point — the value shows up where they connect." }
+		"intro": { "type": "string", "default": "Most projects touch more than one. That’s the point: the value shows up where they connect." }
 	},
 	"supports": {
 		"html": false

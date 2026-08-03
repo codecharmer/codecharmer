@@ -10,8 +10,8 @@
 	"attributes": {
 		"eyebrow": { "type": "string", "default": "Proof" },
 		"heading": { "type": "string", "default": "Every claim here has shipped." },
-		"intro": { "type": "string", "default": "See the projects we’ve put into the world — built to work as well as they look." },
-		"ctaLabel": { "type": "string", "default": "View our work" },
+		"intro": { "type": "string", "default": "See the projects we’ve put into the world, built to work as well as they look." },
+		"ctaLabel": { "type": "string", "default": "See it live" },
 		"ctaUrl": { "type": "string", "default": "/work" }
 	},
 	"supports": {

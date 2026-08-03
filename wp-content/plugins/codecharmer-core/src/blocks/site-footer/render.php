@@ -61,7 +61,7 @@ $cc_year      = gmdate( 'Y' );
 				<?php
 				printf(
 					/* translators: 1: year, 2: site name */
-					esc_html__( '© %1$s %2$s. Digital systems that create business value.', 'codecharmer-core' ),
+					esc_html__( '© %1$s %2$s. Digital systems that earn their keep.', 'codecharmer-core' ),
 					esc_html( $cc_year ),
 					esc_html( get_bloginfo( 'name' ) )
 				);

@@ -118,7 +118,7 @@ final class InquiryController implements Bootable {
 		$to      = Options::get( 'email' );
 		$subject = sprintf(
 			/* translators: %s: sender name */
-			__( 'Project inquiry — %s', 'codecharmer-core' ),
+			__( 'Project inquiry: %s', 'codecharmer-core' ),
 			$name
 		);
 
@@ -128,11 +128,11 @@ final class InquiryController implements Bootable {
 
 		$lines = array(
 			'Name: ' . $name,
-			'Company: ' . ( '' !== $company ? $company : '—' ),
+			'Company: ' . ( '' !== $company ? $company : '-' ),
 			'Email: ' . $email,
 			'Project type: ' . (string) $request->get_param( 'projectType' ),
-			'Budget: ' . ( '' !== $budget ? $budget : '—' ),
-			'Timeline: ' . ( '' !== $timeline ? $timeline : '—' ),
+			'Budget: ' . ( '' !== $budget ? $budget : '-' ),
+			'Timeline: ' . ( '' !== $timeline ? $timeline : '-' ),
 			'',
 			$message,
 		);

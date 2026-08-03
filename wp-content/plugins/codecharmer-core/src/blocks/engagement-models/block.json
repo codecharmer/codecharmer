@@ -10,7 +10,7 @@
 	"attributes": {
 		"eyebrow": { "type": "string", "default": "How we work together" },
 		"heading": { "type": "string", "default": "Engagements that fit the problem." },
-		"intro": { "type": "string", "default": "No fixed price list — the right shape depends on how clear the work is. We’ll recommend one honestly." }
+		"intro": { "type": "string", "default": "No fixed price list: the right shape depends on how clear the work is. We’ll recommend one honestly." }
 	},
 	"supports": {
 		"html": false

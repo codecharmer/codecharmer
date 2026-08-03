@@ -11,7 +11,7 @@
 		"kicker": { "type": "string", "default": "Digital engineering studio" },
 		"titleBefore": { "type": "string", "default": "We build digital systems that" },
 		"charm": { "type": "string", "default": "earn their keep" },
-		"sub": { "type": "string", "default": "AI-first architecture, serious WordPress engineering, and custom software — built to generate revenue, automate the busywork, and stay yours to run." },
+		"sub": { "type": "string", "default": "AI-first architecture, serious WordPress engineering, and custom software. Built to generate revenue, automate the busywork, and stay yours to run." },
 		"primaryLabel": { "type": "string", "default": "Book a consultation" },
 		"primaryUrl": { "type": "string", "default": "/contact" },
 		"secondaryLabel": { "type": "string", "default": "See our work" },

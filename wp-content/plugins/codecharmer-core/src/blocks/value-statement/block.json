@@ -8,7 +8,7 @@
 	"description": "Display-face value statement with emphasized phrase and a row of supporting points.",
 	"textdomain": "codecharmer-core",
 	"attributes": {
-		"lead": { "type": "string", "default": "Most agencies build you a website. We build the <em>system it runs on</em> — engineered to generate revenue, remove manual work, and stay under your control." }
+		"lead": { "type": "string", "default": "Most agencies build you a website. We build the <em>system it runs on</em>: engineered to generate revenue, remove manual work, and stay under your control." }
 	},
 	"supports": {
 		"html": false

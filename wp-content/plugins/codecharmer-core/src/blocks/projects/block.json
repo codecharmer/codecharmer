@@ -5,7 +5,7 @@
 	"title": "Projects",
 	"category": "codecharmer",
 	"icon": "portfolio",
-	"description": "Selected work: project cards from the Projects post type — as a homepage teaser or the full grid.",
+	"description": "Selected work: project cards from the Projects post type, as a homepage teaser or the full grid.",
 	"textdomain": "codecharmer-core",
 	"attributes": {
 		"variant": { "type": "string", "default": "teaser", "enum": [ "teaser", "grid" ] },

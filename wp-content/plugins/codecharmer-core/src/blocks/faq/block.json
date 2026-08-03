@@ -8,7 +8,7 @@
 	"description": "Common questions as native disclosure items.",
 	"textdomain": "codecharmer-core",
 	"attributes": {
-		"heading": { "type": "string", "default": "Common questions" }
+		"heading": { "type": "string", "default": "Straight answers." }
 	},
 	"supports": {
 		"html": false

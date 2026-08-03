@@ -335,14 +335,14 @@
 		};
 
 		var buildMailto = function ( data ) {
-			var subject = 'Project inquiry — ' + data.name;
+			var subject = 'Project inquiry: ' + data.name;
 			var lines = [
 				'Name: ' + data.name,
-				'Company: ' + ( data.company || '—' ),
+				'Company: ' + ( data.company || '-' ),
 				'Email: ' + data.email,
 				'Project type: ' + data.projectType,
-				'Budget: ' + ( data.budget || '—' ),
-				'Timeline: ' + ( data.timeline || '—' ),
+				'Budget: ' + ( data.budget || '-' ),
+				'Timeline: ' + ( data.timeline || '-' ),
 				'',
 				data.message,
 			];
@@ -357,7 +357,7 @@
 			form.hidden = true;
 			if ( viaEmailClient && doneBody ) {
 				doneBody.textContent =
-					'We’ve opened your email client with the details filled in — hit send and we’ll take it from there.';
+					'We’ve opened your email client with the details filled in. Hit send and we’ll take it from there.';
 			}
 			if ( donePanel ) {
 				donePanel.hidden = false;

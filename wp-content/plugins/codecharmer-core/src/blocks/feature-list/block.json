@@ -5,7 +5,7 @@
 	"title": "Feature List",
 	"category": "codecharmer",
 	"icon": "yes-alt",
-	"description": "Capabilities grid with check marks — the “what’s included” section.",
+	"description": "Capabilities grid with check marks: the “what’s included” section.",
 	"textdomain": "codecharmer-core",
 	"attributes": {
 		"eyebrow": { "type": "string", "default": "Capabilities" },

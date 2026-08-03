@@ -9,7 +9,7 @@
 	"textdomain": "codecharmer-core",
 	"attributes": {
 		"eyebrow": { "type": "string", "default": "Approach" },
-		"heading": { "type": "string", "default": "How we approach it" },
+		"heading": { "type": "string", "default": "The order of operations." },
 		"intro": { "type": "string", "default": "" }
 	},
 	"supports": {

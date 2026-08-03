@@ -56,7 +56,7 @@ if ( ! $cc_entries ) {
 					</div>
 					<div class="clentry__body">
 						<h3 class="clentry__name">
-							<span class="visually-hidden"><?php echo esc_html( (string) $cc_entry['version'] ); ?> — </span>
+							<span class="visually-hidden"><?php echo esc_html( (string) $cc_entry['version'] ); ?>: </span>
 							<?php echo esc_html( (string) $cc_entry['title'] ); ?>
 						</h3>
 						<?php if ( '' !== (string) $cc_entry['summary'] ) : ?>

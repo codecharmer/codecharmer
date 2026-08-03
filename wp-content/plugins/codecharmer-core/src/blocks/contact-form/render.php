@@ -65,7 +65,7 @@ $cc_steps = array(
 		'title' => __( 'We read it properly', 'codecharmer-core' ),
 		'body'  => sprintf(
 			/* translators: %s: response time, e.g. "within one business day" */
-			__( 'A real person replies %s — not an autoresponder.', 'codecharmer-core' ),
+			__( 'A real person replies %s, not an autoresponder.', 'codecharmer-core' ),
 			Options::get( 'response_time' )
 		),
 	),
@@ -75,7 +75,7 @@ $cc_steps = array(
 	),
 	array(
 		'title' => __( 'A clear proposal', 'codecharmer-core' ),
-		'body'  => __( 'Scope, approach, and price — enough to make a confident decision.', 'codecharmer-core' ),
+		'body'  => __( 'Scope, approach, and price: enough to make a confident decision.', 'codecharmer-core' ),
 	),
 );
 ?>
@@ -163,7 +163,7 @@ $cc_steps = array(
 
 			<div class="cform-done" data-done hidden tabindex="-1">
 				<span class="cform-done__mark" aria-hidden="true"><?php Partials::icon( 'check', 26 ); ?></span>
-				<h3 class="cform-done__title"><?php esc_html_e( 'Thanks — that’s everything we need.', 'codecharmer-core' ); ?></h3>
+				<h3 class="cform-done__title"><?php esc_html_e( 'Thanks. That’s everything we need.', 'codecharmer-core' ); ?></h3>
 				<p class="cform-done__body" data-done-body>
 					<?php
 					printf(

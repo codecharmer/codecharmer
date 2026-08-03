@@ -13,10 +13,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 return array(
 	'blogname'        => 'Code Charmer',
-	'blogdescription' => 'Digital systems that create business value.',
+	'blogdescription' => 'Digital systems that earn their keep.',
 	'settings'        => array(
 		'email'          => 'codecharmer@codecharmer.io',
-		'tagline'        => 'Digital systems that create business value.',
+		'tagline'        => 'Digital systems that earn their keep.',
 		'cta_label'      => 'Book a consultation',
 		'cta_url'        => '/contact',
 		'response_time'  => 'within one business day',

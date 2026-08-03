@@ -100,7 +100,7 @@ final class Partials {
 			'<%s class="logo"%s aria-label="%s">',
 			esc_attr( $tag ),
 			'' !== $url ? ' href="' . esc_url( $url ) . '"' : '',
-			esc_attr__( 'Code Charmer — home', 'codecharmer-core' )
+			esc_attr__( 'Code Charmer, home', 'codecharmer-core' )
 		);
 		?>
 		<svg class="logo__mark" viewBox="0 0 44 28" width="44" height="28" aria-hidden="true" fill="none">
@@ -257,7 +257,7 @@ final class Partials {
 		);
 		?>
 		<svg class="praxisboard" viewBox="0 0 490 420" fill="none" role="img"
-			aria-label="<?php esc_attr_e( 'A schematic of the Praxis board: a search bar with a 90 millisecond timing readout above three workflow columns. Cards carry origin badges — wp for WordPress, ai for unreviewed AI drafts, px for platform content — and a meter reads the AI generation cost.', 'codecharmer-core' ); ?>">
+			aria-label="<?php esc_attr_e( 'A schematic of the Praxis board: a search bar with a 90 millisecond timing readout above three workflow columns. Cards carry origin badges (wp for WordPress, ai for unreviewed AI drafts, px for platform content), and a meter reads the AI generation cost.', 'codecharmer-core' ); ?>">
 			<!-- ruler: the house measure -->
 			<g aria-hidden="true">
 				<?php for ( $i = 0; $i < 44; $i++ ) : ?>
@@ -356,7 +356,7 @@ final class Partials {
 		$tick      = 'oklch(1 0 0 / 0.16)';
 		?>
 		<svg class="sysdiagram" viewBox="6 26 482 404" fill="none" role="img"
-			aria-label="<?php esc_attr_e( 'A system diagram in three layers. An interface layer of site, portal and dashboard sits above a logic layer — an API, an orchestrating core, and automation — which sits above a data layer of content, records and knowledge. Signals flow between the layers.', 'codecharmer-core' ); ?>">
+			aria-label="<?php esc_attr_e( 'A system diagram in three layers. An interface layer of site, portal and dashboard sits above a logic layer (an API, an orchestrating core, and automation), which sits above a data layer of content, records and knowledge. Signals flow between the layers.', 'codecharmer-core' ); ?>">
 			<defs>
 				<radialGradient id="sd-core-glow" cx="50%" cy="50%" r="50%">
 					<stop offset="0%" stop-color="<?php echo esc_attr( $bright ); ?>" stop-opacity="0.5"/>
