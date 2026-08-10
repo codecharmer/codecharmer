@@ -526,4 +526,155 @@ BLOCKS
 	,
 );
 
+// ----------------------------------------------------- work/pacifica -- //
+$cc_pages['work/pacifica'] = array(
+	'title'   => 'Pacífica Panadería',
+	'order'   => 2,
+	'excerpt' => 'Pacífica Panadería: an artisan sourdough bakery on one WordPress engine. Reserve-and-pickup WooCommerce storefront, an Expo customer app, a tablet POS, Apple Wallet loyalty, WhatsApp/SMS operations via Twilio.',
+	'content' => <<<'BLOCKS'
+<!-- wp:codecharmer/page-hero {"tone":"ink","eyebrow":"Case study · Pacífica Panadería","title":"The whole bakery, running on one engine.","intro":"Pacífica is an artisan sourdough bakery in Cuernavaca. Its platform is one WordPress engine driving three surfaces: a reserve-and-pickup storefront, a customer app whose loyalty card lives in Apple Wallet, and a tablet POS that runs the counter, the stock and the daily close.","primaryLabel":"Visit pacificapanaderia.com","primaryUrl":"https://pacificapanaderia.com","note":"es-MX · WordPress + WooCommerce Store API · Expo customer + POS apps"} /-->
+
+<!-- wp:codecharmer/value-statement {"lead":"A bakery is a system: ovens, slots, counter, stock. <em>The software mirrors all of it</em>, and the same engine now runs its sister café down the street."} -->
+<!-- wp:codecharmer/value-point {"title":"Reserve now, pay at pickup","body":"Capacity-limited 30-minute pickup slots with a 1-hour lead time, so same-day ordering works. Checkout rides the WooCommerce Store API. Pay at pickup is the live path; the Stripe gateway is wired and awaiting keys."} /-->
+<!-- wp:codecharmer/value-point {"title":"Three surfaces, one truth","body":"Web, customer app and POS consume the same catalog, the same slots and the same order states through one REST API. Nothing to reconcile, nowhere to drift."} /-->
+<!-- wp:codecharmer/value-point {"title":"Operations on WhatsApp","body":"New orders reach staff by WhatsApp/SMS via Twilio, and staff reply with a digit to advance them. Customers get a message at every step. Nobody has to watch a dashboard."} /-->
+<!-- /wp:codecharmer/value-statement -->
+
+<!-- wp:codecharmer/feature-list {"eyebrow":"Surface 01 · The website","heading":"The storefront.","intro":"Seventeen block templates and twenty-four patterns on a theme.json token system: everything editable, everything seeded from code."} -->
+<!-- wp:codecharmer/feature-item {"text":"A 29-product WooCommerce catalog in three categories, real MXN prices, Agotado sold-out states driven by live stock"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Reserve-and-pickup checkout: capacity-limited 30-minute slots with a 1-hour lead time, so same-day orders work"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Fourteen seeded pages: menú, historia, filosofía, proceso, temporada, catering, cómo recoger, FAQ, contacto and three legal pages"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Bodoni Moda display type over a 12-color token palette, zero hardcoded hex in any template or pattern"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Two style variations: Horno de Noche (dark) and Mostrador (light)"} /-->
+<!-- wp:codecharmer/feature-item {"text":"JSON-LD structured data (Bakery, Product, BreadcrumbList) plus Open Graph and Twitter cards"} /-->
+<!-- /wp:codecharmer/feature-list -->
+
+<!-- wp:codecharmer/feature-list {"eyebrow":"Behind the counter","heading":"Back of house.","intro":"The parts customers never see: where the bakery actually runs."} -->
+<!-- wp:codecharmer/feature-item {"text":"Every paid order reaches staff by WhatsApp/SMS via Twilio; a digit in reply advances it through the flow"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Customers are texted on every change, through custom order statuses: preparing, ready"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Operations dashboard, production calendar, reports and a low-stock widget inside wp-admin"} /-->
+<!-- wp:codecharmer/feature-item {"text":"One REST API: /app/* for the customer app, /pos/* behind Application Passwords, /wallet/v1/* for PassKit"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Idempotent WP-CLI installer, versioned schema migrations, HPOS-ready commerce"} /-->
+<!-- /wp:codecharmer/feature-list -->
+
+<!-- wp:codecharmer/feature-list {"eyebrow":"Surface 02 · In the pocket","heading":"The customer app.","intro":"An Expo app for iOS and Android built on React Native and React 19, sharing a typed API client with the POS."} -->
+<!-- wp:codecharmer/feature-item {"text":"Four tabs: Carta, Canasta, Mis pedidos and Lealtad"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Catalog and cart against the same Store API as the web"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Checkout shares the web’s pickup slots: same capacity rules, same lead time"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Name, phone and email persisted on device: entered once, kept across orders and restarts"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Live order tracking with a push notification at every status change"} /-->
+<!-- wp:codecharmer/feature-item {"text":"A signed loyalty QR card and an Add to Apple Wallet button"} /-->
+<!-- /wp:codecharmer/feature-list -->
+
+<!-- wp:codecharmer/feature-list {"eyebrow":"Surface 03 · The counter","heading":"The counter, on a tablet.","intro":"Pacífica POS: a landscape tablet app that replaces paper across six tabs."} -->
+<!-- wp:codecharmer/feature-item {"text":"Entrantes: incoming online orders with push alerts and slide-to-accept"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Pedidos: a live pickup board grouped by time slot, driving each order through its statuses"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Mostrador: walk-in counter sales in cash or card that decrement stock without consuming pickup slots"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Inventario: absolute stock recounts, salidas internas with destinations and an employee picker, per-day history"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Lealtad: a camera QR scanner to stamp and redeem loyalty cards"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Corte del día: revenue by channel and payment method, top sellers, salidas valued at price snapshots"} /-->
+<!-- /wp:codecharmer/feature-list -->
+
+<!-- wp:codecharmer/feature-list {"eyebrow":"The loyalty loop","heading":"A pass that keeps itself current.","intro":"No accounts to create, no third-party pass service: the whole loop is built into the engine."} -->
+<!-- wp:codecharmer/feature-item {"text":"Anonymous, device-registered loyalty members: no signup form, no password"} /-->
+<!-- wp:codecharmer/feature-item {"text":"HMAC-signed QR tokens, read by the same POS scanner that stamps them"} /-->
+<!-- wp:codecharmer/feature-item {"text":".pkpass store cards built and PKCS#7-signed in pure PHP"} /-->
+<!-- wp:codecharmer/feature-item {"text":"The full Apple PassKit Web Service: device registration and per-pass auth tokens"} /-->
+<!-- wp:codecharmer/feature-item {"text":"An APNs push on every stamp or redeem, so the pass in the customer’s Wallet refreshes itself"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Stamps and redemptions are counted; reward mechanics stay a business decision, deliberately un-encoded"} /-->
+<!-- /wp:codecharmer/feature-list -->
+
+<!-- wp:codecharmer/beliefs {"heading":"Built like software, because it is.","intro":"The engine-versus-brand split our WordPress builds share, here at its fullest.","columns":4} -->
+<!-- wp:codecharmer/belief-item {"title":"Plugin decides, theme presents","body":"All commerce logic lives in the pacifica-core plugin: 39 classes booted through a service container. The FSE theme is presentation only, tokens and templates."} /-->
+<!-- wp:codecharmer/belief-item {"title":"Built to be re-branded","body":"The same engine now runs Haramara Café down the street. Brand lives in tokens, patterns and seed data, never in forks."} /-->
+<!-- wp:codecharmer/belief-item {"title":"Verified end to end","body":"phpcs and PHPStan level 6 on the PHP, TypeScript checks across both apps, and a REST integration matrix that exercises ordering, inventory and loyalty before anything ships."} /-->
+<!-- wp:codecharmer/belief-item {"title":"Deploys are boring","body":"GitHub Actions rsyncs only what changed to the VPS. The apps ship through EAS builds, with over-the-air updates in between."} /-->
+<!-- /wp:codecharmer/beliefs -->
+
+<!-- wp:codecharmer/stack {"eyebrow":"Under the hood","heading":"The stack, plainly."} -->
+<!-- wp:codecharmer/stack-group {"label":"Web","items":"WordPress FSE theme\ntheme.json tokens\nWooCommerce Store API (MXN)\nBodoni Moda\nTwo style variations"} /-->
+<!-- wp:codecharmer/stack-group {"label":"Backend","items":"pacifica-core plugin (PSR-4)\nREST pacifica/v1\nApplication Passwords\nVersioned migrations\nHPOS-ready\nWP-CLI installer"} /-->
+<!-- wp:codecharmer/stack-group {"label":"Apps","items":"Expo SDK 57\nReact Native 0.86\nReact 19\nTanStack Query\nShared TypeScript api-client\nExpo push"} /-->
+<!-- wp:codecharmer/stack-group {"label":"Wallet and messaging","items":"Apple PassKit Web Service\nPure-PHP .pkpass + PKCS#7\nAPNs HTTP/2\nTwilio WhatsApp/SMS"} /-->
+<!-- wp:codecharmer/stack-group {"label":"Quality and delivery","items":"PHPCS + PHPStan level 6\nTypeScript strict checks\nEnd-to-end REST matrix\nGitHub Actions\nScoped rsync deploys\nEAS builds + OTA"} /-->
+<!-- /wp:codecharmer/stack -->
+
+<!-- wp:codecharmer/faq {"heading":"Straight answers."} -->
+<!-- wp:codecharmer/faq-item {"question":"Why two apps for one bakery?","answer":"They do different jobs. The customer app sells: browse, reserve, track, collect stamps. The POS runs the counter: accept, hand off, sell walk-ins, count stock, close the day. Both speak to the same REST API, so there is one source of truth and nothing to reconcile."} /-->
+<!-- wp:codecharmer/faq-item {"question":"Where are card payments?","answer":"Pay at pickup is the live path, because that is how this counter sells today. The Stripe gateway is installed and wired, awaiting keys, and Mercado Pago is planned. The checkout blocks neither, and we don’t claim what isn’t on."} /-->
+<!-- wp:codecharmer/faq-item {"question":"Why pickup only, no delivery?","answer":"Because the product is the point. Bread comes out of a wood-fired oven on a schedule, and pickup slots are capacity-limited to match it. Reserve, walk in, collect it warm. Delivery is deliberately out of scope."} /-->
+<!-- /wp:codecharmer/faq -->
+
+<!-- wp:codecharmer/cta-band {"heading":"Want your whole operation on one engine?","body":"Storefront, apps, counter and stock on one system. Tell us how your business actually runs, and we’ll tell you what we’d build first."} /-->
+BLOCKS
+	,
+);
+
+// ----------------------------------------------------- work/haramara -- //
+$cc_pages['work/haramara'] = array(
+	'title'   => 'Haramara Café',
+	'order'   => 3,
+	'excerpt' => 'Haramara Café: a bilingual, dark-branded café platform on the same engine as its sister bakery. A virtual ES/EN mirror without a translation plugin, WooCommerce pickup ordering, customer and POS apps, self-refreshing Apple Wallet loyalty.',
+	'content' => <<<'BLOCKS'
+<!-- wp:codecharmer/page-hero {"tone":"ink","eyebrow":"Case study · Haramara Café","title":"Same engine. A brand entirely its own.","intro":"Haramara is a specialty coffee and sourdough café in Cuernavaca, sister to Pacífica Panadería on the same street. It runs the same commerce engine: storefront, customer app, POS and Wallet loyalty. Nothing about it looks shared: a dark carbon, clay and brass identity, and a site that is fully bilingual without a translation plugin.","primaryLabel":"Visit haramara.cafe","primaryUrl":"https://haramara.cafe","note":"ES · EN · WordPress + WooCommerce · Expo customer + POS apps · Apple Wallet loyalty"} /-->
+
+<!-- wp:codecharmer/value-statement {"lead":"Haramara shares an engine with its sister bakery down the street. <em>Nothing about it looks shared.</em>"} -->
+<!-- wp:codecharmer/value-point {"title":"The engine is the reuse","body":"The same core plugin architecture, apps, loyalty and Wallet system as Pacífica. The brand layer is entirely Haramara’s own: tokens, type, patterns, copy."} /-->
+<!-- wp:codecharmer/value-point {"title":"Bilingual by rewrite, not by plugin","body":"The English site is a virtual mirror at /en/: rewrites plus a language layer render every page from one translation dictionary. No duplicated page tree, nothing to drift."} /-->
+<!-- wp:codecharmer/value-point {"title":"Dark by design","body":"Carbon, clay and brass. Italiana display over Petrona text. Five atmospheric día patterns that walk the café’s day from horno to cierre."} /-->
+<!-- /wp:codecharmer/value-statement -->
+
+<!-- wp:codecharmer/feature-list {"eyebrow":"The website","heading":"One site, two languages, no plugin.","intro":"Seven pages and a sixteen-product catalog, mirrored in English without duplicating a word of content."} -->
+<!-- wp:codecharmer/feature-item {"text":"A virtual /en/ mirror: rewrites strip the prefix, flip the locale and pass the render through a translation layer"} /-->
+<!-- wp:codecharmer/feature-item {"text":"One translation dictionary drives the entire English site"} /-->
+<!-- wp:codecharmer/feature-item {"text":"hreflang alternates on both languages, so search engines index the pair correctly"} /-->
+<!-- wp:codecharmer/feature-item {"text":"A dark token palette (carbon, espresso, walnut, clay, brass, bone) with Italiana and Petrona type"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Seventeen patterns, including five atmospheric día sections: horno, filtrados, cueva, ocaso, cierre"} /-->
+<!-- wp:codecharmer/feature-item {"text":"A 16-product WooCommerce catalog: espresso, cold brew, filtrados, salados and especiales"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Pickup ordering with a 2-hour lead time, Wednesday to Monday"} /-->
+<!-- /wp:codecharmer/feature-list -->
+
+<!-- wp:codecharmer/feature-list {"eyebrow":"In the pocket","heading":"The café, in the customer’s pocket.","intro":"The same app engine as Pacífica’s, wearing Haramara’s dark UI."} -->
+<!-- wp:codecharmer/feature-item {"text":"Four tabs: Carta, Canasta, Mis pedidos and Lealtad"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Store API checkout sharing the web’s pickup slots, with checkout details persisted on device"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Live order tracking: a push notification at every status change"} /-->
+<!-- wp:codecharmer/feature-item {"text":"A loyalty QR card with Add to Apple Wallet: the pass is built and signed in pure PHP"} /-->
+<!-- wp:codecharmer/feature-item {"text":"An APNs push on every stamp or redeem, so an installed pass refreshes itself"} /-->
+<!-- /wp:codecharmer/feature-list -->
+
+<!-- wp:codecharmer/feature-list {"eyebrow":"The counter","heading":"The same counter system, tuned for the café.","intro":"The six-tab tablet POS from the shared engine, adjusted where the café differs."} -->
+<!-- wp:codecharmer/feature-item {"text":"Entrantes: incoming orders with push alerts and slide-to-accept"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Pedidos: a live pickup board by slot, driving status transitions"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Mostrador: walk-in sales in cash or card, decrementing stock without touching slots"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Inventario: recounts and salidas internas, with destinations tuned to this café: Malva, empleado, merma, otro"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Lealtad: QR scanning to stamp and redeem"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Corte del día: the daily close by channel and payment method, top sellers, valued salidas"} /-->
+<!-- /wp:codecharmer/feature-list -->
+
+<!-- wp:codecharmer/beliefs {"heading":"What the second deployment proved.","intro":"Reuse is a claim until a second brand ships on the engine. Haramara is the proof.","columns":4} -->
+<!-- wp:codecharmer/belief-item {"title":"Brand is data, not a fork","body":"Everything Haramara-specific lives in tokens, patterns, dictionaries and seed files. The engine stayed the engine, and both projects keep improving it."} /-->
+<!-- wp:codecharmer/belief-item {"title":"33 checks before deploy","body":"An end-to-end REST matrix exercises ordering, walk-ins, inventory guards, employees, loyalty and the Wallet web service: 33 checks on this project alone."} /-->
+<!-- wp:codecharmer/belief-item {"title":"Fails honestly","body":"When Wallet certificates aren’t configured, the pass endpoints answer with a clean 503 and the app hides the button. No pretending, no half-working features."} /-->
+<!-- wp:codecharmer/belief-item {"title":"Updates without the store","body":"GitHub Actions deploys the site per path; the apps take over-the-air updates through EAS between releases."} /-->
+<!-- /wp:codecharmer/beliefs -->
+
+<!-- wp:codecharmer/stack {"eyebrow":"Under the hood","heading":"The stack, plainly."} -->
+<!-- wp:codecharmer/stack-group {"label":"Web","items":"WordPress FSE theme\ntheme.json tokens\nItaliana + Petrona\nWooCommerce Store API (MXN)"} /-->
+<!-- wp:codecharmer/stack-group {"label":"Bilingual","items":"Virtual /en/ mirror\nLocale-aware rewrites\nSingle translation dictionary\nhreflang alternates"} /-->
+<!-- wp:codecharmer/stack-group {"label":"Apps","items":"Expo SDK 57\nReact Native 0.86\nReact 19\nShared TypeScript api-client\nExpo push\nEAS builds + OTA"} /-->
+<!-- wp:codecharmer/stack-group {"label":"Loyalty and Wallet","items":"HMAC-signed QR tokens\nPure-PHP .pkpass + PKCS#7\nApple PassKit Web Service\nAPNs HTTP/2\nGraceful 503 dark-state"} /-->
+<!-- wp:codecharmer/stack-group {"label":"Quality and delivery","items":"PHPCS + PHPStan level 6\nTypeScript strict checks\nverify-api.sh (33 checks)\nGitHub Actions\nScoped rsync deploys"} /-->
+<!-- /wp:codecharmer/stack -->
+
+<!-- wp:codecharmer/faq {"heading":"Straight answers."} -->
+<!-- wp:codecharmer/faq-item {"question":"Is this just Pacífica re-skinned?","answer":"It is deliberately the same engine, and deliberately not a re-skin. The identity, type, color system, page set and copy are Haramara’s own, and the business rules diverge where the café diverges: a 2-hour pickup lead, a Wednesday-to-Monday week, its own salida destinations. That split, engine versus brand, is our methodology. The Pacífica case study shows the engine at full depth."} /-->
+<!-- wp:codecharmer/faq-item {"question":"Bilingual without a translation plugin?","answer":"Yes. /en/ is a virtual mirror: rewrites and a language layer render every page in English from one translation dictionary, with hreflang alternates for search. There is no second page tree to fall out of sync. Translation plugins were evaluated and rejected: they are weakest exactly where block themes live."} /-->
+<!-- wp:codecharmer/faq-item {"question":"How does the loyalty card stay current in Apple Wallet?","answer":"The pass registers with a PassKit Web Service, and every stamp or redeem fires an APNs push, so the installed pass refreshes its own counters. The system counts stamps and redemptions; what a full card earns stays a human decision at the counter, deliberately not encoded."} /-->
+<!-- /wp:codecharmer/faq -->
+
+<!-- wp:codecharmer/cta-band {"heading":"Have a brand that deserves its own build?","body":"Tell us what makes yours different. We’ll tell you what stays engine and what becomes brand."} /-->
+BLOCKS
+	,
+);
+
 return $cc_pages;

@@ -16,6 +16,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 return array(
 	array(
+		'name'       => 'Pacífica Panadería',
+		'url'        => 'https://pacificapanaderia.com',
+		'descriptor' => 'The full commerce system for an artisan sourdough bakery in Cuernavaca: reserve-and-pickup storefront, a customer app with Apple Wallet loyalty, and a tablet POS for the counter, all on one WordPress engine.',
+		'tags'       => array( 'E-commerce', 'Mobile apps', 'POS & operations' ),
+		'image'      => 'pacifica-panaderia',
+		'case'       => '/work/pacifica',
+	),
+	array(
+		'name'       => 'Haramara Café',
+		'url'        => 'https://haramara.cafe',
+		'descriptor' => 'A dark, bilingual home for a specialty coffee and sourdough café: the same commerce engine as its sister bakery, re-branded end to end, with customer and POS apps and self-refreshing Apple Wallet loyalty.',
+		'tags'       => array( 'E-commerce', 'Mobile apps', 'Bilingual' ),
+		'image'      => 'haramara-cafe',
+		'case'       => '/work/haramara',
+	),
+	array(
 		'name'       => 'Gramo Café',
 		'url'        => 'https://gramo.cafe',
 		'descriptor' => 'The digital home of a specialty coffee brand with eight cafés across Cuernavaca and Mexico City: bilingual, headless WordPress + Gatsby, with pay-on-delivery commerce and SMS-driven operations.',
