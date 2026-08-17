@@ -566,6 +566,23 @@ BLOCKS
 	,
 );
 
+// ------------------------------------------------------------ insights -- //
+$cc_pages['insights'] = array(
+	'title'   => 'Insights',
+	'order'   => 9,
+	'excerpt' => 'First-hand engineering notes from real WordPress operations, automation, and platform builds.',
+	'meta'    => array(
+		'cc_seo_title'       => 'WordPress Operations & Automation Insights | Code Charmer',
+		'cc_seo_description' => 'First-hand engineering notes from real builds: WordPress operations, workflow automation, integrations, and the decisions behind them.',
+	),
+	'content' => <<<'BLOCKS'
+<!-- wp:codecharmer/page-hero {"eyebrow":"Insights","title":"Notes from real systems.","intro":"First-hand write-ups from the builds on this site: decisions, tradeoffs, checklists, and the occasional honest mistake. Written to be useful, not to fill a feed."} /-->
+
+<!-- wp:codecharmer/insights /-->
+BLOCKS
+	,
+);
+
 // ------------------------------------------------------------- contact -- //
 $cc_pages['contact'] = array(
 	'title'   => 'Contact',

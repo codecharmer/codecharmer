@@ -258,9 +258,14 @@ final class Installer {
 		update_option( 'show_on_front', 'page' );
 		update_option( 'page_on_front', (int) $pages['home'] );
 
-		// Route parity with the original static site requires pretty permalinks.
-		if ( '/%postname%/' !== get_option( 'permalink_structure' ) ) {
-			update_option( 'permalink_structure', '/%postname%/' );
+		// Pretty permalinks with posts under /insights/: pages keep their
+		// path-based URLs, and insight articles live at /insights/<slug>/.
+		// Never seed a child page under /insights/, or the post rewrite
+		// would shadow it. set_permalink_structure() re-inits WP_Rewrite in
+		// the same request, so the flush writes the NEW rules, not stale ones.
+		if ( '/insights/%postname%/' !== get_option( 'permalink_structure' ) ) {
+			global $wp_rewrite;
+			$wp_rewrite->set_permalink_structure( '/insights/%postname%/' );
 			flush_rewrite_rules(); // phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.flush_rewrite_rules_flush_rewrite_rules -- One-time CLI seeding, not runtime.
 		}
 	}

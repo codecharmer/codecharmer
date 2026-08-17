@@ -41,20 +41,23 @@ final class IndexingPolicy implements Bootable {
 	 * @return void
 	 */
 	public function register_meta(): void {
-		foreach ( array( 'cc_seo_title', 'cc_seo_description', 'cc_seo_image' ) as $key ) {
-			register_post_meta(
-				'page',
-				$key,
-				array(
-					'type'              => 'string',
-					'single'            => true,
-					'sanitize_callback' => 'cc_seo_image' === $key ? 'esc_url_raw' : 'sanitize_text_field',
-					'show_in_rest'      => true,
-					'auth_callback'     => static function (): bool {
-						return current_user_can( 'edit_pages' );
-					},
-				)
-			);
+		foreach ( array( 'page', 'post' ) as $type ) {
+			$capability = 'page' === $type ? 'edit_pages' : 'edit_posts';
+			foreach ( array( 'cc_seo_title', 'cc_seo_description', 'cc_seo_image' ) as $key ) {
+				register_post_meta(
+					$type,
+					$key,
+					array(
+						'type'              => 'string',
+						'single'            => true,
+						'sanitize_callback' => 'cc_seo_image' === $key ? 'esc_url_raw' : 'sanitize_text_field',
+						'show_in_rest'      => true,
+						'auth_callback'     => static function () use ( $capability ): bool {
+							return current_user_can( $capability );
+						},
+					)
+				);
+			}
 		}
 	}
 
