@@ -42,6 +42,7 @@ $cc_year      = gmdate( 'Y' );
 						<li><a href="<?php echo esc_url( Options::page_url( 'process' ) ); ?>"><?php esc_html_e( 'Process', 'codecharmer-core' ); ?></a></li>
 						<li><a href="<?php echo esc_url( Options::page_url( 'about' ) ); ?>"><?php esc_html_e( 'About', 'codecharmer-core' ); ?></a></li>
 						<li><a href="<?php echo esc_url( Options::page_url( 'pricing' ) ); ?>"><?php esc_html_e( 'Pricing', 'codecharmer-core' ); ?></a></li>
+						<li><a href="<?php echo esc_url( Options::page_url( 'agency-partners' ) ); ?>"><?php esc_html_e( 'Agency partners', 'codecharmer-core' ); ?></a></li>
 					</ul>
 				</div>
 				<div class="footer__col">
