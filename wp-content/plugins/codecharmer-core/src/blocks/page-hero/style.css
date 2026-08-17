@@ -59,3 +59,43 @@
 	font-size: 2.2rem;
 	margin-top: 0.5rem;
 }
+
+/* Breadcrumb trail — rides the eyebrow register (mono, brand accent). */
+.crumbs__list {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 0.25rem 0;
+	font-family: var(--font-mono);
+	font-size: var(--t-small);
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+}
+
+.crumbs__item {
+	display: inline-flex;
+	align-items: baseline;
+}
+
+.crumbs__item + .crumbs__item::before {
+	content: "/";
+	margin-inline: 0.55rem;
+	color: var(--ink-muted);
+}
+
+.crumbs__link {
+	color: var(--brand-ink);
+	text-decoration: none;
+}
+
+.crumbs__link:hover {
+	text-decoration: underline;
+}
+
+.crumbs__item[aria-current] {
+	color: var(--ink-muted);
+}
+
+.band-ink .crumbs__link {
+	color: var(--brand-glow);
+}

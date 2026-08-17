@@ -444,4 +444,47 @@ final class Partials {
 		</svg>
 		<?php
 	}
+
+	/**
+	 * Ancestor trail for a page: name + url per ancestor, nearest last.
+	 *
+	 * Shared by the visible breadcrumb and the BreadcrumbList JSON-LD so the
+	 * two can never diverge. The current page itself is not included.
+	 *
+	 * @param \WP_Post $post The page.
+	 * @return array<int,array{name:string,url:string}>
+	 */
+	public static function breadcrumb_items( \WP_Post $post ): array {
+		$items = array();
+		foreach ( array_reverse( get_post_ancestors( $post ) ) as $ancestor_id ) {
+			$items[] = array(
+				'name' => (string) get_the_title( $ancestor_id ),
+				'url'  => (string) get_permalink( $ancestor_id ),
+			);
+		}
+		return $items;
+	}
+
+	/**
+	 * Visible breadcrumb trail: ancestor links plus the current page.
+	 *
+	 * @param \WP_Post $post The page.
+	 * @return void
+	 */
+	public static function breadcrumbs( \WP_Post $post ): void {
+		$items = self::breadcrumb_items( $post );
+		if ( ! $items ) {
+			return;
+		}
+		?>
+		<nav class="crumbs" aria-label="<?php esc_attr_e( 'Breadcrumb', 'codecharmer-core' ); ?>">
+			<ol role="list" class="crumbs__list">
+				<?php foreach ( $items as $item ) : ?>
+					<li class="crumbs__item"><a class="crumbs__link" href="<?php echo esc_url( $item['url'] ); ?>"><?php echo esc_html( $item['name'] ); ?></a></li>
+				<?php endforeach; ?>
+				<li class="crumbs__item" aria-current="page"><?php echo esc_html( (string) get_the_title( $post ) ); ?></li>
+			</ol>
+		</nav>
+		<?php
+	}
 }

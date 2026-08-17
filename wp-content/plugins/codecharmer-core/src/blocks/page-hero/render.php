@@ -27,9 +27,24 @@ $cc_classes = 'page-hero page-hero--' . $cc_tone . ( 'ink' === $cc_tone ? ' band
 		<div class="page-hero__ambient" aria-hidden="true"></div>
 	<?php endif; ?>
 	<div class="container page-hero__inner">
-		<?php if ( '' !== $cc_eyebrow ) : ?>
+		<?php
+		// Nested pages show the ancestor trail in the eyebrow slot; the
+		// trail's terminal item carries the page name, so orientation
+		// survives without stacking two mono lines.
+		$cc_hero_post   = get_queried_object();
+		$cc_show_crumbs = is_page()
+			&& $cc_hero_post instanceof WP_Post
+			&& $cc_hero_post->post_parent > 0
+			&& get_the_ID() === $cc_hero_post->ID;
+
+		if ( $cc_show_crumbs ) {
+			Partials::breadcrumbs( $cc_hero_post );
+		} elseif ( '' !== $cc_eyebrow ) {
+			?>
 			<p class="eyebrow"><?php echo esc_html( $cc_eyebrow ); ?></p>
-		<?php endif; ?>
+			<?php
+		}
+		?>
 		<h1 class="page-hero__title"><?php echo esc_html( $cc_title ); ?></h1>
 		<?php if ( '' !== $cc_intro ) : ?>
 			<p class="page-hero__intro lead"><?php echo wp_kses_post( $cc_intro ); ?></p>

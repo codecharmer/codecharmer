@@ -130,19 +130,22 @@ final class StructuredData implements Bootable {
 			return array();
 		}
 
-		$chain   = array_reverse( get_post_ancestors( $post ) );
-		$chain[] = $post->ID;
+		// Same source as the visible trail (Partials::breadcrumbs), so the
+		// markup and the structured data can never diverge.
+		$trail   = \CodeCharmer\Core\Render\Partials::breadcrumb_items( $post );
+		$trail[] = array(
+			'name' => (string) get_the_title( $post ),
+			'url'  => (string) get_permalink( $post ),
+		);
 
-		$items    = array();
-		$position = 1;
-		foreach ( $chain as $page_id ) {
+		$items = array();
+		foreach ( $trail as $i => $crumb ) {
 			$items[] = array(
 				'@type'    => 'ListItem',
-				'position' => $position,
-				'name'     => (string) get_the_title( $page_id ),
-				'item'     => (string) get_permalink( $page_id ),
+				'position' => $i + 1,
+				'name'     => $crumb['name'],
+				'item'     => $crumb['url'],
 			);
-			++$position;
 		}
 
 		return array(
