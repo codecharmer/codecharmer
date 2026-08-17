@@ -139,77 +139,85 @@ $cc_service_page = static function ( array $service ): string {
 
 $cc_services = array(
 	'ai-strategy'     => array(
-		'order'      => 1,
-		'name'       => 'AI Strategy & Architecture',
-		'icon'       => 'architecture',
-		'descriptor' => 'Prepare the business for AI, not just bolt features onto it.',
-		'thesis'     => 'AI-ready architecture, knowledge organization, and data structure that make intelligent automation possible.',
-		'problem'    => 'Most AI projects start with a tool and go looking for a use. That’s backwards, and expensive.',
-		'cta'        => 'Tell us where the hours actually go. A short conversation is usually enough to see whether AI has a real job to do in your business.',
-		'included'   => array( 'AI-ready architecture', 'Knowledge organization', 'Data structure & modeling', 'Internal workflow mapping', 'AI integration planning', 'Automation strategy' ),
-		'approach'   => array(
+		'order'           => 1,
+		'name'            => 'AI Strategy & Architecture',
+		'seo_title'       => 'Practical AI Strategy & Architecture for WordPress Operations | Code Charmer',
+		'seo_description' => 'AI-ready architecture, knowledge organization, and data structure that make intelligent automation possible. Practical strategy, not a demo bolted onto a homepage.',
+		'icon'            => 'architecture',
+		'descriptor'      => 'Prepare the business for AI, not just bolt features onto it.',
+		'thesis'          => 'AI-ready architecture, knowledge organization, and data structure that make intelligent automation possible.',
+		'problem'         => 'Most AI projects start with a tool and go looking for a use. That’s backwards, and expensive.',
+		'cta'             => 'Tell us where the hours actually go. A short conversation is usually enough to see whether AI has a real job to do in your business.',
+		'included'        => array( 'AI-ready architecture', 'Knowledge organization', 'Data structure & modeling', 'Internal workflow mapping', 'AI integration planning', 'Automation strategy' ),
+		'approach'        => array(
 			array( 'Map the real workflows', 'Find where time and money actually go before proposing any technology.' ),
 			array( 'Organize the knowledge', 'Structure the data and documents AI needs to be useful and reliable.' ),
 			array( 'Design the architecture', 'Integrations, guardrails, and a path to scale: built to last, not to demo.' ),
 		),
-		'faq'        => array(
+		'faq'             => array(
 			array( 'Do we even need AI?', 'Sometimes the honest answer is no, and we’ll tell you. AI earns its place only by removing real work.' ),
 			array( 'Isn’t our data too messy for this?', 'That messiness is exactly the work. Organizing knowledge so AI has something reliable to stand on is most of the value.' ),
 		),
 	),
 	'wordpress'       => array(
-		'order'      => 2,
-		'name'       => 'WordPress Engineering',
-		'icon'       => 'blocks',
-		'descriptor' => 'Enterprise-grade engineering, not another off-the-shelf theme.',
-		'thesis'     => 'Custom themes, Gutenberg block development, performance, and security built to last: WordPress as an asset, not a burden.',
-		'problem'    => 'Off-the-shelf WordPress becomes technical debt the moment your needs outgrow the theme.',
-		'cta'        => 'Tell us what your site should be doing for you. A short conversation is usually enough to know what to keep, refactor, or rebuild.',
-		'included'   => array( 'Custom theme development', 'Gutenberg block development', 'ACF & structured content', 'Headless / API solutions', 'Performance & Core Web Vitals', 'Accessibility', 'SEO foundations', 'Security & maintainability', 'Editorial workflows' ),
-		'approach'   => array(
+		'order'           => 2,
+		'name'            => 'WordPress Engineering',
+		'seo_title'       => 'Custom WordPress Platform Development | Code Charmer',
+		'seo_description' => 'Custom themes, Gutenberg blocks, integrations, performance, and security engineered to last: WordPress as a business platform, not technical debt.',
+		'icon'            => 'blocks',
+		'descriptor'      => 'Enterprise-grade engineering, not another off-the-shelf theme.',
+		'thesis'          => 'Custom themes, Gutenberg block development, performance, and security built to last: WordPress as an asset, not a burden.',
+		'problem'         => 'Off-the-shelf WordPress becomes technical debt the moment your needs outgrow the theme.',
+		'cta'             => 'Tell us what your site should be doing for you. A short conversation is usually enough to know what to keep, refactor, or rebuild.',
+		'included'        => array( 'Custom theme development', 'Gutenberg block development', 'ACF & structured content', 'Headless / API solutions', 'Performance & Core Web Vitals', 'Accessibility', 'SEO foundations', 'Security & maintainability', 'Editorial workflows' ),
+		'approach'        => array(
 			array( 'Architect the content model', 'Design the blocks and fields your team will actually edit, day to day.' ),
 			array( 'Engineer the theme', 'Fast, accessible, and maintainable by default, not bolted on at the end.' ),
 			array( 'Hand over the keys', 'Documentation and editorial workflows your team owns without depending on us.' ),
 		),
-		'faq'        => array(
+		'faq'             => array(
 			array( 'Can you work with our existing site?', 'Usually yes. We audit first, then decide together what to keep, refactor, or rebuild.' ),
 			array( 'Will our team be able to manage it?', 'That’s the whole point. We build editing experiences your team controls, so you’re never locked in.' ),
 		),
 	),
 	'custom-software' => array(
-		'order'      => 3,
-		'name'       => 'Custom Software',
-		'icon'       => 'terminal',
-		'descriptor' => 'Software that improves how the business actually operates.',
-		'thesis'     => 'Internal dashboards, portals, APIs, and integrations that remove manual work and let a small team operate like a bigger one.',
-		'problem'    => 'When the business runs on five disconnected tools and a lot of spreadsheets, the software is the bottleneck.',
-		'cta'        => 'Tell us how the work actually flows. A short conversation is usually enough to see where software would remove the friction.',
-		'included'   => array( 'Internal dashboards', 'Business portals', 'CRM integrations', 'APIs & integrations', 'Process automation', 'Membership systems', 'Booking systems', 'Custom applications' ),
-		'approach'   => array(
+		'order'           => 3,
+		'name'            => 'Custom Software',
+		'seo_title'       => 'Custom Software & System Integrations | Code Charmer',
+		'seo_description' => 'Internal dashboards, portals, APIs, and integrations that remove manual work and connect the tools your business already runs on.',
+		'icon'            => 'terminal',
+		'descriptor'      => 'Software that improves how the business actually operates.',
+		'thesis'          => 'Internal dashboards, portals, APIs, and integrations that remove manual work and let a small team operate like a bigger one.',
+		'problem'         => 'When the business runs on five disconnected tools and a lot of spreadsheets, the software is the bottleneck.',
+		'cta'             => 'Tell us how the work actually flows. A short conversation is usually enough to see where software would remove the friction.',
+		'included'        => array( 'Internal dashboards', 'Business portals', 'CRM integrations', 'APIs & integrations', 'Process automation', 'Membership systems', 'Booking systems', 'Custom applications' ),
+		'approach'        => array(
 			array( 'Understand the operation', 'The real workflow, not the org chart. That’s where the friction actually lives.' ),
 			array( 'Design the system', 'Data, integrations, and an interface that serves the work instead of fighting it.' ),
 			array( 'Build and integrate', 'Production software that connects the tools you already rely on.' ),
 		),
-		'faq'        => array(
+		'faq'             => array(
 			array( 'Do we have to replace our current tools?', 'Rarely. We integrate with what works and replace only what’s genuinely holding you back.' ),
 			array( 'How do we avoid another system nobody uses?', 'By designing around the actual workflow. Adoption is a design problem, not a training problem.' ),
 		),
 	),
 	'ai-automation'   => array(
-		'order'      => 4,
-		'name'       => 'AI Automation',
-		'icon'       => 'flow',
-		'descriptor' => 'Practical automation with measurable outcomes, not hype.',
-		'thesis'     => 'Content workflows, internal assistants, retrieval systems, and process automation that pay for themselves.',
-		'problem'    => 'Most “AI automation” is a demo. The value is in the unglamorous, repetitive work it quietly removes.',
-		'cta'        => 'Tell us which tasks eat your team’s hours. A short conversation is usually enough to see what automation would give back.',
-		'included'   => array( 'Content workflows', 'Internal assistants', 'Customer support automation', 'Business process automation', 'AI integrations', 'Retrieval systems (RAG)', 'AI-powered search' ),
-		'approach'   => array(
+		'order'           => 4,
+		'name'            => 'AI Automation',
+		'seo_title'       => 'WordPress Workflow Automation Services | Code Charmer',
+		'seo_description' => 'Content workflows, internal assistants, retrieval systems, and process automation for WordPress operations: practical automation that pays for itself.',
+		'icon'            => 'flow',
+		'descriptor'      => 'Practical automation with measurable outcomes, not hype.',
+		'thesis'          => 'Content workflows, internal assistants, retrieval systems, and process automation that pay for themselves.',
+		'problem'         => 'Most “AI automation” is a demo. The value is in the unglamorous, repetitive work it quietly removes.',
+		'cta'             => 'Tell us which tasks eat your team’s hours. A short conversation is usually enough to see what automation would give back.',
+		'included'        => array( 'Content workflows', 'Internal assistants', 'Customer support automation', 'Business process automation', 'AI integrations', 'Retrieval systems (RAG)', 'AI-powered search' ),
+		'approach'        => array(
 			array( 'Find the repetitive work', 'The tasks that eat hours and add no human judgment come first.' ),
 			array( 'Build the automation', 'Reliable and observable, with a human in the loop wherever it matters.' ),
 			array( 'Measure the payoff', 'Hours saved, errors avoided, throughput gained: automation should pay for itself.' ),
 		),
-		'faq'        => array(
+		'faq'             => array(
 			array( 'Will this replace our people?', 'No. It removes the busywork so your people spend time on the work that needs judgment.' ),
 			array( 'How do you stop AI from making things up?', 'Retrieval over your own structured knowledge, with guardrails and human review where it counts.' ),
 		),
@@ -223,6 +231,10 @@ $cc_pages['home'] = array(
 	'title'   => 'Home',
 	'order'   => 0,
 	'excerpt' => 'A digital engineering studio building AI-first architecture, WordPress systems, and custom software that generate revenue and stay yours to run.',
+	'meta'    => array(
+		'cc_seo_title'       => 'WordPress Automation & Custom Platforms | Code Charmer',
+		'cc_seo_description' => 'Code Charmer fixes and automates complex WordPress operations: connecting content, commerce, customer data, and internal workflows in systems your team owns.',
+	),
 	'content' => <<<BLOCKS
 <!-- wp:codecharmer/hero /-->
 
@@ -256,6 +268,10 @@ $cc_pages['services'] = array(
 	'title'   => 'Services',
 	'order'   => 1,
 	'excerpt' => 'Four disciplines engineered to work as one system: AI strategy, WordPress engineering, custom software, and AI automation.',
+	'meta'    => array(
+		'cc_seo_title'       => 'WordPress Engineering & Automation Services | Code Charmer',
+		'cc_seo_description' => 'Custom WordPress platforms, workflow automation, integrations, and practical AI: four disciplines engineered to work as one system your team owns.',
+	),
 	'content' => <<<BLOCKS
 <!-- wp:codecharmer/page-hero {"eyebrow":"Services","title":"Systems, not features.","intro":"Four disciplines engineered to work as one system: AI strategy, WordPress engineering, custom software, and automation. Most projects touch more than one.","primaryLabel":"Book a consultation","primaryUrl":"/contact","secondaryLabel":"See our work","secondaryUrl":"/work"} /-->
 
@@ -284,10 +300,12 @@ foreach ( $cc_services as $cc_slug => $cc_service ) {
 		'excerpt' => $cc_service['thesis'],
 		'content' => $cc_service_page( $cc_service ),
 		'meta'    => array(
-			'cc_icon'       => $cc_service['icon'],
-			'cc_descriptor' => $cc_service['descriptor'],
-			'cc_thesis'     => $cc_service['thesis'],
-			'cc_caps'       => array_slice( $cc_service['included'], 0, 3 ),
+			'cc_icon'            => $cc_service['icon'],
+			'cc_descriptor'      => $cc_service['descriptor'],
+			'cc_thesis'          => $cc_service['thesis'],
+			'cc_caps'            => array_slice( $cc_service['included'], 0, 3 ),
+			'cc_seo_title'       => $cc_service['seo_title'],
+			'cc_seo_description' => $cc_service['seo_description'],
 		),
 	);
 }
@@ -297,6 +315,10 @@ $cc_pages['work'] = array(
 	'title'   => 'Work',
 	'order'   => 2,
 	'excerpt' => 'Praxis, our flagship AI orchestration platform, plus real client projects live in the world: communities, a brand store, and an editorial portfolio.',
+	'meta'    => array(
+		'cc_seo_title'       => 'WordPress & Automation Case Studies | Code Charmer',
+		'cc_seo_description' => 'Live client platforms: commerce and POS operations, bilingual publishing, loyalty systems, and AI content workflows. Real systems, verified in production.',
+	),
 	'content' => <<<BLOCKS
 <!-- wp:codecharmer/page-hero {"eyebrow":"Selected work","title":"Built, shipped, and live.","intro":"Our flagship product and a sample of client work: brands, communities, and portfolios that had to work as well as they look.","primaryLabel":"Start a project","primaryUrl":"/contact"} /-->
 
@@ -316,6 +338,10 @@ $cc_pages['process'] = array(
 	'title'   => 'Process',
 	'order'   => 3,
 	'excerpt' => 'Seven stages, each one making the next cheaper: discovery, architecture, design, development, testing, launch, growth.',
+	'meta'    => array(
+		'cc_seo_title'       => 'How We Build: Architecture Before Code | Code Charmer',
+		'cc_seo_description' => 'Seven stages, each one making the next cheaper: discovery, architecture, design, development, testing, launch, growth. Front-loaded thinking keeps projects on budget.',
+	),
 	'content' => <<<BLOCKS
 <!-- wp:codecharmer/page-hero {"tone":"ink","eyebrow":"Process","title":"Architecture before code.","intro":"Seven stages, each one making the next cheaper. It’s deliberately front-loaded: the thinking that happens early is what keeps the whole project on budget.","primaryLabel":"Start a project","primaryUrl":"/contact"} /-->
 
@@ -339,6 +365,10 @@ $cc_pages['about'] = array(
 	'title'   => 'About',
 	'order'   => 4,
 	'excerpt' => 'A studio built around a simple idea: the best digital systems are the ones clients own and understand. Engineering philosophy over company history.',
+	'meta'    => array(
+		'cc_seo_title'       => 'About the Studio | Code Charmer',
+		'cc_seo_description' => 'A digital engineering studio built around a simple idea: the best systems are the ones clients own and understand. How we think, and how we work.',
+	),
 	'content' => <<<BLOCKS
 <!-- wp:codecharmer/page-hero {"eyebrow":"About","title":"Engineering, on purpose.","intro":"Too much of the web is built to be sold, not to be run. We build the other kind. This is how we think about it."} /-->
 
@@ -380,6 +410,10 @@ $cc_pages['contact'] = array(
 	'title'   => 'Contact',
 	'order'   => 5,
 	'excerpt' => "Tell us what you're building. A short, qualifying conversation: no pitch deck, no obligation.",
+	'meta'    => array(
+		'cc_seo_title'       => 'Describe Your Project or Schedule a Call | Code Charmer',
+		'cc_seo_description' => 'Two ways in: describe your project through a short qualifying form, or schedule a 20-minute fit call. A real person replies within one business day.',
+	),
 	'content' => <<<'BLOCKS'
 <!-- wp:codecharmer/page-hero {"eyebrow":"Contact","title":"Tell us what you’re building.","intro":"A short, qualifying conversation: project type, scope, and budget. No pitch deck, no obligation. We’ll tell you honestly whether we’re the right team."} /-->
 
@@ -393,6 +427,10 @@ $cc_pages['privacy'] = array(
 	'title'   => 'Privacy',
 	'order'   => 6,
 	'excerpt' => 'How Code Charmer handles the information you share with us.',
+	'meta'    => array(
+		'cc_seo_title'       => 'Privacy Policy | Code Charmer',
+		'cc_seo_description' => 'How Code Charmer handles the information you share with us: what we collect, what we never do with it, and how to ask us about it.',
+	),
 	'content' => <<<'BLOCKS'
 <!-- wp:codecharmer/page-hero {"eyebrow":"Legal","title":"Privacy.","intro":"How Code Charmer handles the information you share with us. The full policy is being finalized."} /-->
 
@@ -420,6 +458,10 @@ $cc_pages['work/praxis'] = array(
 	'title'   => 'Praxis',
 	'order'   => 0,
 	'excerpt' => 'Praxis: an AI-native orchestration layer for digital operations. WordPress connected, AI metered, search in about 90 ms. Our flagship product, live at praxis.codecharmer.io.',
+	'meta'    => array(
+		'cc_seo_title'       => 'Praxis: AI Content Operations for WordPress | Code Charmer',
+		'cc_seo_description' => 'Case study: an AI-native orchestration layer where WordPress stays the authoring surface, AI drafts are metered and human-approved, and search answers in about 90 ms.',
+	),
 	'content' => <<<'BLOCKS'
 <!-- wp:codecharmer/page-hero {"tone":"ink","eyebrow":"Praxis · flagship product","title":"The control room for a company’s content.","intro":"An AI-native orchestration layer for digital operations. Praxis connects the systems an organization already runs, starting with WordPress, and adds a canonical content model, metered AI drafting, and enterprise search behind one API.","primaryLabel":"Open the live demo","primaryUrl":"https://praxis.codecharmer.io","note":"v0.2 · The machine drafts, a human approves. Thirteen services on one VPS."} /-->
 
@@ -480,6 +522,10 @@ $cc_pages['work/gramo'] = array(
 	'title'   => 'Gramo Café',
 	'order'   => 1,
 	'excerpt' => 'Gramo Café: a bilingual headless WordPress + Gatsby build for a specialty coffee brand with eight cafés. Block-composed editing, pay-on-delivery commerce, SMS-driven operations.',
+	'meta'    => array(
+		'cc_seo_title'       => 'Gramo Café: Bilingual Headless WordPress Platform | Code Charmer',
+		'cc_seo_description' => 'Case study: a bilingual headless WordPress and Gatsby platform for a coffee brand with eight cafés. Block-composed editing, commerce, and SMS-driven operations.',
+	),
 	'content' => <<<'BLOCKS'
 <!-- wp:codecharmer/page-hero {"tone":"ink","eyebrow":"Case study · Gramo Café","title":"Quiet luxury, engineered underneath.","intro":"Gramo is a specialty coffee brand from Cuernavaca with eight cafés across two cities. Its digital home is a bilingual, statically rendered storefront with WordPress behind it: every page composed from custom blocks, every order and inquiry reaching staff by SMS.","primaryLabel":"Visit gramo.cafe","primaryUrl":"https://gramo.cafe","note":"es-MX / EN · headless WordPress + Gatsby · WooCommerce, pay on delivery"} /-->
 
@@ -531,6 +577,10 @@ $cc_pages['work/pacifica'] = array(
 	'title'   => 'Pacífica Panadería',
 	'order'   => 2,
 	'excerpt' => 'Pacífica Panadería: an artisan sourdough bakery on one WordPress engine. Reserve-and-pickup WooCommerce storefront, an Expo customer app, a tablet POS, Apple Wallet loyalty, WhatsApp/SMS operations via Twilio.',
+	'meta'    => array(
+		'cc_seo_title'       => 'Pacífica Panadería: Commerce & POS on One WordPress Engine | Code Charmer',
+		'cc_seo_description' => 'Case study: a bakery running storefront, customer app, tablet POS, Apple Wallet loyalty, and WhatsApp operations on one WordPress engine with a single source of truth.',
+	),
 	'content' => <<<'BLOCKS'
 <!-- wp:codecharmer/page-hero {"tone":"ink","eyebrow":"Case study · Pacífica Panadería","title":"The whole bakery, running on one engine.","intro":"Pacífica is an artisan sourdough bakery in Cuernavaca. Its platform is one WordPress engine driving three surfaces: a reserve-and-pickup storefront, a customer app whose loyalty card lives in Apple Wallet, and a tablet POS that runs the counter, the stock and the daily close.","primaryLabel":"Visit pacificapanaderia.com","primaryUrl":"https://pacificapanaderia.com","note":"es-MX · WordPress + WooCommerce Store API · Expo customer + POS apps"} /-->
 
@@ -615,6 +665,10 @@ $cc_pages['work/haramara'] = array(
 	'title'   => 'Haramara Café',
 	'order'   => 3,
 	'excerpt' => 'Haramara Café: a bilingual, dark-branded café platform on the same engine as its sister bakery. A virtual ES/EN mirror without a translation plugin, WooCommerce pickup ordering, customer and POS apps, self-refreshing Apple Wallet loyalty.',
+	'meta'    => array(
+		'cc_seo_title'       => 'Haramara Café: A Second Brand on a Reusable Commerce Engine | Code Charmer',
+		'cc_seo_description' => 'Case study: the same commerce engine as its sister bakery, wearing an entirely different brand. Bilingual without a translation plugin, apps, POS, and Wallet loyalty.',
+	),
 	'content' => <<<'BLOCKS'
 <!-- wp:codecharmer/page-hero {"tone":"ink","eyebrow":"Case study · Haramara Café","title":"Same engine. A brand entirely its own.","intro":"Haramara is a specialty coffee and sourdough café in Cuernavaca, sister to Pacífica Panadería on the same street. It runs the same commerce engine: storefront, customer app, POS and Wallet loyalty. Nothing about it looks shared: a dark carbon, clay and brass identity, and a site that is fully bilingual without a translation plugin.","primaryLabel":"Visit haramara.cafe","primaryUrl":"https://haramara.cafe","note":"ES · EN · WordPress + WooCommerce · Expo customer + POS apps · Apple Wallet loyalty"} /-->
 
