@@ -143,32 +143,42 @@ final class InquiryController implements Bootable {
 	}
 
 	/**
-	 * Rate-limit gate: at most RATE_LIMIT submissions per IP per window.
-	 *
-	 * The IP is hashed before it becomes a cache key, so no raw address is
-	 * ever stored. Transients ride the object cache, so this stays VIP-safe.
+	 * Rate-limit gate: at most RATE_LIMIT accepted submissions per IP per
+	 * window. Only checks here; the counter increments when a message is
+	 * actually sent, so a visitor fixing validation errors never burns
+	 * their budget on failed attempts.
 	 *
 	 * @return true|\WP_Error
 	 */
 	public function permission() {
-		// phpcs:ignore WordPressVIPMinimum.Variables.ServerVariables.UserControlledHeaders, WordPressVIPMinimum.Variables.RestrictedVariables.cache_constraints___SERVER__REMOTE_ADDR__, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Rate-limit key only: hashed immediately, never stored raw, never echoed; a REST POST is not page-cached.
-		$ip = isset( $_SERVER['REMOTE_ADDR'] ) ? (string) wp_unslash( $_SERVER['REMOTE_ADDR'] ) : '';
-		if ( '' === $ip ) {
+		$key = $this->rate_key();
+		if ( '' === $key ) {
 			return true;
 		}
 
-		$key   = 'cc_inq_' . md5( $ip );
-		$count = (int) get_transient( $key );
-		if ( $count >= self::RATE_LIMIT ) {
+		if ( (int) get_transient( $key ) >= self::RATE_LIMIT ) {
 			return new \WP_Error(
 				'cc_rate_limited',
 				__( 'Too many messages in a short time. Please try again in a few minutes, or email us directly.', 'codecharmer-core' ),
 				array( 'status' => 429 )
 			);
 		}
-		set_transient( $key, $count + 1, self::RATE_WINDOW );
 
 		return true;
+	}
+
+	/**
+	 * The per-IP rate-limit cache key.
+	 *
+	 * The IP is hashed before it becomes a cache key, so no raw address is
+	 * ever stored. Transients ride the object cache, so this stays VIP-safe.
+	 *
+	 * @return string Empty when no client address is available.
+	 */
+	private function rate_key(): string {
+		// phpcs:ignore WordPressVIPMinimum.Variables.ServerVariables.UserControlledHeaders, WordPressVIPMinimum.Variables.RestrictedVariables.cache_constraints___SERVER__REMOTE_ADDR__, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Rate-limit key only: hashed immediately, never stored raw, never echoed; a REST POST is not page-cached.
+		$ip = isset( $_SERVER['REMOTE_ADDR'] ) ? (string) wp_unslash( $_SERVER['REMOTE_ADDR'] ) : '';
+		return '' !== $ip ? 'cc_inq_' . md5( $ip ) : '';
 	}
 
 	/**
@@ -314,6 +324,13 @@ final class InquiryController implements Bootable {
 		}
 
 		$reply_to = '' !== $name ? $name . ' <' . $email . '>' : $email;
+
+		// The submission passed every gate: this attempt counts against the
+		// rate window, whatever the mail transport does next.
+		$rate_key = $this->rate_key();
+		if ( '' !== $rate_key ) {
+			set_transient( $rate_key, (int) get_transient( $rate_key ) + 1, self::RATE_WINDOW );
+		}
 
 		// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.wp_mail_wp_mail -- Single transactional lead notification, never bulk; the site's one outbound email.
 		$sent = wp_mail(

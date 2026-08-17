@@ -57,7 +57,7 @@ final class Plausible implements Bootable {
 			$host . '/js/script.tagged-events.js',
 			array(),
 			null, // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion -- Third-party evergreen script; versioning is the host's.
-			false
+			array( 'strategy' => 'defer' )
 		);
 
 		// The custom-event queue shim, so track() calls made before the
@@ -70,7 +70,7 @@ final class Plausible implements Bootable {
 	}
 
 	/**
-	 * Add the defer + data-domain attributes to the tracker tag.
+	 * Add the data-domain attribute to the tracker tag.
 	 *
 	 * @param string $tag    The script tag HTML.
 	 * @param string $handle The script handle.
@@ -78,15 +78,15 @@ final class Plausible implements Bootable {
 	 * @return string
 	 */
 	public function defer_script( string $tag, string $handle, string $src ): string {
-		if ( 'codecharmer-plausible' !== $handle ) {
+		if ( 'codecharmer-plausible' !== $handle || false === strpos( $tag, ' src=' ) ) {
 			return $tag;
 		}
 
 		$domain = Options::get( 'plausible_domain' );
 
 		return str_replace(
-			'<script src=',
-			'<script defer data-domain="' . esc_attr( $domain ) . '" src=',
+			' src=',
+			' data-domain="' . esc_attr( $domain ) . '" src=',
 			$tag
 		);
 	}
