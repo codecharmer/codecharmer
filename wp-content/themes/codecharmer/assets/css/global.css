@@ -398,3 +398,20 @@
   }
   .prose h4 { margin-block-start: 1.5em; }
 }
+
+/* Outside all layers on purpose: WordPress's global-styles link rule
+   (a:where(:not(.wp-element-button)) { color: inherit }) is unlayered and
+   therefore out-cascades every @layer rule above. These restore the
+   theme's own link and button colors over it. */
+a.btn--primary { color: var(--on-brand); }
+a.btn--secondary { color: var(--ink); }
+a.btn--ghost { color: var(--brand-ink); }
+.band-ink a.btn--ghost { color: var(--brand-glow); }
+a.link,
+.prose a {
+  color: var(--brand-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.18em;
+}
+.band-ink a.link { color: var(--brand-glow); }

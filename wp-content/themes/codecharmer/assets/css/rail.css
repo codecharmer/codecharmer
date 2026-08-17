@@ -365,7 +365,7 @@
     color: var(--logo-accent);
   }
   .rail__status::before { content: '✓ done'; }
-  .rail[data-rail-live] [data-state='queued'] .rail__status { color: var(--ink-faint); }
+  .rail[data-rail-live] [data-state='queued'] .rail__status { color: var(--ink-muted); }
   .rail[data-rail-live] [data-state='queued'] .rail__status::before { content: '· queued'; }
   .rail[data-rail-live] [data-state='active'] .rail__status {
     color: var(--logo-accent);

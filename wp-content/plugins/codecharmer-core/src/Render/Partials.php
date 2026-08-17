@@ -100,7 +100,7 @@ final class Partials {
 			'<%s class="logo"%s aria-label="%s">',
 			esc_attr( $tag ),
 			'' !== $url ? ' href="' . esc_url( $url ) . '"' : '',
-			esc_attr__( 'Code Charmer, home', 'codecharmer-core' )
+			esc_attr__( 'codeCharmer, home', 'codecharmer-core' )
 		);
 		?>
 		<svg class="logo__mark" viewBox="0 0 44 28" width="44" height="28" aria-hidden="true" fill="none">
