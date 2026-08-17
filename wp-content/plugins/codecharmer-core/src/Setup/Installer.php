@@ -55,6 +55,7 @@ final class Installer {
 		$this->remove_default_content();
 		$pages = $this->install_pages();
 		$this->install_projects();
+		$this->install_insights();
 		$this->assign_front_page( $pages );
 
 		update_option( 'codecharmer_installed_at', gmdate( 'c' ), false );
@@ -246,6 +247,102 @@ final class Installer {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Seed insight articles from data/insights.php.
+	 *
+	 * Articles are seeded with their authored status (normally 'draft'):
+	 * publishing is an editorial decision made in wp-admin after review,
+	 * never a side effect of seeding. An already-published article is
+	 * updated in place without being demoted back to draft. Idempotent via
+	 * the codecharmer_insights option map (slug → post ID).
+	 *
+	 * @return void
+	 */
+	private function install_insights(): void {
+		$insights = $this->load_data( 'insights' );
+		if ( ! $insights ) {
+			return;
+		}
+
+		$map = get_option( Options::INSIGHTS_OPTION, array() );
+		$map = is_array( $map ) ? $map : array();
+
+		$author_id = $this->byline_author_id();
+
+		foreach ( $insights as $slug => $insight ) {
+			$postarr = array(
+				'post_title'   => (string) $insight['title'],
+				'post_name'    => (string) $slug,
+				'post_content' => (string) $insight['content'],
+				'post_excerpt' => (string) ( $insight['excerpt'] ?? '' ),
+				'post_type'    => 'post',
+				'post_author'  => $author_id,
+			);
+
+			$existing_id = (int) ( $map[ $slug ] ?? 0 );
+			$existing    = $existing_id ? get_post( $existing_id ) : null;
+			if ( $existing instanceof \WP_Post ) {
+				$postarr['ID'] = $existing_id;
+				// Never demote a reviewed, published article back to draft.
+				$postarr['post_status'] = 'publish' === $existing->post_status
+					? 'publish'
+					: (string) ( $insight['status'] ?? 'draft' );
+				$post_id                = wp_update_post( wp_slash( $postarr ), true );
+			} else {
+				$postarr['post_status'] = (string) ( $insight['status'] ?? 'draft' );
+				$post_id                = wp_insert_post( wp_slash( $postarr ), true );
+			}
+
+			if ( is_wp_error( $post_id ) || 0 === $post_id ) {
+				continue;
+			}
+
+			update_post_meta( $post_id, self::SEEDED_META, '1' );
+			foreach ( (array) ( $insight['meta'] ?? array() ) as $meta_key => $meta_value ) {
+				update_post_meta( $post_id, $meta_key, $meta_value );
+			}
+
+			$map[ $slug ] = (int) $post_id;
+		}
+
+		update_option( Options::INSIGHTS_OPTION, $map );
+	}
+
+	/**
+	 * Resolve the byline author: the site's first administrator.
+	 *
+	 * If the account still shows its login as the public display name, set
+	 * the owner-approved byline once; a display name the owner has already
+	 * customized is left alone.
+	 *
+	 * @return int
+	 */
+	private function byline_author_id(): int {
+		$admins = get_users(
+			array(
+				'role'    => 'administrator',
+				'number'  => 1,
+				'orderby' => 'ID',
+				'order'   => 'ASC',
+			)
+		);
+		if ( ! $admins ) {
+			return 0;
+		}
+
+		$admin = $admins[0];
+		if ( $admin->display_name === $admin->user_login ) {
+			wp_update_user(
+				array(
+					'ID'           => $admin->ID,
+					'display_name' => 'Alfredo Prince',
+				)
+			);
+		}
+
+		return (int) $admin->ID;
 	}
 
 	/**

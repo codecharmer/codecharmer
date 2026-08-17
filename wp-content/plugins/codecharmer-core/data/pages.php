@@ -135,11 +135,18 @@ $cc_service_page = static function ( array $service ): string {
 		)
 	);
 
-	return implode( "\n\n", array( $hero, $features, $approach, '<!-- wp:codecharmer/proof /-->', $faq, $cta ) );
+	$parts = array( $hero, $features, $approach, '<!-- wp:codecharmer/proof /-->' );
+	if ( ! empty( $service['extra'] ) ) {
+		$parts[] = (string) $service['extra'];
+	}
+	$parts[] = $faq;
+	$parts[] = $cta;
+
+	return implode( "\n\n", $parts );
 };
 
 $cc_services = array(
-	'ai-strategy'     => array(
+	'ai-strategy'      => array(
 		'order'           => 1,
 		'name'            => 'AI Strategy & Architecture',
 		'price'           => 'Strategy sprints run US$7,500 – 15,000 · A US$2,500 audit maps the opportunity first',
@@ -161,7 +168,7 @@ $cc_services = array(
 			array( 'Isn’t our data too messy for this?', 'That messiness is exactly the work. Organizing knowledge so AI has something reliable to stand on is most of the value.' ),
 		),
 	),
-	'wordpress'       => array(
+	'wordpress'        => array(
 		'order'           => 2,
 		'name'            => 'Custom WordPress Platforms',
 		'price'           => 'Implementations start at US$25,000 · typical range US$25k – 75k',
@@ -183,7 +190,7 @@ $cc_services = array(
 			array( 'Will our team be able to manage it?', 'That’s the whole point. We build editing experiences your team controls, so you’re never locked in.' ),
 		),
 	),
-	'custom-software' => array(
+	'custom-software'  => array(
 		'order'           => 3,
 		'name'            => 'Custom Software & Integrations',
 		'price'           => 'Projects start at US$25,000 · complex operations platforms from US$60,000',
@@ -205,7 +212,30 @@ $cc_services = array(
 			array( 'How do we avoid another system nobody uses?', 'By designing around the actual workflow. Adoption is a design problem, not a training problem.' ),
 		),
 	),
-	'ai-automation'   => array(
+	'content-workflow' => array(
+		'order'           => 5,
+		'name'            => 'Content Workflow Automation',
+		'price'           => 'Praxis pilots: setup US$10k – 25k + US$1.5k – 5k/month · custom builds from US$25,000',
+		'seo_title'       => 'Content Workflow Automation for WordPress | Code Charmer',
+		'seo_description' => 'Editorial workflow, AI-assisted drafting with human approval, provenance, and enterprise search built around the WordPress your team already runs. Proven on Praxis.',
+		'icon'            => 'spark',
+		'descriptor'      => 'Editorial pipelines with AI drafting and human approval.',
+		'thesis'          => 'Editorial workflow, AI-assisted drafting with human approval, provenance, and enterprise search built around the WordPress your team already runs.',
+		'problem'         => 'Content operations drown in handoffs long before they run out of ideas.',
+		'cta'             => 'Tell us how content actually moves through your team. A short conversation is usually enough to see which handoffs a workflow system would remove.',
+		'included'        => array( 'Editorial workflow design', 'AI drafting with human approval', 'Content provenance & audit trails', 'Enterprise search over your content', 'Approval & review systems', 'Multi-channel publishing', 'Managed Praxis pilots' ),
+		'approach'        => array(
+			array( 'Map the editorial flow', 'Who writes, who approves, where items wait, and which handoffs add nothing but delay.' ),
+			array( 'Build the approval spine first', 'Review states, provenance, and audit trails before any AI drafts a word. Discipline first, speed second.' ),
+			array( 'Add the machine, metered', 'AI drafting with budgets, versioned prompts, and a human yes gating every publish.' ),
+		),
+		'faq'             => array(
+			array( 'Is this just Praxis?', 'Praxis is the proof and often the fastest path: a managed pilot on our platform. When your operation needs something bespoke, we build it with the same patterns, on your infrastructure, owned by you.' ),
+			array( 'Will AI write our content?', 'It will draft, when that helps. Nothing publishes without a person approving it, every draft is labeled as machine-drafted until reviewed, and every generation is metered. The discipline is the product; the drafting is a feature.' ),
+		),
+		'extra'           => $cc_flagship_band,
+	),
+	'ai-automation'    => array(
 		'order'           => 4,
 		'name'            => 'WordPress Workflow Automation',
 		'price'           => 'Automation projects start at US$25,000 · a US$2,500 audit maps the opportunity first',
@@ -589,6 +619,48 @@ $cc_pages['audit'] = array(
 <!-- wp:codecharmer/page-hero {"tone":"ink","eyebrow":"The fixed first step","title":"Find where WordPress is costing your team time, revenue, and reliability.","intro":"In 10 business days, get an implementation-ready plan for the workflows, integrations, content systems, and automation opportunities around your existing WordPress platform.","primaryLabel":"Request the audit","primaryUrl":"#request-audit","note":"Starts at US$2,500 · Fixed scope and timeline before payment · You own the findings whether or not we implement them"} /-->
 
 {$cc_audit_body}
+BLOCKS
+	,
+);
+
+// ----------------------------------------------------- agency-partners -- //
+$cc_pages['agency-partners'] = array(
+	'title'   => 'Agency Partners',
+	'order'   => 11,
+	'excerpt' => 'Senior WordPress and application engineering behind your agency: white-label builds, direct-to-client work, or embedded capacity. Fixed scope, documented handoff, your client relationship intact.',
+	'meta'    => array(
+		'cc_seo_title'       => 'White-Label WordPress Engineering for Agencies | Code Charmer',
+		'cc_seo_description' => 'Senior WordPress and application engineering behind your agency: white-label builds, direct-to-client engagements, or embedded capacity. Fixed scope and documented handoff.',
+	),
+	'content' => <<<'BLOCKS'
+<!-- wp:codecharmer/page-hero {"tone":"ink","eyebrow":"Agency partners","title":"The engineering bench your agency doesn’t have to staff.","intro":"You lead the brand, the design, and the client. We handle the WordPress and application layer agencies rarely want to carry permanently: custom blocks, integrations, portals, WooCommerce operations, and automation. Invisibly or by name, your call.","primaryLabel":"Describe the brief","primaryUrl":"/contact","secondaryLabel":"See the builds","secondaryUrl":"/work","note":"A real reply the same business day, US Eastern hours"} /-->
+
+<!-- wp:codecharmer/engagement-models {"eyebrow":"Three ways to plug in","heading":"Pick the shape that fits the brief.","intro":"Every mode comes with fixed scope, written estimates, and a documented handoff. What we never offer is unlimited development: vague capacity produces vague work."} -->
+<!-- wp:codecharmer/engagement-model {"bestFor":"An overflow or specialist build","name":"White-label build","price":"Builds start at US$25,000","timeframe":"Scoped per brief","body":"We work invisibly under your brand: your PM, your client, our engineering. Custom themes, blocks, integrations, and commerce delivered against your spec, with documentation your team presents as its own.","detail":"Paid discovery available at US$7,500 – 15,000 when the brief needs de-risking first."} /-->
+<!-- wp:codecharmer/engagement-model {"bestFor":"A brief outside your lane","name":"Direct-to-client","price":"Standard project pricing","timeframe":"Scoped per brief","body":"You introduce us, we contract with your client directly, and you stay the relationship lead. Cleanest when the engagement needs its own support relationship after launch.","detail":"Your client, your credit for the introduction, and no channel conflict: we don’t sell design or brand work."} /-->
+<!-- wp:codecharmer/engagement-model {"bestFor":"Sustained technical depth","name":"Embedded engineering","price":"Reserved monthly capacity","timeframe":"3-month minimum","body":"Senior capacity reserved inside your delivery team each month: a stated hours band, your standups, your tooling, our engineering.","detail":"Priced per engagement against the reserved band. Tell us the shape of the need and you’ll get a number, not a rate card."} /-->
+<!-- /wp:codecharmer/engagement-models -->
+<!-- OWNER INPUT REQUIRED: confirm or replace the embedded-capacity pricing approach above once a real monthly band and number are decided. -->
+
+<!-- wp:codecharmer/feature-list {"eyebrow":"What we take off your plate","heading":"The layer below the design.","intro":"The work is the same discipline shown in our case studies: engine-grade WordPress with the boring parts done properly."} -->
+<!-- wp:codecharmer/feature-item {"text":"Custom Gutenberg blocks and editorial experiences your client's team can actually run"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Integrations that fail loudly and recover cleanly: CRM, search, messaging, payments"} /-->
+<!-- wp:codecharmer/feature-item {"text":"WooCommerce operations: ordering, inventory, POS, loyalty, and the workflows behind them"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Client portals, dashboards, and the custom application layer around WordPress"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Performance, accessibility, and security handled as engineering, not as a plugin list"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Documentation and handoff written so the next developer, yours or theirs, is never stuck"} /-->
+<!-- /wp:codecharmer/feature-list -->
+
+<!-- wp:codecharmer/proof {"eyebrow":"Judge the work","heading":"The builds speak for themselves.","intro":"Commerce and POS on one WordPress engine, bilingual publishing without a translation plugin, AI content workflows with human approval: live systems, documented in detail.","ctaLabel":"Read the case studies","ctaUrl":"/work"} /-->
+
+<!-- wp:codecharmer/faq {"heading":"Straight answers."} -->
+<!-- wp:codecharmer/faq-item {"question":"Will our client know you exist?","answer":"Only if you want them to. White-label means your brand on everything: our repos transfer, our documentation carries your name, and we join calls as your team or not at all. The choice is contractual, not casual."} /-->
+<!-- wp:codecharmer/faq-item {"question":"Who owns the code and the IP?","answer":"Your client does, always, regardless of mode. Full repository transfer, no licensing tail, no dependency on us to keep running. It is the same ownership promise we make direct clients."} /-->
+<!-- wp:codecharmer/faq-item {"question":"What happens when the build ships?","answer":"A documented handoff: architecture notes, editorial guides, and deployment runbooks. If ongoing support makes sense, it is a separate, explicit engagement, never a lock-in."} /-->
+<!-- wp:codecharmer/faq-item {"question":"Do you take every brief?","answer":"No. Below the build minimum, or where a good theme and a generalist would serve your client better, we say so on the first call. Partnerships survive on the briefs we decline."} /-->
+<!-- /wp:codecharmer/faq -->
+
+<!-- wp:codecharmer/cta-band {"heading":"Have a brief that needs a serious bench?","body":"Send the shape of it: platform, scope, timeline. You’ll get an honest read and, if it fits, two relevant builds and our partner terms. A real reply the same business day, US Eastern hours.","primaryLabel":"Describe the brief","primaryUrl":"/contact"} /-->
 BLOCKS
 	,
 );
