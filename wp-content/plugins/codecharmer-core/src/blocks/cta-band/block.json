@@ -9,7 +9,11 @@
 	"textdomain": "codecharmer-core",
 	"attributes": {
 		"heading": { "type": "string", "default": "Tell us what you’re trying to build." },
-		"body": { "type": "string", "default": "A short conversation is usually enough to know whether we’re the right team. No pitch deck, no obligation." }
+		"body": { "type": "string", "default": "A short conversation is usually enough to know whether we’re the right team. No pitch deck, no obligation." },
+		"primaryLabel": { "type": "string", "default": "" },
+		"primaryUrl": { "type": "string", "default": "" },
+		"secondaryLabel": { "type": "string", "default": "" },
+		"secondaryUrl": { "type": "string", "default": "" }
 	},
 	"supports": {
 		"html": false

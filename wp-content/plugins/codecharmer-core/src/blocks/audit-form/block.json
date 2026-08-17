@@ -1,0 +1,18 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "codecharmer/audit-form",
+	"title": "Audit Request Form",
+	"category": "codecharmer",
+	"icon": "clipboard",
+	"description": "Two-step qualification form for the WordPress Operations & Automation Audit. Posts to the inquiry endpoint with an audit discriminator.",
+	"textdomain": "codecharmer-core",
+	"attributes": {},
+	"supports": {
+		"html": false,
+		"multiple": false
+	},
+	"editorScript": "file:./index.js",
+	"style": [ "codecharmer-contact-form-style", "file:./style-index.css" ],
+	"render": "file:./render.php"
+}

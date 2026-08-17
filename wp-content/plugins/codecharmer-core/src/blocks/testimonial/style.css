@@ -1,0 +1,43 @@
+/* Testimonial — one named client voice. */
+
+.testimonial__figure {
+	max-width: 46rem;
+	margin-inline: auto;
+	border-left: 2px solid var(--brand);
+	padding-left: clamp(1.25rem, 3vw, 2rem);
+}
+
+.testimonial__quote p {
+	font-family: var(--font-display);
+	font-size: clamp(1.3rem, 2.6vw, 1.7rem);
+	font-weight: 500;
+	letter-spacing: -0.015em;
+	line-height: 1.4;
+}
+
+.testimonial__cite {
+	margin-top: 1.25rem;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 0.4rem 0.75rem;
+}
+
+.testimonial__name {
+	font-weight: 600;
+}
+
+.testimonial__meta {
+	font-family: var(--font-mono);
+	font-size: var(--t-small);
+	color: var(--ink-muted);
+}
+
+.testimonial__source {
+	font-size: var(--t-small);
+}
+
+.cc-testimonial-editor {
+	padding: 1.5rem;
+	border-left: 2px solid currentcolor;
+}

@@ -1,37 +1,25 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "codecharmer/engagement-model",
-	"title": "Engagement Model",
+	"name": "codecharmer/stat",
+	"title": "Stat",
 	"category": "codecharmer",
-	"icon": "clipboard",
-	"description": "One engagement model card.",
+	"icon": "chart-bar",
+	"description": "One stat: value, label, and an optional context note.",
 	"textdomain": "codecharmer-core",
 	"parent": [
-		"codecharmer/engagement-models"
+		"codecharmer/stats"
 	],
 	"attributes": {
-		"bestFor": {
+		"value": {
 			"type": "string",
 			"default": ""
 		},
-		"name": {
+		"label": {
 			"type": "string",
 			"default": ""
 		},
-		"body": {
-			"type": "string",
-			"default": ""
-		},
-		"price": {
-			"type": "string",
-			"default": ""
-		},
-		"timeframe": {
-			"type": "string",
-			"default": ""
-		},
-		"detail": {
+		"note": {
 			"type": "string",
 			"default": ""
 		}
