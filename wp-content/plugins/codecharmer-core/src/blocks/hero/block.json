@@ -8,15 +8,15 @@
 	"description": "The homepage hero: kicker, display headline with the charm underline, lead, CTAs, trust line, and the live system diagram.",
 	"textdomain": "codecharmer-core",
 	"attributes": {
-		"kicker": { "type": "string", "default": "Digital engineering studio" },
-		"titleBefore": { "type": "string", "default": "We build digital systems that" },
-		"charm": { "type": "string", "default": "earn their keep" },
-		"sub": { "type": "string", "default": "AI-first architecture, serious WordPress engineering, and custom software. Built to generate revenue, automate the busywork, and stay yours to run." },
-		"primaryLabel": { "type": "string", "default": "Book a consultation" },
-		"primaryUrl": { "type": "string", "default": "/contact" },
-		"secondaryLabel": { "type": "string", "default": "See our work" },
+		"kicker": { "type": "string", "default": "WordPress operations & automation" },
+		"titleBefore": { "type": "string", "default": "Turn WordPress into the system your business" },
+		"charm": { "type": "string", "default": "actually needs" },
+		"sub": { "type": "string", "default": "For established organizations whose site has become part of how the business runs: we connect content, commerce, customer data, and internal workflows into one system your team owns." },
+		"primaryLabel": { "type": "string", "default": "Request an operations audit" },
+		"primaryUrl": { "type": "string", "default": "/wordpress-operations-audit" },
+		"secondaryLabel": { "type": "string", "default": "See client results" },
 		"secondaryUrl": { "type": "string", "default": "/work" },
-		"trust": { "type": "string", "default": "No lock-in. You own everything we build." }
+		"trust": { "type": "string", "default": "Fixed first step · No lock-in · You own the work." }
 	},
 	"supports": {
 		"html": false,
