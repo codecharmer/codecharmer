@@ -1,0 +1,19 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "codecharmer/landing-footer",
+	"title": "Landing Footer",
+	"category": "codecharmer",
+	"icon": "align-wide",
+	"description": "Campaign-page footer: email, privacy link, and the copyright line. Essential exits only.",
+	"textdomain": "codecharmer-core",
+	"attributes": {},
+	"supports": {
+		"html": false,
+		"multiple": false,
+		"inserter": false
+	},
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

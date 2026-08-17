@@ -491,17 +491,9 @@ BLOCKS
 );
 
 // ------------------------------------------- wordpress-operations-audit -- //
-$cc_pages['wordpress-operations-audit'] = array(
-	'title'   => 'WordPress Operations & Automation Audit',
-	'order'   => 8,
-	'excerpt' => 'In 10 business days, get an implementation-ready plan for the workflows, integrations, content systems, and automation opportunities around your existing WordPress platform. Starts at US$2,500.',
-	'meta'    => array(
-		'cc_seo_title'       => 'WordPress Operations & Automation Audit | Code Charmer',
-		'cc_seo_description' => 'A 10-business-day audit of your WordPress operations: workflow map, technical findings, ranked opportunities, and a 90-day implementation plan. Starts at US$2,500.',
-	),
-	'content' => <<<'BLOCKS'
-<!-- wp:codecharmer/page-hero {"tone":"ink","eyebrow":"The fixed first step","title":"Find where WordPress is costing your team time, revenue, and reliability.","intro":"In 10 business days, get an implementation-ready plan for the workflows, integrations, content systems, and automation opportunities around your existing WordPress platform.","primaryLabel":"Request the audit","primaryUrl":"#request-audit","secondaryLabel":"See how we build","secondaryUrl":"/work","note":"Starts at US$2,500 · Fixed scope and timeline before payment · You own the findings whether or not we implement them"} /-->
-
+// The audit body is shared between the canonical page and the /audit/
+// campaign variant, so the two can never drift apart.
+$cc_audit_body = <<<'BLOCKS'
 <!-- wp:codecharmer/feature-list {"eyebrow":"This is for you if","heading":"The site stopped being a website a while ago.","intro":"The audit fits organizations already running WordPress with real operations on top of it. Any two of these signals usually mean it will pay for itself."} -->
 <!-- wp:codecharmer/feature-item {"text":"Multiple editors, locations, languages, or approval stages move through the site every week"} /-->
 <!-- wp:codecharmer/feature-item {"text":"Staff re-type or copy-paste data between WordPress and a CRM, spreadsheet, or commerce tool"} /-->
@@ -562,6 +554,41 @@ $cc_pages['wordpress-operations-audit'] = array(
 <!-- /wp:codecharmer/faq -->
 
 <!-- wp:codecharmer/audit-form /-->
+BLOCKS;
+
+$cc_pages['wordpress-operations-audit'] = array(
+	'title'   => 'WordPress Operations & Automation Audit',
+	'order'   => 8,
+	'excerpt' => 'In 10 business days, get an implementation-ready plan for the workflows, integrations, content systems, and automation opportunities around your existing WordPress platform. Starts at US$2,500.',
+	'meta'    => array(
+		'cc_seo_title'       => 'WordPress Operations & Automation Audit | Code Charmer',
+		'cc_seo_description' => 'A 10-business-day audit of your WordPress operations: workflow map, technical findings, ranked opportunities, and a 90-day implementation plan. Starts at US$2,500.',
+	),
+	'content' => <<<BLOCKS
+<!-- wp:codecharmer/page-hero {"tone":"ink","eyebrow":"The fixed first step","title":"Find where WordPress is costing your team time, revenue, and reliability.","intro":"In 10 business days, get an implementation-ready plan for the workflows, integrations, content systems, and automation opportunities around your existing WordPress platform.","primaryLabel":"Request the audit","primaryUrl":"#request-audit","secondaryLabel":"See how we build","secondaryUrl":"/work","note":"Starts at US$2,500 · Fixed scope and timeline before payment · You own the findings whether or not we implement them"} /-->
+
+{$cc_audit_body}
+BLOCKS
+	,
+);
+
+// ------------------------------------------------- audit (campaign) -- //
+// Chrome-stripped variant for paid and outbound traffic: same body, no
+// site navigation, noindexed so the canonical page stays the indexed one.
+$cc_pages['audit'] = array(
+	'title'    => 'WordPress Operations Audit',
+	'order'    => 10,
+	'template' => 'page-landing',
+	'excerpt'  => 'In 10 business days, get an implementation-ready plan for the workflows, integrations, content systems, and automation opportunities around your existing WordPress platform. Starts at US$2,500.',
+	'meta'     => array(
+		'cc_noindex'         => '1',
+		'cc_seo_title'       => 'WordPress Operations & Automation Audit | Code Charmer',
+		'cc_seo_description' => 'A 10-business-day audit of your WordPress operations: workflow map, technical findings, ranked opportunities, and a 90-day implementation plan. Starts at US$2,500.',
+	),
+	'content'  => <<<BLOCKS
+<!-- wp:codecharmer/page-hero {"tone":"ink","eyebrow":"The fixed first step","title":"Find where WordPress is costing your team time, revenue, and reliability.","intro":"In 10 business days, get an implementation-ready plan for the workflows, integrations, content systems, and automation opportunities around your existing WordPress platform.","primaryLabel":"Request the audit","primaryUrl":"#request-audit","note":"Starts at US$2,500 · Fixed scope and timeline before payment · You own the findings whether or not we implement them"} /-->
+
+{$cc_audit_body}
 BLOCKS
 	,
 );

@@ -1,0 +1,28 @@
+/* Landing header — logo + trust line, no navigation. */
+
+.landing-header {
+	border-block-end: 1px solid var(--border);
+	background: var(--surface);
+}
+
+.landing-header__bar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	padding-block: 0.9rem;
+}
+
+.landing-header__trust {
+	font-family: var(--font-mono);
+	font-size: var(--t-small);
+	color: var(--ink-muted);
+	letter-spacing: 0.02em;
+	text-align: end;
+}
+
+.cc-landing-chrome-editor {
+	padding: 1rem 1.5rem;
+	border: 1px dashed currentcolor;
+	border-radius: 0.75rem;
+}

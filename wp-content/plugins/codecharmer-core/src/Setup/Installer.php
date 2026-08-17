@@ -159,6 +159,9 @@ final class Installer {
 				if ( ! empty( $page['excerpt'] ) ) {
 					$postarr['post_excerpt'] = (string) $page['excerpt'];
 				}
+				if ( ! empty( $page['template'] ) ) {
+					$postarr['page_template'] = (string) $page['template'];
+				}
 
 				$existing_id = (int) ( $map[ $slug ] ?? 0 );
 				if ( $existing_id && get_post( $existing_id ) ) {
