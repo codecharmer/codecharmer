@@ -41,16 +41,18 @@ $cc_year      = gmdate( 'Y' );
 						<li><a href="<?php echo esc_url( Options::page_url( 'work' ) ); ?>"><?php esc_html_e( 'Work', 'codecharmer-core' ); ?></a></li>
 						<li><a href="<?php echo esc_url( Options::page_url( 'process' ) ); ?>"><?php esc_html_e( 'Process', 'codecharmer-core' ); ?></a></li>
 						<li><a href="<?php echo esc_url( Options::page_url( 'about' ) ); ?>"><?php esc_html_e( 'About', 'codecharmer-core' ); ?></a></li>
+						<li><a href="<?php echo esc_url( Options::page_url( 'pricing' ) ); ?>"><?php esc_html_e( 'Pricing', 'codecharmer-core' ); ?></a></li>
 					</ul>
 				</div>
 				<div class="footer__col">
 					<h2 class="footer__heading"><?php esc_html_e( 'Get started', 'codecharmer-core' ); ?></h2>
 					<ul role="list">
+						<li><a href="<?php echo esc_url( Options::page_url( 'wordpress-operations-audit' ) ); ?>"><?php esc_html_e( 'Request an audit', 'codecharmer-core' ); ?></a></li>
 						<li><a href="<?php echo esc_url( $cc_cta_url ); ?>"><?php echo esc_html( $cc_cta_label ); ?></a></li>
 						<li><a href="<?php echo esc_url( 'mailto:' . $cc_email ); ?>"><?php esc_html_e( 'Email us', 'codecharmer-core' ); ?></a></li>
 					</ul>
-					<a class="footer__cta" href="<?php echo esc_url( $cc_cta_url ); ?>">
-						<?php esc_html_e( 'Start a project', 'codecharmer-core' ); ?> <?php Partials::icon( 'arrow', 16 ); ?>
+					<a class="footer__cta" href="<?php echo esc_url( Options::page_url( 'wordpress-operations-audit' ) ); ?>">
+						<?php esc_html_e( 'Request an audit', 'codecharmer-core' ); ?> <?php Partials::icon( 'arrow', 16 ); ?>
 					</a>
 				</div>
 			</nav>

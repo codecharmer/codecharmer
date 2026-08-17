@@ -79,6 +79,10 @@ final class Plugin {
 			// Delivery.
 			Rest\InquiryController::class,
 			Seo\MetaTags::class,
+			Seo\StructuredData::class,
+			Seo\IndexingPolicy::class,
+			Routing\Redirects::class,
+			Analytics\Plausible::class,
 			Cli\Commands::class,
 		);
 	}

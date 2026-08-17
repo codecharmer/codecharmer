@@ -45,12 +45,15 @@ final class Options implements Bootable {
 	 */
 	public static function defaults(): array {
 		return array(
-			'email'          => 'codecharmer@codecharmer.io',
-			'tagline'        => __( 'Digital systems that earn their keep.', 'codecharmer-core' ),
-			'cta_label'      => __( 'Book a consultation', 'codecharmer-core' ),
-			'cta_url'        => '/contact',
-			'response_time'  => __( 'within one business day', 'codecharmer-core' ),
-			'scheduling_url' => '',
+			'email'            => 'codecharmer@codecharmer.io',
+			'tagline'          => __( 'Digital systems that earn their keep.', 'codecharmer-core' ),
+			'cta_label'        => __( 'Describe your project', 'codecharmer-core' ),
+			'cta_url'          => '/contact',
+			'response_time'    => __( 'within one business day', 'codecharmer-core' ),
+			'scheduling_url'   => '',
+			'plausible_domain' => '',
+			'plausible_host'   => 'https://plausible.io',
+			'sameas_urls'      => '',
 		);
 	}
 

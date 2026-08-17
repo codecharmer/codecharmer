@@ -80,6 +80,21 @@ $cc_steps = array(
 );
 ?>
 <section class="section contact">
+	<?php if ( '' !== $cc_sched ) : ?>
+		<div class="container contact__paths reveal">
+			<?php
+			Partials::button(
+				array(
+					'label'   => __( 'Schedule a 20-minute fit call', 'codecharmer-core' ),
+					'url'     => $cc_sched,
+					'variant' => 'secondary',
+					'icon'    => 'calendar',
+				)
+			);
+			?>
+			<span class="contact__paths-or"><?php esc_html_e( 'or describe your project below', 'codecharmer-core' ); ?></span>
+		</div>
+	<?php endif; ?>
 	<div class="container contact__grid">
 		<div class="contact__form reveal">
 			<form class="cform" data-contact-form data-endpoint="<?php echo esc_url( $cc_endpoint ); ?>" data-nonce="<?php echo esc_attr( $cc_nonce ); ?>" data-email="<?php echo esc_attr( $cc_email ); ?>" novalidate>

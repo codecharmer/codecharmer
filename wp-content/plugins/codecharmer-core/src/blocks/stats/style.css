@@ -1,0 +1,50 @@
+/* Stats — numeric proof strip. */
+
+.stats {
+	padding-block: clamp(2.5rem, 5vw, 4rem);
+}
+
+.stats__heading {
+	max-width: 40rem;
+}
+
+.stats__grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+	gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.stats__heading + .stats__grid {
+	margin-top: clamp(1.75rem, 3.5vw, 2.75rem);
+}
+
+.stat {
+	border-left: 2px solid var(--brand);
+	padding-left: 1.1rem;
+}
+
+.stat__value {
+	font-family: var(--font-display);
+	font-size: clamp(1.9rem, 3.6vw, 2.6rem);
+	font-weight: 640;
+	letter-spacing: -0.02em;
+	line-height: 1.05;
+}
+
+.stat__label {
+	margin-top: 0.45rem;
+	color: var(--ink-muted);
+	line-height: 1.45;
+}
+
+.stat__note {
+	margin-top: 0.35rem;
+	font-family: var(--font-mono);
+	font-size: var(--t-small);
+	color: var(--ink-muted);
+	opacity: 0.85;
+}
+
+.cc-stats-editor {
+	padding: 1.5rem;
+}

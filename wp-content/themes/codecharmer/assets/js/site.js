@@ -281,6 +281,55 @@
 		window.addEventListener( 'pageshow', schedule );
 	}
 
+	/* ------------------------------------------------- lead attribution -- */
+	// First-touch source data for lead emails: landing path, referrer, and
+	// UTM params, captured once per session. Never any personal data.
+	function captureFirstTouch() {
+		try {
+			if ( window.sessionStorage.getItem( 'cc-touch' ) ) {
+				return;
+			}
+			var params = new window.URLSearchParams( window.location.search );
+			var utm = [];
+			params.forEach( function ( value, key ) {
+				if ( 0 === key.indexOf( 'utm_' ) ) {
+					utm.push( key + '=' + value );
+				}
+			} );
+			window.sessionStorage.setItem(
+				'cc-touch',
+				JSON.stringify( {
+					path: window.location.pathname,
+					ref: document.referrer || '',
+					utm: utm.join( '&' ),
+				} )
+			);
+		} catch ( e ) {
+			// Storage unavailable (private mode etc.): attribution is optional.
+		}
+	}
+
+	function getFirstTouch() {
+		try {
+			var raw = window.sessionStorage.getItem( 'cc-touch' );
+			return raw ? JSON.parse( raw ) : null;
+		} catch ( e ) {
+			return null;
+		}
+	}
+
+	function attributionOf() {
+		var touch = getFirstTouch();
+		if ( ! touch ) {
+			return { sourcePath: window.location.pathname, utm: '' };
+		}
+		var source = touch.path;
+		if ( touch.ref ) {
+			source += ' (from ' + touch.ref + ')';
+		}
+		return { sourcePath: source, utm: touch.utm || '' };
+	}
+
 	/* ------------------------------------------------------ contact form -- */
 	function initContactForm() {
 		var form = document.querySelector( '[data-contact-form]' );
@@ -363,6 +412,11 @@
 				donePanel.hidden = false;
 				donePanel.focus();
 			}
+			document.dispatchEvent(
+				new window.CustomEvent( 'cc:lead', {
+					detail: { form: 'project' },
+				} )
+			);
 		};
 
 		form.addEventListener( 'submit', function ( e ) {
@@ -378,6 +432,9 @@
 			fd.forEach( function ( value, key ) {
 				data[ key ] = value;
 			} );
+			var attribution = attributionOf();
+			data.sourcePath = attribution.sourcePath;
+			data.utm = attribution.utm;
 
 			[ 'name', 'email', 'type', 'message' ].forEach( function ( n ) {
 				setError( n, '' );
@@ -461,11 +518,319 @@
 		} );
 	}
 
+	/* -------------------------------------------------------- audit form -- */
+	// Two-step qualification form. Step 1 must validate before step 2 shows;
+	// the whole thing degrades to the visible mailto address without JS.
+	function initAuditForm() {
+		var form = document.querySelector( '[data-audit-form]' );
+		if ( ! form ) {
+			return;
+		}
+
+		var endpoint = form.getAttribute( 'data-endpoint' ) || '';
+		var nonce = form.getAttribute( 'data-nonce' ) || '';
+		var toEmail = form.getAttribute( 'data-email' ) || '';
+		var stepLabel = form.querySelector( '[data-step-label]' );
+		var stepOne = form.querySelector( '[data-step="1"]' );
+		var stepTwo = form.querySelector( '[data-step="2"]' );
+		var statusOne = form.querySelector( '[data-status-1]' );
+		var statusEl = form.querySelector( '[data-status]' );
+		var submitBtn = form.querySelector( '[data-submit]' );
+		var submitLabel = form.querySelector( '[data-submit-label]' );
+		var donePanel = form.parentElement.querySelector( '[data-done]' );
+
+		// Attribution into the hidden fields.
+		var attribution = attributionOf();
+		var sourceField = form.querySelector( '[data-source-path]' );
+		var utmField = form.querySelector( '[data-utm]' );
+		if ( sourceField ) {
+			sourceField.value = attribution.sourcePath;
+		}
+		if ( utmField ) {
+			utmField.value = attribution.utm;
+		}
+
+		var setError = function ( id, msg ) {
+			var input = form.querySelector( '#af-' + id );
+			var field = input ? input.closest( '.field' ) : null;
+			var errEl = form.querySelector( '#err-af-' + id );
+			if ( ! field || ! errEl ) {
+				return;
+			}
+			if ( msg ) {
+				field.setAttribute( 'data-invalid', '' );
+				input.setAttribute( 'aria-invalid', 'true' );
+				errEl.textContent = msg;
+			} else {
+				field.removeAttribute( 'data-invalid' );
+				input.removeAttribute( 'aria-invalid' );
+				errEl.textContent = '';
+			}
+		};
+
+		var validateStepOne = function () {
+			var errors = {};
+			var email = form.querySelector( '#af-email' ).value;
+			var site = form.querySelector( '#af-siteurl' ).value;
+			var problem = form.querySelector( '#af-problem' ).value;
+			if ( ! email.trim() ) {
+				errors.email = 'We need an email to reply to.';
+			} else if ( ! /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test( email ) ) {
+				errors.email = 'That email doesn’t look right.';
+			}
+			if ( ! site.trim() ) {
+				errors.siteurl = 'We need the site URL to look at.';
+			}
+			if ( ! problem ) {
+				errors.problem = 'Pick the closest match.';
+			}
+			return errors;
+		};
+
+		var showStep = function ( n ) {
+			var toStepTwo = 2 === n;
+			stepOne.hidden = toStepTwo;
+			stepTwo.hidden = ! toStepTwo;
+			if ( stepLabel ) {
+				stepLabel.textContent = 'Step ' + n + ' of 2';
+			}
+			var first = ( toStepTwo ? stepTwo : stepOne ).querySelector(
+				'input:not([type="hidden"]), select, textarea'
+			);
+			if ( first ) {
+				first.focus();
+			}
+			document.dispatchEvent(
+				new window.CustomEvent( 'cc:audit-step', {
+					detail: { step: n },
+				} )
+			);
+		};
+
+		var nextBtn = form.querySelector( '[data-step-next]' );
+		if ( nextBtn ) {
+			nextBtn.addEventListener( 'click', function () {
+				[ 'email', 'siteurl', 'problem' ].forEach( function ( n ) {
+					setError( n, '' );
+				} );
+				var errors = validateStepOne();
+				var keys = Object.keys( errors );
+				if ( keys.length ) {
+					keys.forEach( function ( k ) {
+						setError( k, errors[ k ] );
+					} );
+					var firstEl = form.querySelector( '#af-' + keys[ 0 ] );
+					if ( firstEl ) {
+						firstEl.focus();
+					}
+					if ( statusOne ) {
+						statusOne.textContent =
+							'Please fix the highlighted fields.';
+						statusOne.setAttribute( 'data-tone', 'error' );
+					}
+					return;
+				}
+				if ( statusOne ) {
+					statusOne.textContent = '';
+					statusOne.removeAttribute( 'data-tone' );
+				}
+				showStep( 2 );
+			} );
+		}
+
+		var backBtn = form.querySelector( '[data-step-back]' );
+		if ( backBtn ) {
+			backBtn.addEventListener( 'click', function () {
+				showStep( 1 );
+			} );
+		}
+
+		var buildMailto = function ( data ) {
+			var lines = [
+				'Email: ' + data.email,
+				'Site: ' + data.siteUrl,
+				'Problem: ' + data.problem,
+				'Scale: ' + ( data.scale || '-' ),
+				'Timing: ' + ( data.timing || '-' ),
+				'Budget band: ' + ( data.budget || '-' ),
+				'',
+				data.message || '',
+			];
+			return (
+				'mailto:' + toEmail +
+				'?subject=' + encodeURIComponent( 'Audit request: ' + data.siteUrl ) +
+				'&body=' + encodeURIComponent( lines.join( '\n' ) )
+			);
+		};
+
+		var finish = function () {
+			form.hidden = true;
+			if ( donePanel ) {
+				donePanel.hidden = false;
+				donePanel.focus();
+			}
+			document.dispatchEvent(
+				new window.CustomEvent( 'cc:lead', {
+					detail: { form: 'audit' },
+				} )
+			);
+		};
+
+		form.addEventListener( 'submit', function ( e ) {
+			e.preventDefault();
+			var fd = new FormData( form );
+			if ( fd.get( 'website' ) ) {
+				finish();
+				return;
+			}
+
+			var data = {};
+			fd.forEach( function ( value, key ) {
+				data[ key ] = value;
+			} );
+
+			setError( 'consent', '' );
+			if ( ! fd.get( 'consent' ) ) {
+				setError(
+					'consent',
+					'We can only reply if you agree to be contacted.'
+				);
+				return;
+			}
+
+			if ( submitBtn ) {
+				submitBtn.setAttribute( 'disabled', '' );
+			}
+			if ( submitLabel ) {
+				submitLabel.textContent = 'Sending…';
+			}
+			if ( statusEl ) {
+				statusEl.textContent = '';
+				statusEl.removeAttribute( 'data-tone' );
+			}
+
+			var fail = function () {
+				if ( submitBtn ) {
+					submitBtn.removeAttribute( 'disabled' );
+				}
+				if ( submitLabel ) {
+					submitLabel.textContent = 'Request the audit';
+				}
+				if ( statusEl ) {
+					statusEl.textContent =
+						'Something went wrong. Email us directly at ' + toEmail + '.';
+					statusEl.setAttribute( 'data-tone', 'error' );
+				}
+			};
+
+			if ( endpoint ) {
+				window
+					.fetch( endpoint, {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+							Accept: 'application/json',
+							'X-WP-Nonce': nonce,
+						},
+						body: JSON.stringify( data ),
+					} )
+					.then( function ( res ) {
+						if ( ! res.ok ) {
+							throw new Error( 'bad status' );
+						}
+						finish();
+					} )
+					.catch( fail );
+			} else {
+				window.location.href = buildMailto( data );
+				finish();
+			}
+		} );
+	}
+
+	/* --------------------------------------------------------- analytics -- */
+	// Funnel events for Plausible. Every call is a no-op until the tracker is
+	// configured, and no personal data is ever attached: paths, form names,
+	// and step numbers only.
+	function track( name, props ) {
+		if ( 'function' === typeof window.plausible ) {
+			window.plausible( name, props ? { props: props } : undefined );
+		}
+	}
+
+	function initAnalytics() {
+		var path = window.location.pathname;
+		if ( 0 === path.indexOf( '/pricing' ) ) {
+			track( 'view_pricing' );
+		}
+		if ( 0 === path.indexOf( '/wordpress-operations-audit' ) ) {
+			track( 'view_offer' );
+		}
+
+		document.addEventListener( 'click', function ( e ) {
+			var link = e.target.closest ? e.target.closest( 'a[href]' ) : null;
+			if ( ! link ) {
+				return;
+			}
+			var href = link.getAttribute( 'href' ) || '';
+			if ( 0 === href.indexOf( 'mailto:' ) ) {
+				track( 'email_click', { from: path } );
+				return;
+			}
+			if (
+				link.closest(
+					'.contact__paths, .aside-card--talk, .cform-done'
+				) &&
+				0 === href.indexOf( 'http' )
+			) {
+				track( 'calendar_start', { from: path } );
+				return;
+			}
+			if ( link.classList.contains( 'btn--primary' ) ) {
+				track( 'primary_cta_click', { to: href, from: path } );
+			}
+		} );
+
+		var started = {};
+		document.addEventListener( 'focusin', function ( e ) {
+			var form = e.target.closest
+				? e.target.closest(
+						'[data-contact-form], [data-audit-form]'
+				  )
+				: null;
+			if ( ! form ) {
+				return;
+			}
+			var kind = form.hasAttribute( 'data-audit-form' )
+				? 'audit'
+				: 'project';
+			if ( ! started[ kind ] ) {
+				started[ kind ] = true;
+				track( 'form_start', { form: kind } );
+			}
+		} );
+
+		document.addEventListener( 'cc:audit-step', function ( e ) {
+			if ( e.detail && 2 === e.detail.step ) {
+				track( 'form_step_complete', { form: 'audit', step: '1' } );
+			}
+		} );
+
+		document.addEventListener( 'cc:lead', function ( e ) {
+			track( 'form_submit', {
+				form: e.detail ? e.detail.form : 'unknown',
+			} );
+		} );
+	}
+
 	var boot = function () {
+		captureFirstTouch();
 		initHeader();
 		initReveals();
 		initRails();
 		initContactForm();
+		initAuditForm();
+		initAnalytics();
 	};
 
 	if ( 'loading' === document.readyState ) {

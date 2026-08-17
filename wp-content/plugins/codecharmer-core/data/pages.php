@@ -56,10 +56,11 @@ $cc_service_page = static function ( array $service ): string {
 				'eyebrow'        => $service['name'],
 				'title'          => $service['problem'],
 				'intro'          => $service['thesis'],
-				'primaryLabel'   => 'Book a consultation',
+				'primaryLabel'   => 'Describe your project',
 				'primaryUrl'     => '/contact',
 				'secondaryLabel' => 'See our work',
 				'secondaryUrl'   => '/work',
+				'note'           => $service['price'],
 			),
 			JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
 		)
@@ -139,77 +140,89 @@ $cc_service_page = static function ( array $service ): string {
 
 $cc_services = array(
 	'ai-strategy'     => array(
-		'order'      => 1,
-		'name'       => 'AI Strategy & Architecture',
-		'icon'       => 'architecture',
-		'descriptor' => 'Prepare the business for AI, not just bolt features onto it.',
-		'thesis'     => 'AI-ready architecture, knowledge organization, and data structure that make intelligent automation possible.',
-		'problem'    => 'Most AI projects start with a tool and go looking for a use. That’s backwards, and expensive.',
-		'cta'        => 'Tell us where the hours actually go. A short conversation is usually enough to see whether AI has a real job to do in your business.',
-		'included'   => array( 'AI-ready architecture', 'Knowledge organization', 'Data structure & modeling', 'Internal workflow mapping', 'AI integration planning', 'Automation strategy' ),
-		'approach'   => array(
+		'order'           => 1,
+		'name'            => 'AI Strategy & Architecture',
+		'price'           => 'Strategy sprints run US$7,500 – 15,000 · A US$2,500 audit maps the opportunity first',
+		'seo_title'       => 'Practical AI Strategy & Architecture for WordPress Operations | Code Charmer',
+		'seo_description' => 'AI-ready architecture, knowledge organization, and data structure that make intelligent automation possible. Practical strategy, not a demo bolted onto a homepage.',
+		'icon'            => 'architecture',
+		'descriptor'      => 'Prepare the business for AI, not just bolt features onto it.',
+		'thesis'          => 'AI-ready architecture, knowledge organization, and data structure that make intelligent automation possible.',
+		'problem'         => 'Most AI projects start with a tool and go looking for a use. That’s backwards, and expensive.',
+		'cta'             => 'Tell us where the hours actually go. A short conversation is usually enough to see whether AI has a real job to do in your business.',
+		'included'        => array( 'AI-ready architecture', 'Knowledge organization', 'Data structure & modeling', 'Internal workflow mapping', 'AI integration planning', 'Automation strategy' ),
+		'approach'        => array(
 			array( 'Map the real workflows', 'Find where time and money actually go before proposing any technology.' ),
 			array( 'Organize the knowledge', 'Structure the data and documents AI needs to be useful and reliable.' ),
 			array( 'Design the architecture', 'Integrations, guardrails, and a path to scale: built to last, not to demo.' ),
 		),
-		'faq'        => array(
+		'faq'             => array(
 			array( 'Do we even need AI?', 'Sometimes the honest answer is no, and we’ll tell you. AI earns its place only by removing real work.' ),
 			array( 'Isn’t our data too messy for this?', 'That messiness is exactly the work. Organizing knowledge so AI has something reliable to stand on is most of the value.' ),
 		),
 	),
 	'wordpress'       => array(
-		'order'      => 2,
-		'name'       => 'WordPress Engineering',
-		'icon'       => 'blocks',
-		'descriptor' => 'Enterprise-grade engineering, not another off-the-shelf theme.',
-		'thesis'     => 'Custom themes, Gutenberg block development, performance, and security built to last: WordPress as an asset, not a burden.',
-		'problem'    => 'Off-the-shelf WordPress becomes technical debt the moment your needs outgrow the theme.',
-		'cta'        => 'Tell us what your site should be doing for you. A short conversation is usually enough to know what to keep, refactor, or rebuild.',
-		'included'   => array( 'Custom theme development', 'Gutenberg block development', 'ACF & structured content', 'Headless / API solutions', 'Performance & Core Web Vitals', 'Accessibility', 'SEO foundations', 'Security & maintainability', 'Editorial workflows' ),
-		'approach'   => array(
+		'order'           => 2,
+		'name'            => 'Custom WordPress Platforms',
+		'price'           => 'Implementations start at US$25,000 · typical range US$25k – 75k',
+		'seo_title'       => 'Custom WordPress Platform Development | Code Charmer',
+		'seo_description' => 'Custom themes, Gutenberg blocks, integrations, performance, and security engineered to last: WordPress as a business platform, not technical debt.',
+		'icon'            => 'blocks',
+		'descriptor'      => 'WordPress engineered as a business platform, not a theme.',
+		'thesis'          => 'Custom themes, Gutenberg block development, integrations, performance, and security built to last: WordPress as a platform your team runs.',
+		'problem'         => 'Off-the-shelf WordPress becomes technical debt the moment your needs outgrow the theme.',
+		'cta'             => 'Tell us what your site should be doing for you. A short conversation is usually enough to know what to keep, refactor, or rebuild.',
+		'included'        => array( 'Custom theme development', 'Gutenberg block development', 'ACF & structured content', 'Headless / API solutions', 'Performance & Core Web Vitals', 'Accessibility', 'SEO foundations', 'Security & maintainability', 'Editorial workflows' ),
+		'approach'        => array(
 			array( 'Architect the content model', 'Design the blocks and fields your team will actually edit, day to day.' ),
 			array( 'Engineer the theme', 'Fast, accessible, and maintainable by default, not bolted on at the end.' ),
 			array( 'Hand over the keys', 'Documentation and editorial workflows your team owns without depending on us.' ),
 		),
-		'faq'        => array(
+		'faq'             => array(
 			array( 'Can you work with our existing site?', 'Usually yes. We audit first, then decide together what to keep, refactor, or rebuild.' ),
 			array( 'Will our team be able to manage it?', 'That’s the whole point. We build editing experiences your team controls, so you’re never locked in.' ),
 		),
 	),
 	'custom-software' => array(
-		'order'      => 3,
-		'name'       => 'Custom Software',
-		'icon'       => 'terminal',
-		'descriptor' => 'Software that improves how the business actually operates.',
-		'thesis'     => 'Internal dashboards, portals, APIs, and integrations that remove manual work and let a small team operate like a bigger one.',
-		'problem'    => 'When the business runs on five disconnected tools and a lot of spreadsheets, the software is the bottleneck.',
-		'cta'        => 'Tell us how the work actually flows. A short conversation is usually enough to see where software would remove the friction.',
-		'included'   => array( 'Internal dashboards', 'Business portals', 'CRM integrations', 'APIs & integrations', 'Process automation', 'Membership systems', 'Booking systems', 'Custom applications' ),
-		'approach'   => array(
+		'order'           => 3,
+		'name'            => 'Custom Software & Integrations',
+		'price'           => 'Projects start at US$25,000 · complex operations platforms from US$60,000',
+		'seo_title'       => 'Custom Software & System Integrations | Code Charmer',
+		'seo_description' => 'Internal dashboards, portals, APIs, and integrations that remove manual work and connect the tools your business already runs on.',
+		'icon'            => 'terminal',
+		'descriptor'      => 'Software that improves how the business actually operates.',
+		'thesis'          => 'Internal dashboards, portals, APIs, and integrations that remove manual work and let a small team operate like a bigger one.',
+		'problem'         => 'When the business runs on five disconnected tools and a lot of spreadsheets, the software is the bottleneck.',
+		'cta'             => 'Tell us how the work actually flows. A short conversation is usually enough to see where software would remove the friction.',
+		'included'        => array( 'Internal dashboards', 'Business portals', 'CRM integrations', 'APIs & integrations', 'Process automation', 'Membership systems', 'Booking systems', 'Custom applications' ),
+		'approach'        => array(
 			array( 'Understand the operation', 'The real workflow, not the org chart. That’s where the friction actually lives.' ),
 			array( 'Design the system', 'Data, integrations, and an interface that serves the work instead of fighting it.' ),
 			array( 'Build and integrate', 'Production software that connects the tools you already rely on.' ),
 		),
-		'faq'        => array(
+		'faq'             => array(
 			array( 'Do we have to replace our current tools?', 'Rarely. We integrate with what works and replace only what’s genuinely holding you back.' ),
 			array( 'How do we avoid another system nobody uses?', 'By designing around the actual workflow. Adoption is a design problem, not a training problem.' ),
 		),
 	),
 	'ai-automation'   => array(
-		'order'      => 4,
-		'name'       => 'AI Automation',
-		'icon'       => 'flow',
-		'descriptor' => 'Practical automation with measurable outcomes, not hype.',
-		'thesis'     => 'Content workflows, internal assistants, retrieval systems, and process automation that pay for themselves.',
-		'problem'    => 'Most “AI automation” is a demo. The value is in the unglamorous, repetitive work it quietly removes.',
-		'cta'        => 'Tell us which tasks eat your team’s hours. A short conversation is usually enough to see what automation would give back.',
-		'included'   => array( 'Content workflows', 'Internal assistants', 'Customer support automation', 'Business process automation', 'AI integrations', 'Retrieval systems (RAG)', 'AI-powered search' ),
-		'approach'   => array(
+		'order'           => 4,
+		'name'            => 'WordPress Workflow Automation',
+		'price'           => 'Automation projects start at US$25,000 · a US$2,500 audit maps the opportunity first',
+		'seo_title'       => 'WordPress Workflow Automation Services | Code Charmer',
+		'seo_description' => 'Content workflows, internal assistants, retrieval systems, and process automation for WordPress operations: practical automation that pays for itself.',
+		'icon'            => 'flow',
+		'descriptor'      => 'Practical automation with measurable outcomes, not hype.',
+		'thesis'          => 'Content workflows, internal assistants, retrieval systems, and process automation around WordPress that pay for themselves.',
+		'problem'         => 'Most “AI automation” is a demo. The value is in the unglamorous, repetitive work it quietly removes.',
+		'cta'             => 'Tell us which tasks eat your team’s hours. A short conversation is usually enough to see what automation would give back.',
+		'included'        => array( 'Content workflows', 'Internal assistants', 'Customer support automation', 'Business process automation', 'AI integrations', 'Retrieval systems (RAG)', 'AI-powered search' ),
+		'approach'        => array(
 			array( 'Find the repetitive work', 'The tasks that eat hours and add no human judgment come first.' ),
 			array( 'Build the automation', 'Reliable and observable, with a human in the loop wherever it matters.' ),
 			array( 'Measure the payoff', 'Hours saved, errors avoided, throughput gained: automation should pay for itself.' ),
 		),
-		'faq'        => array(
+		'faq'             => array(
 			array( 'Will this replace our people?', 'No. It removes the busywork so your people spend time on the work that needs judgment.' ),
 			array( 'How do you stop AI from making things up?', 'Retrieval over your own structured knowledge, with guardrails and human review where it counts.' ),
 		),
@@ -223,30 +236,53 @@ $cc_pages['home'] = array(
 	'title'   => 'Home',
 	'order'   => 0,
 	'excerpt' => 'A digital engineering studio building AI-first architecture, WordPress systems, and custom software that generate revenue and stay yours to run.',
+	'meta'    => array(
+		'cc_seo_title'       => 'WordPress Automation & Custom Platforms | Code Charmer',
+		'cc_seo_description' => 'Code Charmer fixes and automates complex WordPress operations: connecting content, commerce, customer data, and internal workflows in systems your team owns.',
+	),
 	'content' => <<<BLOCKS
 <!-- wp:codecharmer/hero /-->
 
-<!-- wp:codecharmer/value-statement -->
-<!-- wp:codecharmer/value-point {"title":"Revenue, not just presence","body":"Sites and tools designed to convert, automate, and compound, not just look the part."} /-->
-<!-- wp:codecharmer/value-point {"title":"Leverage from automation","body":"We remove the manual, repetitive work so your team spends its time where it actually matters."} /-->
-<!-- wp:codecharmer/value-point {"title":"Ownership by default","body":"You understand and control everything we deliver. No lock-in, no dependency, no black boxes."} /-->
+<!-- OWNER INPUT REQUIRED: replace or extend these stats with stronger verified numbers (client metrics, years in practice) once confirmed. Every value below is already published elsewhere on this site. -->
+<!-- wp:codecharmer/stats -->
+<!-- wp:codecharmer/stat {"value":"7","label":"client platforms live in production","note":"every one linked from the work page"} /-->
+<!-- wp:codecharmer/stat {"value":"~90 ms","label":"full-text search response on Praxis","note":"measured on the live demo"} /-->
+<!-- wp:codecharmer/stat {"value":"3","label":"surfaces on one bakery engine: web, app, POS","note":"Pacífica Panadería case study"} /-->
+<!-- wp:codecharmer/stat {"value":"2","label":"brands running the same commerce engine","note":"Pacífica and Haramara"} /-->
+<!-- /wp:codecharmer/stats -->
+
+<!-- wp:codecharmer/value-statement {"lead":"Your team shouldn’t need five tools and a spreadsheet to <em>publish, sell, or serve a customer</em>."} -->
+<!-- wp:codecharmer/value-point {"title":"Publishing takes a project manager","body":"Content crawls through copy-paste, approvals live in chat threads, and nobody can say what’s stuck where."} /-->
+<!-- wp:codecharmer/value-point {"title":"Systems that don’t talk","body":"Orders, customers, and content sit in tools that never agree, so someone reconciles them by hand."} /-->
+<!-- wp:codecharmer/value-point {"title":"Manual work nobody chose","body":"Staff re-type data between systems because the integration was never built. Hours leak out quietly, every week."} /-->
 <!-- /wp:codecharmer/value-statement -->
 
-<!-- wp:codecharmer/services-grid /-->
+{$cc_flagship_band}
 
-<!-- wp:codecharmer/beliefs {"intro":"They’re why clients bring us the projects that matter, and why the results tend to outlast us."} -->
-{$cc_beliefs_items}
-<!-- /wp:codecharmer/beliefs -->
+<!-- wp:codecharmer/services-grid {"eyebrow":"What we do about it","heading":"Three ways in, one system out.","intro":"WordPress platforms, workflow automation, and the custom software that connects them. Most engagements touch more than one, because the problem usually does."} /-->
+
+<!-- wp:codecharmer/proof {"eyebrow":"The fixed first step","heading":"A WordPress Operations & Automation Audit.","intro":"Ten business days. A workflow map, technical findings, ranked opportunities, and a 90-day implementation plan you own either way. Starts at US$2,500, with scope and timeline fixed before payment.","ctaLabel":"Request the audit","ctaUrl":"/wordpress-operations-audit"} /-->
+
+<!-- wp:codecharmer/projects /-->
 
 <!-- wp:codecharmer/process-teaser -->
 {$cc_process_stages}
 <!-- /wp:codecharmer/process-teaser -->
 
-{$cc_flagship_band}
+<!-- OWNER INPUT REQUIRED: named, permissioned client testimonial (quote, name, role, company). The block renders nothing until the quote attribute is filled. -->
+<!-- wp:codecharmer/testimonial /-->
 
-<!-- wp:codecharmer/projects /-->
+<!-- OWNER INPUT REQUIRED: people/accountability section (founder name, photo, relevant track record, working model). Do not publish this section without real identity content. -->
 
-<!-- wp:codecharmer/cta-band /-->
+<!-- wp:codecharmer/faq {"heading":"Straight answers."} -->
+<!-- wp:codecharmer/faq-item {"question":"What does an engagement cost?","answer":"The audit starts at US$2,500. Implementations start at US$25,000, with most falling between US$25k and US$75k. Ongoing optimization starts at US$2,500 a month. Full ranges are on the pricing page."} /-->
+<!-- wp:codecharmer/faq-item {"question":"How long does it take?","answer":"The audit takes 10 business days from access and kickoff. Implementations typically run 6 to 16 weeks depending on scope, and you get a timeline before anything is signed."} /-->
+<!-- wp:codecharmer/faq-item {"question":"Can you work with our existing WordPress site?","answer":"Usually, yes. The audit tells us, and you, what is worth keeping, refactoring, or replacing. We don’t rebuild for the sake of it."} /-->
+<!-- wp:codecharmer/faq-item {"question":"Who owns the work?","answer":"You do. Code, content, infrastructure, documentation: everything is handed over, and the audit findings are yours whether or not we implement them."} /-->
+<!-- wp:codecharmer/faq-item {"question":"What happens after launch?","answer":"Optimization and support retainers start at US$2,500 a month, with monitoring, improvements, and a roadmap. Or your team runs it alone: that is exactly what the handoff is for."} /-->
+<!-- /wp:codecharmer/faq -->
+
+<!-- wp:codecharmer/cta-band {"heading":"Find out what WordPress is costing you.","body":"The audit starts at US$2,500, takes ten business days, and ends in a plan you own either way. The next step costs a form and nothing else.","primaryLabel":"Request an operations audit","primaryUrl":"/wordpress-operations-audit","secondaryLabel":"See the pricing","secondaryUrl":"/pricing"} /-->
 BLOCKS
 	,
 );
@@ -256,8 +292,12 @@ $cc_pages['services'] = array(
 	'title'   => 'Services',
 	'order'   => 1,
 	'excerpt' => 'Four disciplines engineered to work as one system: AI strategy, WordPress engineering, custom software, and AI automation.',
+	'meta'    => array(
+		'cc_seo_title'       => 'WordPress Engineering & Automation Services | Code Charmer',
+		'cc_seo_description' => 'Custom WordPress platforms, workflow automation, integrations, and practical AI: four disciplines engineered to work as one system your team owns.',
+	),
 	'content' => <<<BLOCKS
-<!-- wp:codecharmer/page-hero {"eyebrow":"Services","title":"Systems, not features.","intro":"Four disciplines engineered to work as one system: AI strategy, WordPress engineering, custom software, and automation. Most projects touch more than one.","primaryLabel":"Book a consultation","primaryUrl":"/contact","secondaryLabel":"See our work","secondaryUrl":"/work"} /-->
+<!-- wp:codecharmer/page-hero {"eyebrow":"Services","title":"Systems, not features.","intro":"Four disciplines engineered to work as one system: custom WordPress platforms, workflow automation, custom software, and practical AI strategy. Most projects touch more than one.","primaryLabel":"Describe your project","primaryUrl":"/contact","secondaryLabel":"See our work","secondaryUrl":"/work"} /-->
 
 <!-- wp:codecharmer/services-showcase /-->
 
@@ -284,10 +324,12 @@ foreach ( $cc_services as $cc_slug => $cc_service ) {
 		'excerpt' => $cc_service['thesis'],
 		'content' => $cc_service_page( $cc_service ),
 		'meta'    => array(
-			'cc_icon'       => $cc_service['icon'],
-			'cc_descriptor' => $cc_service['descriptor'],
-			'cc_thesis'     => $cc_service['thesis'],
-			'cc_caps'       => array_slice( $cc_service['included'], 0, 3 ),
+			'cc_icon'            => $cc_service['icon'],
+			'cc_descriptor'      => $cc_service['descriptor'],
+			'cc_thesis'          => $cc_service['thesis'],
+			'cc_caps'            => array_slice( $cc_service['included'], 0, 3 ),
+			'cc_seo_title'       => $cc_service['seo_title'],
+			'cc_seo_description' => $cc_service['seo_description'],
 		),
 	);
 }
@@ -297,6 +339,10 @@ $cc_pages['work'] = array(
 	'title'   => 'Work',
 	'order'   => 2,
 	'excerpt' => 'Praxis, our flagship AI orchestration platform, plus real client projects live in the world: communities, a brand store, and an editorial portfolio.',
+	'meta'    => array(
+		'cc_seo_title'       => 'WordPress & Automation Case Studies | Code Charmer',
+		'cc_seo_description' => 'Live client platforms: commerce and POS operations, bilingual publishing, loyalty systems, and AI content workflows. Real systems, verified in production.',
+	),
 	'content' => <<<BLOCKS
 <!-- wp:codecharmer/page-hero {"eyebrow":"Selected work","title":"Built, shipped, and live.","intro":"Our flagship product and a sample of client work: brands, communities, and portfolios that had to work as well as they look.","primaryLabel":"Start a project","primaryUrl":"/contact"} /-->
 
@@ -316,6 +362,10 @@ $cc_pages['process'] = array(
 	'title'   => 'Process',
 	'order'   => 3,
 	'excerpt' => 'Seven stages, each one making the next cheaper: discovery, architecture, design, development, testing, launch, growth.',
+	'meta'    => array(
+		'cc_seo_title'       => 'How We Build: Architecture Before Code | Code Charmer',
+		'cc_seo_description' => 'Seven stages, each one making the next cheaper: discovery, architecture, design, development, testing, launch, growth. Front-loaded thinking keeps projects on budget.',
+	),
 	'content' => <<<BLOCKS
 <!-- wp:codecharmer/page-hero {"tone":"ink","eyebrow":"Process","title":"Architecture before code.","intro":"Seven stages, each one making the next cheaper. It’s deliberately front-loaded: the thinking that happens early is what keeps the whole project on budget.","primaryLabel":"Start a project","primaryUrl":"/contact"} /-->
 
@@ -339,6 +389,10 @@ $cc_pages['about'] = array(
 	'title'   => 'About',
 	'order'   => 4,
 	'excerpt' => 'A studio built around a simple idea: the best digital systems are the ones clients own and understand. Engineering philosophy over company history.',
+	'meta'    => array(
+		'cc_seo_title'       => 'About the Studio | Code Charmer',
+		'cc_seo_description' => 'A digital engineering studio built around a simple idea: the best systems are the ones clients own and understand. How we think, and how we work.',
+	),
 	'content' => <<<BLOCKS
 <!-- wp:codecharmer/page-hero {"eyebrow":"About","title":"Engineering, on purpose.","intro":"Too much of the web is built to be sold, not to be run. We build the other kind. This is how we think about it."} /-->
 
@@ -375,13 +429,155 @@ BLOCKS
 	,
 );
 
+// ------------------------------------------------------------- pricing -- //
+$cc_pages['pricing'] = array(
+	'title'   => 'Pricing',
+	'order'   => 5,
+	'excerpt' => 'Starting prices and typical ranges for every Code Charmer engagement: audit, sprint, implementation, custom platforms, and ongoing optimization.',
+	'meta'    => array(
+		'cc_seo_title'       => 'WordPress Project Pricing & Engagement Models | Code Charmer',
+		'cc_seo_description' => 'Starting prices and typical ranges: audits from US$2,500, implementations from US$25,000, optimization retainers from US$2,500 a month. Scope variables explained.',
+	),
+	'content' => <<<'BLOCKS'
+<!-- wp:codecharmer/page-hero {"eyebrow":"Pricing","title":"Know the order of magnitude before you commit.","intro":"Every engagement is scoped around an outcome, but you should know the likely order of magnitude before giving us your time. These are honest starting points and typical ranges, not final quotes.","primaryLabel":"Request an audit","primaryUrl":"/wordpress-operations-audit","secondaryLabel":"Describe your project","secondaryUrl":"/contact"} /-->
+
+<!-- wp:codecharmer/engagement-models {"variant":"pricing","eyebrow":"The offers","heading":"Six engagements, priced in the open.","intro":"Custom work doesn’t have a fixed final price. It does have a knowable shape: here is each engagement, what it starts at, and what moves the number."} -->
+<!-- wp:codecharmer/engagement-model {"bestFor":"The fixed first step","name":"WordPress Operations & Automation Audit","price":"Starts at US$2,500","timeframe":"10 business days","body":"An implementation-ready plan showing where WordPress and the systems around it are costing time, money, reliability, or growth: workflow map, technical findings, ranked opportunities, and a 90-day plan.","detail":"Paid upfront. Up to 50% credits toward an implementation of US$25,000+ commissioned within 30 days. You own the findings either way."} /-->
+<!-- wp:codecharmer/engagement-model {"bestFor":"An unclear or risky scope","name":"Workflow & Architecture Sprint","price":"US$7,500 – 15,000","timeframe":"2 – 4 weeks","body":"Validated requirements, prototyped flows, system architecture, and a fixed implementation plan. The de-risking step for complex work.","detail":"Scope variables: number of workflows, systems to integrate, and stakeholders involved."} /-->
+<!-- wp:codecharmer/engagement-model {"bestFor":"The core project","name":"WordPress Platform Implementation","price":"Starts at US$25,000","timeframe":"6 – 16 weeks","body":"A production system tied to agreed operational outcomes: custom blocks, integrations, commerce, editorial workflows, and documented handoff.","detail":"Typical range US$25k – 75k. Commonly 40–50% to start, then milestone payments."} /-->
+<!-- wp:codecharmer/engagement-model {"bestFor":"Multi-system operations","name":"Complex Custom Operations Platform","price":"Starts at US$60,000","timeframe":"12+ weeks","body":"A bespoke platform and integrations for operations that span web, apps, POS, messaging, and internal tools, built on the patterns proven in our case studies.","detail":"Scope variables: surfaces, integrations, data migration, and compliance requirements."} /-->
+<!-- wp:codecharmer/engagement-model {"bestFor":"After launch","name":"Optimization & Support","price":"From US$2,500/month","timeframe":"Ongoing","body":"An SLA, monitoring, continuous improvements, experiments, and roadmap delivery from the team that knows your system.","detail":"Three-month minimum, billed in advance. Cancel with notice after that."} /-->
+<!-- wp:codecharmer/engagement-model {"bestFor":"Content operations at scale","name":"Managed Praxis Pilot","price":"Setup US$10k – 25k + US$1.5k – 5k/month","timeframe":"Pilot-dependent","body":"Governed content orchestration on Praxis for a validated use case: mixed-provenance content, metered AI drafting, human approval, enterprise search.","detail":"A design-partner experiment offered to a small number of organizations, not an off-the-shelf subscription."} /-->
+<!-- /wp:codecharmer/engagement-models -->
+
+<!-- wp:group {"tagName":"section","className":"section"} -->
+<section class="wp-block-group section"><!-- wp:group {"className":"container prose"} -->
+<div class="wp-block-group container prose"><!-- wp:heading -->
+<h2 class="wp-block-heading">What moves the price.</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The honest variables: how many systems have to talk to each other, how much content or data moves, how many people and roles touch the workflow, the state of what exists today, and how much certainty you need before committing. The audit or sprint pins these down, which is why the bigger numbers come with fixed scopes attached.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">How payment works.</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The audit is paid upfront. Projects commonly start at 40–50% with milestone payments after. Retainers are billed in advance on a three-month minimum. Every proposal ties its deliverables to a concrete outcome: revenue enabled, hours saved, errors reduced, cycle time cut, risk reduced, or a capability unlocked. Proposals also say what is not included, so scope stays honest on both sides.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">When we’re not the right fit.</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>A brochure site on a template budget, a project with no internal owner, or work with no describable business outcome: other teams serve those needs better and cheaper. If that’s where you are, we’ll say so on the first call and point you somewhere sensible.</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group --></section>
+<!-- /wp:group -->
+
+<!-- wp:codecharmer/faq {"heading":"Straight answers."} -->
+<!-- wp:codecharmer/faq-item {"question":"Why publish prices at all if the work is custom?","answer":"Because you shouldn’t have to book a call to learn whether we’re in your budget. Ranges and starting points are useful; false precision isn’t. The exact number always comes with a fixed scope attached."} /-->
+<!-- wp:codecharmer/faq-item {"question":"Do you bill hourly?","answer":"No. Engagements are scoped around outcomes with fixed prices or clear ranges. Hourly billing rewards slowness; we’d rather be accountable to a result."} /-->
+<!-- wp:codecharmer/faq-item {"question":"Is the audit ever free?","answer":"No. A short fit call is free; the audit is real diagnostic work with real deliverables. Up to half of it credits toward a qualifying implementation, so it’s a first step, not a toll."} /-->
+<!-- wp:codecharmer/faq-item {"question":"What if we just need a small fix?","answer":"Below the audit minimum we’re honestly not the economical choice, and we’ll tell you so. Existing clients on retainers are the exception: small fixes are what the retainer is for."} /-->
+<!-- /wp:codecharmer/faq -->
+
+<!-- wp:codecharmer/cta-band {"heading":"Start with the fixed-scope step.","body":"Ten business days, US$2,500, and a plan you own whether or not we build it.","primaryLabel":"Request an operations audit","primaryUrl":"/wordpress-operations-audit"} /-->
+BLOCKS
+	,
+);
+
+// ------------------------------------------- wordpress-operations-audit -- //
+$cc_pages['wordpress-operations-audit'] = array(
+	'title'   => 'WordPress Operations & Automation Audit',
+	'order'   => 8,
+	'excerpt' => 'In 10 business days, get an implementation-ready plan for the workflows, integrations, content systems, and automation opportunities around your existing WordPress platform. Starts at US$2,500.',
+	'meta'    => array(
+		'cc_seo_title'       => 'WordPress Operations & Automation Audit | Code Charmer',
+		'cc_seo_description' => 'A 10-business-day audit of your WordPress operations: workflow map, technical findings, ranked opportunities, and a 90-day implementation plan. Starts at US$2,500.',
+	),
+	'content' => <<<'BLOCKS'
+<!-- wp:codecharmer/page-hero {"tone":"ink","eyebrow":"The fixed first step","title":"Find where WordPress is costing your team time, revenue, and reliability.","intro":"In 10 business days, get an implementation-ready plan for the workflows, integrations, content systems, and automation opportunities around your existing WordPress platform.","primaryLabel":"Request the audit","primaryUrl":"#request-audit","secondaryLabel":"See how we build","secondaryUrl":"/work","note":"Starts at US$2,500 · Fixed scope and timeline before payment · You own the findings whether or not we implement them"} /-->
+
+<!-- wp:codecharmer/feature-list {"eyebrow":"This is for you if","heading":"The site stopped being a website a while ago.","intro":"The audit fits organizations already running WordPress with real operations on top of it. Any two of these signals usually mean it will pay for itself."} -->
+<!-- wp:codecharmer/feature-item {"text":"Multiple editors, locations, languages, or approval stages move through the site every week"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Staff re-type or copy-paste data between WordPress and a CRM, spreadsheet, or commerce tool"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Publishing takes days because the workflow lives in chat threads and shared docs"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Orders, bookings, or leads depend on plugins nobody fully trusts anymore"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Every small change needs a developer, and releases feel risky"} /-->
+<!-- wp:codecharmer/feature-item {"text":"There’s an AI mandate from above and no concrete plan underneath it"} /-->
+<!-- /wp:codecharmer/feature-list -->
+
+<!-- wp:codecharmer/feature-list {"eyebrow":"Not a fit if","heading":"We’d rather tell you now than on the call.","intro":"The audit is diagnostic work for operations that already exist. It isn’t the right first step for everyone."} -->
+<!-- wp:codecharmer/feature-item {"text":"You need a brochure site: a good template and a designer will serve you better and cheaper"} /-->
+<!-- wp:codecharmer/feature-item {"text":"There’s no internal owner who can answer questions and act on the plan"} /-->
+<!-- wp:codecharmer/feature-item {"text":"The outcome can’t be described in business terms: time, money, reliability, or capability"} /-->
+<!-- wp:codecharmer/feature-item {"text":"You’re looking for free speculative architecture before any commitment"} /-->
+<!-- /wp:codecharmer/feature-list -->
+
+<!-- OWNER INPUT REQUIRED: link or embed a redacted sample audit deliverable here once one exists. -->
+<!-- wp:codecharmer/feature-list {"eyebrow":"Deliverables","heading":"Exactly what you get.","intro":"Every item below is a document you keep, written to be acted on by any competent team, including one that isn’t us."} -->
+<!-- wp:codecharmer/feature-item {"text":"A workflow map of how content, commerce, and data actually move through your operation"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Technical findings across the platform: architecture, integrations, performance, reliability"} /-->
+<!-- wp:codecharmer/feature-item {"text":"Opportunities ranked by estimated impact against effort, with the reasoning shown"} /-->
+<!-- wp:codecharmer/feature-item {"text":"An architecture recommendation grounded in what you have, not what we’d like to sell"} /-->
+<!-- wp:codecharmer/feature-item {"text":"A 90-day implementation plan you can budget against"} /-->
+<!-- wp:codecharmer/feature-item {"text":"A decision call to walk through all of it and answer the hard questions"} /-->
+<!-- /wp:codecharmer/feature-list -->
+
+<!-- wp:codecharmer/approach {"eyebrow":"The ten days","heading":"A fixed timeline, start to finish.","intro":"The clock starts at access and kickoff, not at signature. You’ll know where things stand the whole way."} -->
+<!-- wp:codecharmer/approach-step {"title":"Days 1–2 · Access and kickoff","body":"Credentials, systems inventory, and a kickoff conversation about where it hurts most.","weight":2} /-->
+<!-- wp:codecharmer/approach-step {"title":"Days 3–7 · Investigation","body":"Workflow mapping with the people who do the work, plus a technical review of the platform and its integrations.","weight":5} /-->
+<!-- wp:codecharmer/approach-step {"title":"Days 8–9 · Synthesis","body":"Findings ranked by impact, the architecture recommendation, and the 90-day plan written up.","weight":2} /-->
+<!-- wp:codecharmer/approach-step {"title":"Day 10 · Decision call","body":"We walk through everything together. What happens next is your call, with or without us.","weight":1} /-->
+<!-- /wp:codecharmer/approach -->
+
+<!-- OWNER INPUT REQUIRED: named expert section (who conducts the audit: name, photo, relevant track record). Do not publish without real identity content. -->
+
+<!-- OWNER INPUT REQUIRED: named, permissioned client testimonial relevant to audits or diagnostics. Renders nothing while empty. -->
+<!-- wp:codecharmer/testimonial /-->
+
+<!-- wp:codecharmer/proof {"eyebrow":"Proof","heading":"Judge the work, not the promises.","intro":"The systems we’d be auditing yours against are live and documented: commerce and POS on one WordPress engine, bilingual publishing without plugins, AI content workflows with human approval.","ctaLabel":"Read the case studies","ctaUrl":"/work"} /-->
+
+<!-- wp:group {"tagName":"section","className":"section"} -->
+<section class="wp-block-group section"><!-- wp:group {"className":"container prose"} -->
+<div class="wp-block-group container prose"><!-- wp:heading -->
+<h2 class="wp-block-heading">Price, payment, and the credit.</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The audit starts at US$2,500, paid upfront, with scope and timeline fixed before payment. Larger or multi-site operations may scope higher; you’ll know the exact number before committing. If you commission an implementation of US$25,000 or more within 30 days of the decision call, up to 50% of the audit fee credits toward it. The findings are yours in every case.</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group --></section>
+<!-- /wp:group -->
+
+<!-- wp:codecharmer/faq {"heading":"Straight answers."} -->
+<!-- wp:codecharmer/faq-item {"question":"What do you need from us?","answer":"Admin access to WordPress and the connected systems, a kickoff call, and a few short conversations with the people who actually run the workflows. Plan on two to three hours of your team’s time across the ten days."} /-->
+<!-- wp:codecharmer/faq-item {"question":"Will you just recommend hiring you?","answer":"The plan is written to be executable by any competent team, and the ranking shows its reasoning. When a plugin or an off-the-shelf tool is the right answer, the plan says so. That honesty is why the audit is worth paying for."} /-->
+<!-- wp:codecharmer/faq-item {"question":"Our setup is unusual. Does that break the audit?","answer":"Unusual setups are the point. Multisite, headless, WooCommerce, custom plugins, external systems: the audit exists precisely because generic advice doesn’t survive contact with a real operation."} /-->
+<!-- wp:codecharmer/faq-item {"question":"What happens after we submit the form?","answer":"A real person replies within one business day with the exact scope we’d recommend, or honest questions if the fit isn’t clear. Payment and kickoff only happen after you’ve agreed to a written scope."} /-->
+<!-- /wp:codecharmer/faq -->
+
+<!-- wp:codecharmer/audit-form /-->
+BLOCKS
+	,
+);
+
 // ------------------------------------------------------------- contact -- //
 $cc_pages['contact'] = array(
 	'title'   => 'Contact',
-	'order'   => 5,
+	'order'   => 6,
 	'excerpt' => "Tell us what you're building. A short, qualifying conversation: no pitch deck, no obligation.",
+	'meta'    => array(
+		'cc_seo_title'       => 'Describe Your Project or Schedule a Call | Code Charmer',
+		'cc_seo_description' => 'Two ways in: describe your project through a short qualifying form, or schedule a 20-minute fit call. A real person replies within one business day.',
+	),
 	'content' => <<<'BLOCKS'
-<!-- wp:codecharmer/page-hero {"eyebrow":"Contact","title":"Tell us what you’re building.","intro":"A short, qualifying conversation: project type, scope, and budget. No pitch deck, no obligation. We’ll tell you honestly whether we’re the right team."} /-->
+<!-- OWNER INPUT REQUIRED: set the scheduling_url site setting to activate the "Schedule a fit call" path; until then only the form path renders a button. Also confirm the published response SLA and minimum engagement wording below. -->
+<!-- wp:codecharmer/page-hero {"eyebrow":"Contact","title":"Two ways to start.","intro":"Describe your project in the form below, or schedule a 20-minute fit call if you’d rather talk first. Either way: no pitch deck, no obligation, and an honest answer about whether we’re the right team. Engagements start at the US$2,500 audit.","note":"A real person replies within one business day, not an autoresponder."} /-->
 
 <!-- wp:codecharmer/contact-form /-->
 BLOCKS
@@ -391,8 +587,12 @@ BLOCKS
 // ------------------------------------------------------------- privacy -- //
 $cc_pages['privacy'] = array(
 	'title'   => 'Privacy',
-	'order'   => 6,
+	'order'   => 7,
 	'excerpt' => 'How Code Charmer handles the information you share with us.',
+	'meta'    => array(
+		'cc_seo_title'       => 'Privacy Policy | Code Charmer',
+		'cc_seo_description' => 'How Code Charmer handles the information you share with us: what we collect, what we never do with it, and how to ask us about it.',
+	),
 	'content' => <<<'BLOCKS'
 <!-- wp:codecharmer/page-hero {"eyebrow":"Legal","title":"Privacy.","intro":"How Code Charmer handles the information you share with us. The full policy is being finalized."} /-->
 
@@ -404,6 +604,10 @@ $cc_pages['privacy'] = array(
 
 <!-- wp:paragraph -->
 <p>We don’t sell your information, we don’t share it with third parties for marketing, and we don’t run invasive analytics. Inquiries are delivered to our inbox and kept only as long as the conversation is useful.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>To understand which pages are useful, we use cookieless, privacy-first analytics (Plausible). It stores no cookies, collects no personal data, and never follows you across other sites. Aggregate counts only: which pages were visited and which buttons were used.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
@@ -420,6 +624,10 @@ $cc_pages['work/praxis'] = array(
 	'title'   => 'Praxis',
 	'order'   => 0,
 	'excerpt' => 'Praxis: an AI-native orchestration layer for digital operations. WordPress connected, AI metered, search in about 90 ms. Our flagship product, live at praxis.codecharmer.io.',
+	'meta'    => array(
+		'cc_seo_title'       => 'Praxis: AI Content Operations for WordPress | Code Charmer',
+		'cc_seo_description' => 'Case study: an AI-native orchestration layer where WordPress stays the authoring surface, AI drafts are metered and human-approved, and search answers in about 90 ms.',
+	),
 	'content' => <<<'BLOCKS'
 <!-- wp:codecharmer/page-hero {"tone":"ink","eyebrow":"Praxis · flagship product","title":"The control room for a company’s content.","intro":"An AI-native orchestration layer for digital operations. Praxis connects the systems an organization already runs, starting with WordPress, and adds a canonical content model, metered AI drafting, and enterprise search behind one API.","primaryLabel":"Open the live demo","primaryUrl":"https://praxis.codecharmer.io","note":"v0.2 · The machine drafts, a human approves. Thirteen services on one VPS."} /-->
 
@@ -480,6 +688,10 @@ $cc_pages['work/gramo'] = array(
 	'title'   => 'Gramo Café',
 	'order'   => 1,
 	'excerpt' => 'Gramo Café: a bilingual headless WordPress + Gatsby build for a specialty coffee brand with eight cafés. Block-composed editing, pay-on-delivery commerce, SMS-driven operations.',
+	'meta'    => array(
+		'cc_seo_title'       => 'Gramo Café: Bilingual Headless WordPress Platform | Code Charmer',
+		'cc_seo_description' => 'Case study: a bilingual headless WordPress and Gatsby platform for a coffee brand with eight cafés. Block-composed editing, commerce, and SMS-driven operations.',
+	),
 	'content' => <<<'BLOCKS'
 <!-- wp:codecharmer/page-hero {"tone":"ink","eyebrow":"Case study · Gramo Café","title":"Quiet luxury, engineered underneath.","intro":"Gramo is a specialty coffee brand from Cuernavaca with eight cafés across two cities. Its digital home is a bilingual, statically rendered storefront with WordPress behind it: every page composed from custom blocks, every order and inquiry reaching staff by SMS.","primaryLabel":"Visit gramo.cafe","primaryUrl":"https://gramo.cafe","note":"es-MX / EN · headless WordPress + Gatsby · WooCommerce, pay on delivery"} /-->
 
@@ -531,6 +743,10 @@ $cc_pages['work/pacifica'] = array(
 	'title'   => 'Pacífica Panadería',
 	'order'   => 2,
 	'excerpt' => 'Pacífica Panadería: an artisan sourdough bakery on one WordPress engine. Reserve-and-pickup WooCommerce storefront, an Expo customer app, a tablet POS, Apple Wallet loyalty, WhatsApp/SMS operations via Twilio.',
+	'meta'    => array(
+		'cc_seo_title'       => 'Pacífica Panadería: Commerce & POS on One WordPress Engine | Code Charmer',
+		'cc_seo_description' => 'Case study: a bakery running storefront, customer app, tablet POS, Apple Wallet loyalty, and WhatsApp operations on one WordPress engine with a single source of truth.',
+	),
 	'content' => <<<'BLOCKS'
 <!-- wp:codecharmer/page-hero {"tone":"ink","eyebrow":"Case study · Pacífica Panadería","title":"The whole bakery, running on one engine.","intro":"Pacífica is an artisan sourdough bakery in Cuernavaca. Its platform is one WordPress engine driving three surfaces: a reserve-and-pickup storefront, a customer app whose loyalty card lives in Apple Wallet, and a tablet POS that runs the counter, the stock and the daily close.","primaryLabel":"Visit pacificapanaderia.com","primaryUrl":"https://pacificapanaderia.com","note":"es-MX · WordPress + WooCommerce Store API · Expo customer + POS apps"} /-->
 
@@ -615,6 +831,10 @@ $cc_pages['work/haramara'] = array(
 	'title'   => 'Haramara Café',
 	'order'   => 3,
 	'excerpt' => 'Haramara Café: a bilingual, dark-branded café platform on the same engine as its sister bakery. A virtual ES/EN mirror without a translation plugin, WooCommerce pickup ordering, customer and POS apps, self-refreshing Apple Wallet loyalty.',
+	'meta'    => array(
+		'cc_seo_title'       => 'Haramara Café: A Second Brand on a Reusable Commerce Engine | Code Charmer',
+		'cc_seo_description' => 'Case study: the same commerce engine as its sister bakery, wearing an entirely different brand. Bilingual without a translation plugin, apps, POS, and Wallet loyalty.',
+	),
 	'content' => <<<'BLOCKS'
 <!-- wp:codecharmer/page-hero {"tone":"ink","eyebrow":"Case study · Haramara Café","title":"Same engine. A brand entirely its own.","intro":"Haramara is a specialty coffee and sourdough café in Cuernavaca, sister to Pacífica Panadería on the same street. It runs the same commerce engine: storefront, customer app, POS and Wallet loyalty. Nothing about it looks shared: a dark carbon, clay and brass identity, and a site that is fully bilingual without a translation plugin.","primaryLabel":"Visit haramara.cafe","primaryUrl":"https://haramara.cafe","note":"ES · EN · WordPress + WooCommerce · Expo customer + POS apps · Apple Wallet loyalty"} /-->
 

@@ -1,0 +1,23 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "codecharmer/testimonial",
+	"title": "Testimonial",
+	"category": "codecharmer",
+	"icon": "format-quote",
+	"description": "One named, permissioned client quote. Renders nothing until a quote exists: never a placeholder.",
+	"textdomain": "codecharmer-core",
+	"attributes": {
+		"quote": { "type": "string", "default": "" },
+		"name": { "type": "string", "default": "" },
+		"role": { "type": "string", "default": "" },
+		"company": { "type": "string", "default": "" },
+		"sourceUrl": { "type": "string", "default": "" }
+	},
+	"supports": {
+		"html": false
+	},
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

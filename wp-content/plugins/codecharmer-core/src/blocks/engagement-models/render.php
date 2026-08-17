@@ -12,20 +12,24 @@ use CodeCharmer\Core\Render\Partials;
 $cc_eyebrow = (string) ( $attributes['eyebrow'] ?? '' );
 $cc_heading = (string) ( $attributes['heading'] ?? '' );
 $cc_intro   = (string) ( $attributes['intro'] ?? '' );
+$cc_variant = 'pricing' === ( $attributes['variant'] ?? '' ) ? 'pricing' : '';
 $cc_models  = Partials::inner_attrs(
 	$block,
 	'codecharmer/engagement-model',
 	array(
-		'bestFor' => '',
-		'name'    => '',
-		'body'    => '',
+		'bestFor'   => '',
+		'name'      => '',
+		'body'      => '',
+		'price'     => '',
+		'timeframe' => '',
+		'detail'    => '',
 	)
 );
 if ( ! $cc_models ) {
 	return;
 }
 ?>
-<section class="section engage">
+<section class="section engage<?php echo 'pricing' === $cc_variant ? ' engage--pricing' : ''; ?>">
 	<div class="container">
 		<header class="engage__head reveal">
 			<?php if ( '' !== $cc_eyebrow ) : ?>
@@ -42,7 +46,16 @@ if ( ! $cc_models ) {
 				<li class="engage__card reveal" style="--reveal-delay:<?php echo esc_attr( (string) ( $cc_i * 80 ) ); ?>ms">
 					<p class="engage__best"><?php echo esc_html( (string) $cc_model['bestFor'] ); ?></p>
 					<h3 class="engage__name"><?php echo esc_html( (string) $cc_model['name'] ); ?></h3>
+					<?php if ( '' !== (string) $cc_model['price'] ) : ?>
+						<p class="engage__price"><?php echo esc_html( (string) $cc_model['price'] ); ?></p>
+					<?php endif; ?>
+					<?php if ( '' !== (string) $cc_model['timeframe'] ) : ?>
+						<p class="engage__time"><?php echo esc_html( (string) $cc_model['timeframe'] ); ?></p>
+					<?php endif; ?>
 					<p class="engage__body"><?php echo esc_html( (string) $cc_model['body'] ); ?></p>
+					<?php if ( '' !== (string) $cc_model['detail'] ) : ?>
+						<p class="engage__detail"><?php echo esc_html( (string) $cc_model['detail'] ); ?></p>
+					<?php endif; ?>
 				</li>
 			<?php endforeach; ?>
 		</ul>

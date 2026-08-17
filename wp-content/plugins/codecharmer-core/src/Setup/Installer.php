@@ -34,6 +34,7 @@ final class Installer {
 	 */
 	public function install(): array {
 		$this->install_options();
+		$this->remove_default_content();
 		$pages = $this->install_pages();
 		$this->install_projects();
 		$this->assign_front_page( $pages );
@@ -59,6 +60,34 @@ final class Installer {
 		}
 		if ( ! empty( $data['blogdescription'] ) ) {
 			update_option( 'blogdescription', sanitize_text_field( (string) $data['blogdescription'] ) );
+		}
+	}
+
+	/**
+	 * Delete the stock WordPress starter content.
+	 *
+	 * "Hello world!" and "Sample Page" advertise an unfinished install and add
+	 * low-value indexable URLs. Only stock content is touched: anything that
+	 * carries the seeded marker (ours) or does not match the stock slugs is
+	 * left alone, so re-runs are no-ops.
+	 *
+	 * @return void
+	 */
+	private function remove_default_content(): void {
+		$defaults = array(
+			array( 'hello-world', 'post' ),
+			array( 'sample-page', 'page' ),
+		);
+
+		foreach ( $defaults as list( $slug, $type ) ) {
+			$post = get_page_by_path( $slug, OBJECT, $type );
+			if ( ! $post instanceof \WP_Post ) {
+				continue;
+			}
+			if ( '1' === get_post_meta( $post->ID, self::SEEDED_META, true ) ) {
+				continue;
+			}
+			wp_delete_post( $post->ID, true );
 		}
 	}
 

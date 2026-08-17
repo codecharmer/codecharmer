@@ -16,8 +16,8 @@ use CodeCharmer\Core\Render\Partials;
 use CodeCharmer\Core\Setup\Options;
 
 $cc_services  = Options::service_pages();
-$cc_cta_label = Options::get( 'cta_label' );
-$cc_cta_url   = Options::page_url( 'contact' );
+$cc_cta_label = __( 'Request an audit', 'codecharmer-core' );
+$cc_cta_url   = Options::page_url( 'wordpress-operations-audit' );
 
 $cc_nav_items = array();
 $cc_locations = get_nav_menu_locations();
@@ -53,6 +53,11 @@ if ( ! $cc_nav_items ) {
 		array(
 			'label'    => __( 'About', 'codecharmer-core' ),
 			'url'      => Options::page_url( 'about' ),
+			'has_menu' => false,
+		),
+		array(
+			'label'    => __( 'Pricing', 'codecharmer-core' ),
+			'url'      => Options::page_url( 'pricing' ),
 			'has_menu' => false,
 		),
 	);

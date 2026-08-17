@@ -24,11 +24,11 @@ They arrive in **evaluation mode**, often comparing partners. The ideal client v
 
 Code Charmer is a **premium digital engineering studio** — explicitly *not* a commodity web-development agency. It builds digital systems that generate revenue, automate business processes, and empower clients to run their own platforms without becoming dependent on the studio.
 
-The offering combines AI-first architecture, WordPress engineering, custom development, and intelligent automation into products that are beautiful, scalable, maintainable, and profitable. Four service pillars: **AI Strategy & Architecture**, **WordPress Engineering**, **Custom Software**, **AI Automation**.
+**Positioning (owner-approved pivot, August 2026):** the commercial wedge is **WordPress operations & automation** — *"Code Charmer fixes and automates complex WordPress operations for established organizations whose website has become part of how the business runs."* The primary buyer is a marketing, content, digital, or operations leader whose team already runs WordPress and is losing time or revenue to manual workflows, disconnected systems, or publishing bottlenecks. The four disciplines — **AI Strategy & Architecture**, **Custom WordPress Platforms**, **Custom Software & Integrations**, **WordPress Workflow Automation** — remain the offering, but they support the wedge rather than competing as four equal practices. The productized entry point is the paid **WordPress Operations & Automation Audit** (starts at US$2,500, 10 business days).
 
-- **Primary goal:** consultation requests.
+- **Primary goal:** qualified audit requests (the paid, fixed-scope first step); project inquiries second.
 - **Secondary goals:** establish credibility, demonstrate expertise, educate, showcase process, attract premium clients.
-- **Success looks like:** a qualified, quality-over-cost visitor books a consultation because the site itself convinced them of the studio's mastery.
+- **Success looks like:** a qualified, quality-over-cost visitor requests the audit or describes their project because the site itself convinced them of the studio's mastery — and could see the price, the buyer, and the first step without booking a call.
 
 **Architectural constraint (informs every layout decision):** the site ships first as static HTML/CSS/JS but is architected from day one to become a **custom WordPress theme**. Every section is designed as a reusable Gutenberg block — modular components (Hero, Feature Grid, Process, Case Study, CTA, …), not static one-off pages. Think in components, editable fields, and layout variations throughout.
 

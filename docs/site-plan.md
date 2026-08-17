@@ -58,11 +58,11 @@ Each becomes a Gutenberg block with editable fields, repeaters, image slots, CTA
 | **Feature / Icon List** | Capability lists on service pages | repeater: icon, label, blurb; columns |
 | **Split Content + Media** | Alternating text/visual rows | heading, body, media slot, media side (L/R) |
 | **Process / Timeline** | Ordered stages | repeater: stage, what-happens, deliverable |
-| **Statistics** | Outcome metrics | repeater: value, label, note |
+| **Statistics** *(built 2026-08 as `codecharmer/stats` + `stat`)* | Outcome metrics | repeater: value, label, note |
 | **Case Study Preview** | Work teaser | client/sector, problem, outcome, metric, href, thumbnail |
 | **Case Study Body** | Full story | problem, approach, architecture (+diagram), solution, outcome |
 | **Logo Cloud** | Social proof (when real logos exist) | repeater: logo, alt |
-| **Testimonial** | Quote (when real quotes exist) | quote, attribution, role |
+| **Testimonial** *(built 2026-08 as `codecharmer/testimonial`; renders nothing while the quote is empty)* | Quote (when real quotes exist) | quote, attribution, role |
 | **FAQ** | Objection handling | repeater: Q, A |
 | **Engagement Models** | How we work / fit (in place of fixed pricing) | repeater: model, best-for, what's-included |
 | **CTA Band** | Closing conversion prompt | headline, subhead, primary+secondary CTA, bg=ink |
@@ -169,7 +169,7 @@ Most valuable references during build: `craft.md`, `layout.md` (architectural gr
 
 ## Asserted defaults (override anytime)
 
-- **No fixed pricing** — consultative; "Engagement Models" block instead.
+- ~~**No fixed pricing** — consultative; "Engagement Models" block instead.~~ **Reversed by owner decision, August 2026** (revenue playbook): starting prices and typical ranges are published on `/pricing/` via the Engagement Models block's `pricing` variant, and the paid audit leads the funnel at `/wordpress-operations-audit/`.
 - **Logos/testimonials** — blocks designed now, populated when real assets exist; omitted gracefully until then.
 - **Blog/Resources** — out of scope for v1; sitemap leaves room to add later.
 - **Team section** — optional; philosophy-led About stands on its own.

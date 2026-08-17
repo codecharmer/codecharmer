@@ -13,6 +13,21 @@ use CodeCharmer\Core\Setup\Options;
 $cc_heading = (string) ( $attributes['heading'] ?? '' );
 $cc_body    = (string) ( $attributes['body'] ?? '' );
 $cc_email   = Options::get( 'email' );
+
+// Per-instance button overrides; empty values keep the site-wide defaults.
+$cc_primary_label   = (string) ( $attributes['primaryLabel'] ?? '' );
+$cc_primary_url     = (string) ( $attributes['primaryUrl'] ?? '' );
+$cc_secondary_label = (string) ( $attributes['secondaryLabel'] ?? '' );
+$cc_secondary_url   = (string) ( $attributes['secondaryUrl'] ?? '' );
+
+if ( '' === $cc_primary_label || '' === $cc_primary_url ) {
+	$cc_primary_label = Options::get( 'cta_label' );
+	$cc_primary_url   = Options::page_url( 'contact' );
+}
+if ( '' === $cc_secondary_label || '' === $cc_secondary_url ) {
+	$cc_secondary_label = __( 'Email us', 'codecharmer-core' );
+	$cc_secondary_url   = 'mailto:' . $cc_email;
+}
 ?>
 <section class="cta band-ink">
 	<div class="cta__glow" aria-hidden="true"></div>
@@ -25,16 +40,16 @@ $cc_email   = Options::get( 'email' );
 			<?php
 			Partials::button(
 				array(
-					'label'   => Options::get( 'cta_label' ),
-					'url'     => Options::page_url( 'contact' ),
+					'label'   => $cc_primary_label,
+					'url'     => $cc_primary_url,
 					'variant' => 'primary',
 					'size'    => 'lg',
 				)
 			);
 			Partials::button(
 				array(
-					'label'   => __( 'Email us', 'codecharmer-core' ),
-					'url'     => 'mailto:' . $cc_email,
+					'label'   => $cc_secondary_label,
+					'url'     => $cc_secondary_url,
 					'variant' => 'secondary',
 					'size'    => 'lg',
 				)
