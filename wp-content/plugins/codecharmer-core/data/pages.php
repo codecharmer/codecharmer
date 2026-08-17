@@ -287,17 +287,17 @@ BLOCKS
 	,
 );
 
-// ------------------------------------------------------------ services -- //
-$cc_pages['services'] = array(
-	'title'   => 'Services',
+// ----------------------------------------------------------- solutions -- //
+$cc_pages['solutions'] = array(
+	'title'   => 'Solutions',
 	'order'   => 1,
-	'excerpt' => 'Four disciplines engineered to work as one system: AI strategy, WordPress engineering, custom software, and AI automation.',
+	'excerpt' => 'Four disciplines engineered to work as one system: custom WordPress platforms, workflow automation, custom software, and practical AI strategy.',
 	'meta'    => array(
-		'cc_seo_title'       => 'WordPress Engineering & Automation Services | Code Charmer',
+		'cc_seo_title'       => 'WordPress Engineering & Automation Solutions | Code Charmer',
 		'cc_seo_description' => 'Custom WordPress platforms, workflow automation, integrations, and practical AI: four disciplines engineered to work as one system your team owns.',
 	),
 	'content' => <<<BLOCKS
-<!-- wp:codecharmer/page-hero {"eyebrow":"Services","title":"Systems, not features.","intro":"Four disciplines engineered to work as one system: custom WordPress platforms, workflow automation, custom software, and practical AI strategy. Most projects touch more than one.","primaryLabel":"Describe your project","primaryUrl":"/contact","secondaryLabel":"See our work","secondaryUrl":"/work"} /-->
+<!-- wp:codecharmer/page-hero {"eyebrow":"Solutions","title":"Systems, not features.","intro":"Four disciplines engineered to work as one system: custom WordPress platforms, workflow automation, custom software, and practical AI strategy. Most projects touch more than one.","primaryLabel":"Describe your project","primaryUrl":"/contact","secondaryLabel":"See our work","secondaryUrl":"/work"} /-->
 
 <!-- wp:codecharmer/services-showcase /-->
 
@@ -318,7 +318,7 @@ BLOCKS
 
 // ------------------------------------------------------- service pages -- //
 foreach ( $cc_services as $cc_slug => $cc_service ) {
-	$cc_pages[ 'services/' . $cc_slug ] = array(
+	$cc_pages[ 'solutions/' . $cc_slug ] = array(
 		'title'   => $cc_service['name'],
 		'order'   => $cc_service['order'],
 		'excerpt' => $cc_service['thesis'],

@@ -3,9 +3,9 @@
  * Site header render.
  *
  * Nav items come from the 'primary' menu when the owner has assigned one;
- * otherwise the structural default (Services / Work / Process / About) built
- * from the seeded pages map. The services mega-menu always reflects the real
- * service pages.
+ * otherwise the structural default (Solutions / Work / Process / About /
+ * Pricing) built from the seeded pages map. The solutions mega-menu always
+ * reflects the real solution pages.
  *
  * @package CodeCharmer\Core
  */
@@ -22,13 +22,22 @@ $cc_cta_url   = Options::page_url( 'wordpress-operations-audit' );
 $cc_nav_items = array();
 $cc_locations = get_nav_menu_locations();
 if ( ! empty( $cc_locations['primary'] ) ) {
-	$cc_menu_items = wp_get_nav_menu_items( (int) $cc_locations['primary'] );
+	// The mega-menu item is recognized by the seeded page it points at, not
+	// by its label, so the owner can rename the menu item freely. The title
+	// match remains as a fallback for custom-URL menu items.
+	$cc_pages_map    = get_option( Options::PAGES_OPTION, array() );
+	$cc_pages_map    = is_array( $cc_pages_map ) ? $cc_pages_map : array();
+	$cc_solutions_id = (int) ( $cc_pages_map['solutions'] ?? $cc_pages_map['services'] ?? 0 );
+	$cc_menu_items   = wp_get_nav_menu_items( (int) $cc_locations['primary'] );
 	if ( is_array( $cc_menu_items ) ) {
 		foreach ( $cc_menu_items as $cc_menu_item ) {
+			$cc_object_id   = (int) ( $cc_menu_item->object_id ?? 0 );
+			$cc_title_slug  = sanitize_title( (string) $cc_menu_item->title );
 			$cc_nav_items[] = array(
 				'label'    => (string) $cc_menu_item->title,
 				'url'      => (string) $cc_menu_item->url,
-				'has_menu' => 'services' === sanitize_title( (string) $cc_menu_item->title ),
+				'has_menu' => ( 0 !== $cc_solutions_id && $cc_object_id === $cc_solutions_id )
+					|| in_array( $cc_title_slug, array( 'solutions', 'services' ), true ),
 			);
 		}
 	}
@@ -36,8 +45,8 @@ if ( ! empty( $cc_locations['primary'] ) ) {
 if ( ! $cc_nav_items ) {
 	$cc_nav_items = array(
 		array(
-			'label'    => __( 'Services', 'codecharmer-core' ),
-			'url'      => Options::page_url( 'services' ),
+			'label'    => __( 'Solutions', 'codecharmer-core' ),
+			'url'      => Options::page_url( 'solutions' ),
 			'has_menu' => true,
 		),
 		array(
@@ -73,13 +82,13 @@ if ( ! $cc_nav_items ) {
 				<?php foreach ( $cc_nav_items as $cc_item ) : ?>
 					<?php if ( $cc_item['has_menu'] && $cc_services ) : ?>
 						<li class="nav__item nav__item--menu" data-menu-root>
-							<button class="nav__link nav__trigger" aria-expanded="false" aria-controls="services-menu" data-menu-trigger>
+							<button class="nav__link nav__trigger" aria-expanded="false" aria-controls="solutions-menu" data-menu-trigger>
 								<?php echo esc_html( $cc_item['label'] ); ?>
 								<svg class="nav__chevron" viewBox="0 0 12 12" width="12" height="12" fill="none" aria-hidden="true">
 									<path d="m3 4.5 3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 								</svg>
 							</button>
-							<div class="mega" id="services-menu" data-menu-panel hidden>
+							<div class="mega" id="solutions-menu" data-menu-panel hidden>
 								<div class="mega__inner">
 									<p class="mega__eyebrow eyebrow"><?php esc_html_e( 'What we build', 'codecharmer-core' ); ?></p>
 									<ul role="list" class="mega__grid">
@@ -96,7 +105,7 @@ if ( ! $cc_nav_items ) {
 										<?php endforeach; ?>
 									</ul>
 									<div class="mega__foot">
-										<a class="mega__link" href="<?php echo esc_url( Options::page_url( 'services' ) ); ?>"><?php esc_html_e( 'All services', 'codecharmer-core' ); ?> <?php Partials::icon( 'arrow', 15 ); ?></a>
+										<a class="mega__link" href="<?php echo esc_url( Options::page_url( 'solutions' ) ); ?>"><?php esc_html_e( 'All solutions', 'codecharmer-core' ); ?> <?php Partials::icon( 'arrow', 15 ); ?></a>
 										<a class="mega__link" href="<?php echo esc_url( Options::page_url( 'process' ) ); ?>"><?php esc_html_e( 'How we work', 'codecharmer-core' ); ?> <?php Partials::icon( 'arrow', 15 ); ?></a>
 									</div>
 								</div>
@@ -133,7 +142,7 @@ if ( ! $cc_nav_items ) {
 
 <div class="mobile-nav band-ink" id="mobile-nav" data-mobile-nav hidden>
 	<nav class="mobile-nav__inner container" aria-label="<?php esc_attr_e( 'Mobile', 'codecharmer-core' ); ?>">
-		<a class="mobile-nav__section-label eyebrow" href="<?php echo esc_url( Options::page_url( 'services' ) ); ?>"><?php esc_html_e( 'Services', 'codecharmer-core' ); ?></a>
+		<a class="mobile-nav__section-label eyebrow" href="<?php echo esc_url( Options::page_url( 'solutions' ) ); ?>"><?php esc_html_e( 'Solutions', 'codecharmer-core' ); ?></a>
 		<ul role="list" class="mobile-nav__pillars">
 			<?php foreach ( $cc_services as $cc_service ) : ?>
 				<li>

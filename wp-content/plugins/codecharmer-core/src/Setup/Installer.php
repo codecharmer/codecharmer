@@ -28,6 +28,24 @@ final class Installer {
 	private const SEEDED_META = '_codecharmer_seeded';
 
 	/**
+	 * Seed-slug renames applied to the pages map before seeding.
+	 *
+	 * Keys are historic seed slugs, values their current names. Moving the
+	 * stored page ID to the new key makes the seed loop update the existing
+	 * page in place (new post_name, same ID), so a rename never creates a
+	 * duplicate. If a hand-edited map somehow holds both keys, the new key
+	 * wins and the old entry is dropped, orphaning nothing that the seeder
+	 * created.
+	 */
+	private const RENAMED_SLUGS = array(
+		'services'                 => 'solutions',
+		'services/ai-strategy'     => 'solutions/ai-strategy',
+		'services/wordpress'       => 'solutions/wordpress',
+		'services/custom-software' => 'solutions/custom-software',
+		'services/ai-automation'   => 'solutions/ai-automation',
+	);
+
+	/**
 	 * Run the full install: options, pages, projects, front page.
 	 *
 	 * @return array<string,int> Map of seed slug → page ID.
@@ -104,6 +122,15 @@ final class Installer {
 		$pages = $this->load_data( 'pages' );
 		$map   = get_option( Options::PAGES_OPTION, array() );
 		$map   = is_array( $map ) ? $map : array();
+
+		// Migrate renamed seed slugs so existing pages are renamed in place
+		// rather than duplicated. No-op on a fresh install or a re-run.
+		foreach ( self::RENAMED_SLUGS as $old_slug => $new_slug ) {
+			if ( isset( $map[ $old_slug ] ) && ! isset( $map[ $new_slug ] ) ) {
+				$map[ $new_slug ] = (int) $map[ $old_slug ];
+			}
+			unset( $map[ $old_slug ] );
+		}
 
 		// Two passes so children can reference their parent's new ID.
 		foreach ( array( 'parents', 'children' ) as $pass ) {

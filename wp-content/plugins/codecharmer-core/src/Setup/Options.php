@@ -88,10 +88,22 @@ final class Options implements Bootable {
 	 */
 	public static function page_url( string $slug ): string {
 		$map = get_option( self::PAGES_OPTION, array() );
-		if ( is_array( $map ) && isset( $map[ $slug ] ) ) {
-			$url = get_permalink( (int) $map[ $slug ] );
-			if ( is_string( $url ) && '' !== $url ) {
-				return $url;
+		if ( is_array( $map ) ) {
+			// Renamed seed slugs: fall back to the historic key so links keep
+			// resolving between a code deploy and the reseed that migrates
+			// the map (see Installer::RENAMED_SLUGS).
+			$candidates = array( $slug );
+			if ( str_starts_with( $slug, 'solutions' ) ) {
+				$candidates[] = 'services' . substr( $slug, strlen( 'solutions' ) );
+			}
+			foreach ( $candidates as $candidate ) {
+				if ( ! isset( $map[ $candidate ] ) ) {
+					continue;
+				}
+				$url = get_permalink( (int) $map[ $candidate ] );
+				if ( is_string( $url ) && '' !== $url ) {
+					return $url;
+				}
 			}
 		}
 		return home_url( '/' . ltrim( $slug, '/' ) . '/' );
@@ -104,14 +116,18 @@ final class Options implements Bootable {
 	 */
 	public static function service_pages(): array {
 		$map = get_option( self::PAGES_OPTION, array() );
-		if ( ! is_array( $map ) || empty( $map['services'] ) ) {
+		if ( ! is_array( $map ) ) {
+			return array();
+		}
+		$parent_id = (int) ( $map['solutions'] ?? $map['services'] ?? 0 );
+		if ( 0 === $parent_id ) {
 			return array();
 		}
 
 		$query = new \WP_Query(
 			array(
 				'post_type'              => 'page',
-				'post_parent'            => (int) $map['services'],
+				'post_parent'            => $parent_id,
 				'posts_per_page'         => 10,
 				'orderby'                => 'menu_order',
 				'order'                  => 'ASC',
