@@ -28,7 +28,7 @@ $cc_year      = gmdate( 'Y' );
 
 			<nav class="footer__cols" aria-label="<?php esc_attr_e( 'Footer', 'codecharmer-core' ); ?>">
 				<div class="footer__col">
-					<h2 class="footer__heading"><?php esc_html_e( 'Services', 'codecharmer-core' ); ?></h2>
+					<h2 class="footer__heading"><?php esc_html_e( 'Solutions', 'codecharmer-core' ); ?></h2>
 					<ul role="list">
 						<?php foreach ( $cc_services as $cc_service ) : ?>
 							<li><a href="<?php echo esc_url( $cc_service['url'] ); ?>"><?php echo esc_html( $cc_service['title'] ); ?></a></li>

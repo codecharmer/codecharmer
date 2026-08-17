@@ -63,8 +63,16 @@
 	transition: opacity var(--dur-slow) var(--ease-out-quart);
 }
 
+/* 0.65 is the floor that keeps full-strength ink text at WCAG AA once
+   blended with the light surface; the coord/status drop their accent
+   colors while queued so small mono text stays compliant too. */
 .rail[data-rail-live] .pt__stage[data-state="queued"] {
-	opacity: 0.42;
+	opacity: 0.65;
+}
+
+.rail[data-rail-live] .pt__stage[data-state="queued"] .rail__coord,
+.rail[data-rail-live] .pt__stage[data-state="queued"] .rail__status {
+	color: var(--ink);
 }
 
 .rail[data-rail-live] .pt__stage[data-state="active"] .pt__name {

@@ -61,7 +61,7 @@
 	font-family: var(--font-mono);
 	font-size: 0.72rem;
 	letter-spacing: 0.05em;
-	color: var(--ink-faint);
+	color: var(--ink-muted);
 }
 
 .clentry__name {

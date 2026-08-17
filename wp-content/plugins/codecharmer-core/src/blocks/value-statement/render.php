@@ -25,7 +25,7 @@ $cc_lead_kses = array( 'em' => array() );
 <section class="section value">
 	<div class="container">
 		<div class="value__statement reveal">
-			<p class="value__lead"><?php echo wp_kses( $cc_lead, $cc_lead_kses ); ?></p>
+			<h2 class="value__lead"><?php echo wp_kses( $cc_lead, $cc_lead_kses ); ?></h2>
 		</div>
 
 		<?php if ( $cc_points ) : ?>

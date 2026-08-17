@@ -41,7 +41,12 @@ final class Redirects implements Bootable {
 	 */
 	private function redirect_map(): array {
 		$map = array(
-			'/pricing.html' => Options::page_url( 'pricing' ),
+			'/pricing.html'             => Options::page_url( 'pricing' ),
+			'/services'                 => Options::page_url( 'solutions' ),
+			'/services/ai-strategy'     => Options::page_url( 'solutions/ai-strategy' ),
+			'/services/wordpress'       => Options::page_url( 'solutions/wordpress' ),
+			'/services/custom-software' => Options::page_url( 'solutions/custom-software' ),
+			'/services/ai-automation'   => Options::page_url( 'solutions/ai-automation' ),
 		);
 
 		/**

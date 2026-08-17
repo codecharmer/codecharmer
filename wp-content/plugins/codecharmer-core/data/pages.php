@@ -287,17 +287,17 @@ BLOCKS
 	,
 );
 
-// ------------------------------------------------------------ services -- //
-$cc_pages['services'] = array(
-	'title'   => 'Services',
+// ----------------------------------------------------------- solutions -- //
+$cc_pages['solutions'] = array(
+	'title'   => 'Solutions',
 	'order'   => 1,
-	'excerpt' => 'Four disciplines engineered to work as one system: AI strategy, WordPress engineering, custom software, and AI automation.',
+	'excerpt' => 'Four disciplines engineered to work as one system: custom WordPress platforms, workflow automation, custom software, and practical AI strategy.',
 	'meta'    => array(
-		'cc_seo_title'       => 'WordPress Engineering & Automation Services | Code Charmer',
+		'cc_seo_title'       => 'WordPress Engineering & Automation Solutions | Code Charmer',
 		'cc_seo_description' => 'Custom WordPress platforms, workflow automation, integrations, and practical AI: four disciplines engineered to work as one system your team owns.',
 	),
 	'content' => <<<BLOCKS
-<!-- wp:codecharmer/page-hero {"eyebrow":"Services","title":"Systems, not features.","intro":"Four disciplines engineered to work as one system: custom WordPress platforms, workflow automation, custom software, and practical AI strategy. Most projects touch more than one.","primaryLabel":"Describe your project","primaryUrl":"/contact","secondaryLabel":"See our work","secondaryUrl":"/work"} /-->
+<!-- wp:codecharmer/page-hero {"eyebrow":"Solutions","title":"Systems, not features.","intro":"Four disciplines engineered to work as one system: custom WordPress platforms, workflow automation, custom software, and practical AI strategy. Most projects touch more than one.","primaryLabel":"Describe your project","primaryUrl":"/contact","secondaryLabel":"See our work","secondaryUrl":"/work"} /-->
 
 <!-- wp:codecharmer/services-showcase /-->
 
@@ -318,7 +318,7 @@ BLOCKS
 
 // ------------------------------------------------------- service pages -- //
 foreach ( $cc_services as $cc_slug => $cc_service ) {
-	$cc_pages[ 'services/' . $cc_slug ] = array(
+	$cc_pages[ 'solutions/' . $cc_slug ] = array(
 		'title'   => $cc_service['name'],
 		'order'   => $cc_service['order'],
 		'excerpt' => $cc_service['thesis'],
@@ -491,17 +491,9 @@ BLOCKS
 );
 
 // ------------------------------------------- wordpress-operations-audit -- //
-$cc_pages['wordpress-operations-audit'] = array(
-	'title'   => 'WordPress Operations & Automation Audit',
-	'order'   => 8,
-	'excerpt' => 'In 10 business days, get an implementation-ready plan for the workflows, integrations, content systems, and automation opportunities around your existing WordPress platform. Starts at US$2,500.',
-	'meta'    => array(
-		'cc_seo_title'       => 'WordPress Operations & Automation Audit | Code Charmer',
-		'cc_seo_description' => 'A 10-business-day audit of your WordPress operations: workflow map, technical findings, ranked opportunities, and a 90-day implementation plan. Starts at US$2,500.',
-	),
-	'content' => <<<'BLOCKS'
-<!-- wp:codecharmer/page-hero {"tone":"ink","eyebrow":"The fixed first step","title":"Find where WordPress is costing your team time, revenue, and reliability.","intro":"In 10 business days, get an implementation-ready plan for the workflows, integrations, content systems, and automation opportunities around your existing WordPress platform.","primaryLabel":"Request the audit","primaryUrl":"#request-audit","secondaryLabel":"See how we build","secondaryUrl":"/work","note":"Starts at US$2,500 · Fixed scope and timeline before payment · You own the findings whether or not we implement them"} /-->
-
+// The audit body is shared between the canonical page and the /audit/
+// campaign variant, so the two can never drift apart.
+$cc_audit_body = <<<'BLOCKS'
 <!-- wp:codecharmer/feature-list {"eyebrow":"This is for you if","heading":"The site stopped being a website a while ago.","intro":"The audit fits organizations already running WordPress with real operations on top of it. Any two of these signals usually mean it will pay for itself."} -->
 <!-- wp:codecharmer/feature-item {"text":"Multiple editors, locations, languages, or approval stages move through the site every week"} /-->
 <!-- wp:codecharmer/feature-item {"text":"Staff re-type or copy-paste data between WordPress and a CRM, spreadsheet, or commerce tool"} /-->
@@ -562,6 +554,58 @@ $cc_pages['wordpress-operations-audit'] = array(
 <!-- /wp:codecharmer/faq -->
 
 <!-- wp:codecharmer/audit-form /-->
+BLOCKS;
+
+$cc_pages['wordpress-operations-audit'] = array(
+	'title'   => 'WordPress Operations & Automation Audit',
+	'order'   => 8,
+	'excerpt' => 'In 10 business days, get an implementation-ready plan for the workflows, integrations, content systems, and automation opportunities around your existing WordPress platform. Starts at US$2,500.',
+	'meta'    => array(
+		'cc_seo_title'       => 'WordPress Operations & Automation Audit | Code Charmer',
+		'cc_seo_description' => 'A 10-business-day audit of your WordPress operations: workflow map, technical findings, ranked opportunities, and a 90-day implementation plan. Starts at US$2,500.',
+	),
+	'content' => <<<BLOCKS
+<!-- wp:codecharmer/page-hero {"tone":"ink","eyebrow":"The fixed first step","title":"Find where WordPress is costing your team time, revenue, and reliability.","intro":"In 10 business days, get an implementation-ready plan for the workflows, integrations, content systems, and automation opportunities around your existing WordPress platform.","primaryLabel":"Request the audit","primaryUrl":"#request-audit","secondaryLabel":"See how we build","secondaryUrl":"/work","note":"Starts at US$2,500 · Fixed scope and timeline before payment · You own the findings whether or not we implement them"} /-->
+
+{$cc_audit_body}
+BLOCKS
+	,
+);
+
+// ------------------------------------------------- audit (campaign) -- //
+// Chrome-stripped variant for paid and outbound traffic: same body, no
+// site navigation, noindexed so the canonical page stays the indexed one.
+$cc_pages['audit'] = array(
+	'title'    => 'WordPress Operations Audit',
+	'order'    => 10,
+	'template' => 'page-landing',
+	'excerpt'  => 'In 10 business days, get an implementation-ready plan for the workflows, integrations, content systems, and automation opportunities around your existing WordPress platform. Starts at US$2,500.',
+	'meta'     => array(
+		'cc_noindex'         => '1',
+		'cc_seo_title'       => 'WordPress Operations & Automation Audit | Code Charmer',
+		'cc_seo_description' => 'A 10-business-day audit of your WordPress operations: workflow map, technical findings, ranked opportunities, and a 90-day implementation plan. Starts at US$2,500.',
+	),
+	'content'  => <<<BLOCKS
+<!-- wp:codecharmer/page-hero {"tone":"ink","eyebrow":"The fixed first step","title":"Find where WordPress is costing your team time, revenue, and reliability.","intro":"In 10 business days, get an implementation-ready plan for the workflows, integrations, content systems, and automation opportunities around your existing WordPress platform.","primaryLabel":"Request the audit","primaryUrl":"#request-audit","note":"Starts at US$2,500 · Fixed scope and timeline before payment · You own the findings whether or not we implement them"} /-->
+
+{$cc_audit_body}
+BLOCKS
+	,
+);
+
+// ------------------------------------------------------------ insights -- //
+$cc_pages['insights'] = array(
+	'title'   => 'Insights',
+	'order'   => 9,
+	'excerpt' => 'First-hand engineering notes from real WordPress operations, automation, and platform builds.',
+	'meta'    => array(
+		'cc_seo_title'       => 'WordPress Operations & Automation Insights | Code Charmer',
+		'cc_seo_description' => 'First-hand engineering notes from real builds: WordPress operations, workflow automation, integrations, and the decisions behind them.',
+	),
+	'content' => <<<'BLOCKS'
+<!-- wp:codecharmer/page-hero {"eyebrow":"Insights","title":"Notes from real systems.","intro":"First-hand write-ups from the builds on this site: decisions, tradeoffs, checklists, and the occasional honest mistake. Written to be useful, not to fill a feed."} /-->
+
+<!-- wp:codecharmer/insights /-->
 BLOCKS
 	,
 );
