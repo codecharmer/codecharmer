@@ -5,7 +5,7 @@ Premium digital engineering studio site (https://codecharmer.io). A **WordPress 
 ## Architecture
 
 - `wp-content/themes/codecharmer/` — block theme, presentation only: `theme.json` tokens, templates/parts, `assets/css/{global,rail}.css`, `assets/js/site.js` (header, reveals, instrumented-rail driver, contact form), self-hosted variable fonts.
-- `wp-content/plugins/codecharmer-core/` — all logic: PSR-4 `CodeCharmer\Core\` engine (`Plugin` container + `Bootable` services), 26 blocks in `src/blocks/*` (block.json + edit.js + **render.php** + style.css, built with `@wordpress/scripts` into `build/`), `cc_project` CPT, REST inquiry endpoint, SEO tags, and the idempotent seeder (`wp codecharmer install`) fed by the brand layer in `data/*.php`.
+- `wp-content/plugins/codecharmer-core/` — all logic: PSR-4 `CodeCharmer\Core\` engine (`Plugin` container + `Bootable` services), 36 blocks in `src/blocks/*` (block.json + index.js + **render.php** + style.css, built with `@wordpress/scripts` into `build/`), `cc_project` CPT, REST inquiry endpoint (project + audit forms, rate-limited), the SEO layer (`Seo\MetaTags` titles/descriptions/social cards, `Seo\StructuredData` JSON-LD, `Seo\IndexingPolicy` robots/sitemap, `Routing\Redirects` legacy 301/410s), opt-in Plausible analytics (`Analytics\Plausible`, inert until `plausible_domain` is set), and the idempotent seeder (`wp codecharmer install`) fed by the brand layer in `data/*.php` (per-page SEO meta included).
 - Engine-vs-brand split follows `~/gramo/docs/METHODOLOGY.md`. Content copy lives in `data/pages.php` (block grammar heredocs), never hardcoded in classes.
 
 ## Standards (hard requirement)

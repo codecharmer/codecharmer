@@ -412,6 +412,11 @@
 				donePanel.hidden = false;
 				donePanel.focus();
 			}
+			document.dispatchEvent(
+				new window.CustomEvent( 'cc:lead', {
+					detail: { form: 'project' },
+				} )
+			);
 		};
 
 		form.addEventListener( 'submit', function ( e ) {
@@ -595,7 +600,7 @@
 			if ( first ) {
 				first.focus();
 			}
-			form.dispatchEvent(
+			document.dispatchEvent(
 				new window.CustomEvent( 'cc:audit-step', {
 					detail: { step: n },
 				} )
@@ -664,7 +669,11 @@
 				donePanel.hidden = false;
 				donePanel.focus();
 			}
-			form.dispatchEvent( new window.CustomEvent( 'cc:audit-done' ) );
+			document.dispatchEvent(
+				new window.CustomEvent( 'cc:lead', {
+					detail: { form: 'audit' },
+				} )
+			);
 		};
 
 		form.addEventListener( 'submit', function ( e ) {
@@ -739,6 +748,81 @@
 		} );
 	}
 
+	/* --------------------------------------------------------- analytics -- */
+	// Funnel events for Plausible. Every call is a no-op until the tracker is
+	// configured, and no personal data is ever attached: paths, form names,
+	// and step numbers only.
+	function track( name, props ) {
+		if ( 'function' === typeof window.plausible ) {
+			window.plausible( name, props ? { props: props } : undefined );
+		}
+	}
+
+	function initAnalytics() {
+		var path = window.location.pathname;
+		if ( 0 === path.indexOf( '/pricing' ) ) {
+			track( 'view_pricing' );
+		}
+		if ( 0 === path.indexOf( '/wordpress-operations-audit' ) ) {
+			track( 'view_offer' );
+		}
+
+		document.addEventListener( 'click', function ( e ) {
+			var link = e.target.closest ? e.target.closest( 'a[href]' ) : null;
+			if ( ! link ) {
+				return;
+			}
+			var href = link.getAttribute( 'href' ) || '';
+			if ( 0 === href.indexOf( 'mailto:' ) ) {
+				track( 'email_click', { from: path } );
+				return;
+			}
+			if (
+				link.closest(
+					'.contact__paths, .aside-card--talk, .cform-done'
+				) &&
+				0 === href.indexOf( 'http' )
+			) {
+				track( 'calendar_start', { from: path } );
+				return;
+			}
+			if ( link.classList.contains( 'btn--primary' ) ) {
+				track( 'primary_cta_click', { to: href, from: path } );
+			}
+		} );
+
+		var started = {};
+		document.addEventListener( 'focusin', function ( e ) {
+			var form = e.target.closest
+				? e.target.closest(
+						'[data-contact-form], [data-audit-form]'
+				  )
+				: null;
+			if ( ! form ) {
+				return;
+			}
+			var kind = form.hasAttribute( 'data-audit-form' )
+				? 'audit'
+				: 'project';
+			if ( ! started[ kind ] ) {
+				started[ kind ] = true;
+				track( 'form_start', { form: kind } );
+			}
+		} );
+
+		document.addEventListener( 'cc:audit-step', function ( e ) {
+			if ( e.detail && 2 === e.detail.step ) {
+				track( 'form_step_complete', { form: 'audit', step: '1' } );
+			}
+		} );
+
+		document.addEventListener( 'cc:lead', function ( e ) {
+			track( 'form_submit', {
+				form: e.detail ? e.detail.form : 'unknown',
+			} );
+		} );
+	}
+
 	var boot = function () {
 		captureFirstTouch();
 		initHeader();
@@ -746,6 +830,7 @@
 		initRails();
 		initContactForm();
 		initAuditForm();
+		initAnalytics();
 	};
 
 	if ( 'loading' === document.readyState ) {
