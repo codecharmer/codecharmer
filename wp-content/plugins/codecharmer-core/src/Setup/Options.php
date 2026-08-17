@@ -32,6 +32,11 @@ final class Options implements Bootable {
 	public const PAGES_OPTION = 'codecharmer_pages';
 
 	/**
+	 * Insights map option: slug → post ID, written by the installer.
+	 */
+	public const INSIGHTS_OPTION = 'codecharmer_insights';
+
+	/**
 	 * No hooks needed; this service is a read/write facade.
 	 *
 	 * @return void
