@@ -106,8 +106,10 @@ one line at the end):
 Bottom-funnel pages first (live). Email capture only in exchange for
 something genuinely useful; the audit-method article doubles as the
 checklist offer. Nurture sequence, one message each: diagnosis, example,
-decision guide, audit invitation. Measure before believing any external
-benchmark about email versus paid.
+decision guide, audit invitation; the drafts, entry/exit rules, and
+sending rules live in [nurture-sequence.md](nurture-sequence.md).
+Measure before believing any external benchmark about email versus
+paid.
 
 ## Paid media gate
 
