@@ -71,6 +71,7 @@ order listed.
 | 4 | Calendar provider + booking URL | `scheduling_url` setting; activates every "schedule" path | open |
 | 5 | Plausible account (hosted or self-hosted) | `plausible_domain` setting; activates all funnel analytics | open |
 | 6 | Real test lead through the audit form after deploy | confirms production mail transport | open |
+| 6b | First audit delivered, then permission for a redacted sample ([delivery kit §6](audit-delivery-kit.md)) | replaces the sample marker on the audit page | open |
 | 7 | Embedded-capacity price band for agency partners | replaces the scoped-per-engagement wording on /agency-partners/ | open |
 | 8 | Review + publish decision on the two seeded insight drafts | first content ships; insights joins the nav | open |
 | 9 | Client logos / screenshots publication permissions | future logo usage, social cards per case study | open |
